@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ServicePage from "./pages/ServicePage";
 import BlogPage from "./pages/BlogPage";
+import BlogPostPage from "./pages/BlogPostPage";
 import PricePage from "./pages/PricePage";
 import ContactsPage from "./pages/ContactsPage";
 import AdminLogin from "./pages/AdminLogin";
@@ -43,6 +44,7 @@ const App = () => (
             {/* Additional Pages */}
             <Route path="/price" element={<PricePage />} />
             <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
             
             {/* Admin Routes */}
