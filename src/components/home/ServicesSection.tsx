@@ -1,137 +1,188 @@
 import { motion } from "framer-motion";
-import { Shield, Volume2, CircleDot, Car, Lock, ChevronRight } from "lucide-react";
+import { Shield, Volume2, CircleDot, Car, Lock, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const services = [
   {
     icon: Shield,
-    title: "Оклейка полиуретановой плёнкой (PPF)",
-    description: "Защита кузова от сколов, царапин и реагентов. Плёнки XPEL, SunTek с гарантией до 10 лет.",
-    features: ["Полная оклейка кузова", "Защита капота и бампера", "Антигравийная плёнка"],
-    price: "от 15 000 ₽",
+    title: "Защита кузова PPF",
+    subtitle: "Полиуретановая плёнка",
+    description: "Невидимая защита от сколов, царапин и химических реагентов. Премиальные плёнки XPEL, SunTek.",
+    features: ["Полная оклейка кузова", "Защита капота и бампера", "Гарантия до 10 лет"],
+    price: "от 15 000",
     href: "/okleyka-avto-poliuretanovoy-plenkoy-kazan",
+    featured: true,
   },
   {
     icon: Volume2,
-    title: "Установка активного выхлопа",
-    description: "Управляемый звук двигателя с пульта или смартфона. Электронные заслонки для любых авто.",
-    features: ["Электронные заслонки", "Управление со смартфона", "Спортивный звук"],
-    price: "от 45 000 ₽",
+    title: "Активный выхлоп",
+    subtitle: "Управляемый звук",
+    description: "Электронные заслонки для контроля звука выхлопа. Управление с пульта или смартфона.",
+    features: ["Электронные заслонки", "Управление со смартфона", "Спортивный режим"],
+    price: "от 45 000",
     href: "/aktivnyy-vyhlop-kazan",
   },
   {
     icon: Car,
-    title: "Шумоизоляция автомобиля",
-    description: "Комплексная шумоизоляция салона материалами StP, Dynamat. Тишина премиум-класса.",
-    features: ["Полная шумоизоляция", "Виброизоляция", "Теплоизоляция"],
-    price: "от 25 000 ₽",
+    title: "Шумоизоляция",
+    subtitle: "Комфорт премиум-класса",
+    description: "Комплексная шумо- и виброизоляция салона материалами StP, Dynamat.",
+    features: ["Полная шумоизоляция", "Виброизоляция дверей", "Акустический комфорт"],
+    price: "от 25 000",
     href: "/shumoizolyaciya-avto-kazan",
   },
   {
     icon: CircleDot,
-    title: "Удаление вмятин без покраски (PDR)",
-    description: "Беспокрасочный ремонт вмятин от града и парковочных повреждений. Сохранение заводского ЛКП.",
-    features: ["Без покраски", "Сохранение ЛКП", "Ремонт за 1 день"],
-    price: "от 3 000 ₽",
+    title: "Удаление вмятин PDR",
+    subtitle: "Без покраски",
+    description: "Беспокрасочный ремонт вмятин с сохранением заводского лакокрасочного покрытия.",
+    features: ["Без покраски", "Сохранение ЛКП", "Результат за 1 день"],
+    price: "от 3 000",
     href: "/udalenie-vmyatin-bez-pokraski-kazan",
   },
   {
     icon: Lock,
-    title: "Установка Pandora с автозапуском",
-    description: "Премиальные охранные системы Pandora с автозапуском, GPS-мониторингом и управлением со смартфона.",
-    features: ["Автозапуск", "GPS-мониторинг", "Управление с телефона"],
-    price: "от 35 000 ₽",
+    title: "Сигнализации Pandora",
+    subtitle: "Охранные системы",
+    description: "Премиальные системы безопасности с автозапуском, GPS-мониторингом и телематикой.",
+    features: ["Автозапуск двигателя", "GPS-мониторинг", "Приложение на телефон"],
+    price: "от 35 000",
     href: "/ustanovka-signalizacii-pandora-kazan",
   },
 ];
 
 const ServicesSection = () => {
   return (
-    <section className="section-container" id="services">
-      <div className="text-center mb-16">
-        <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="badge-premium mb-4 inline-block"
-        >
-          Наши услуги
-        </motion.span>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-heading font-black mb-4"
-        >
-          Премиальные услуги для{" "}
-          <span className="text-gradient">вашего автомобиля</span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-xl text-muted-foreground max-w-2xl mx-auto"
-        >
-          Профессиональный детейлинг, защита и тюнинг от сертифицированных мастеров
-        </motion.p>
-      </div>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {services.map((service, index) => (
-          <motion.a
-            key={service.title}
-            href={service.href}
-            initial={{ opacity: 0, y: 30 }}
+    <section className="section-container relative" id="services">
+      {/* Decorative background */}
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-primary/3 rounded-full blur-[150px] pointer-events-none -translate-y-1/2" />
+      
+      <div className="relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="card-gradient rounded-2xl p-6 group cursor-pointer block"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
           >
-            <div className="service-icon mb-5">
-              <service.icon className="w-7 h-7 text-primary-foreground" />
-            </div>
-            
-            <h3 className="font-heading font-bold text-xl mb-3 group-hover:text-primary transition-colors">
-              {service.title}
-            </h3>
-            
-            <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-              {service.description}
-            </p>
-            
-            <ul className="space-y-2 mb-6">
-              {service.features.map((feature) => (
-                <li key={feature} className="flex items-center gap-2 text-sm">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  <span className="text-muted-foreground">{feature}</span>
-                </li>
-              ))}
-            </ul>
-            
-            <div className="flex items-center justify-between pt-4 border-t border-border">
-              <span className="text-lg font-bold text-primary">{service.price}</span>
-              <span className="flex items-center gap-1 text-sm text-muted-foreground group-hover:text-primary transition-colors">
-                Подробнее
-                <ChevronRight className="w-4 h-4" />
-              </span>
-            </div>
-          </motion.a>
-        ))}
-      </div>
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-sm font-semibold text-primary tracking-wide">Услуги SUNMAXKZN</span>
+          </motion.div>
+          
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold mb-5"
+          >
+            Премиальный сервис для
+            <br />
+            <span className="text-gradient">вашего автомобиля</span>
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          >
+            Защита, тюнинг и комфорт от сертифицированных мастеров с опытом работы 
+            с автомобилями премиум-класса
+          </motion.p>
+        </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mt-12"
-      >
-        <Button size="lg" variant="outline" className="text-lg px-8">
-          Все услуги и цены
-          <ChevronRight className="w-5 h-5 ml-2" />
-        </Button>
-      </motion.div>
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {services.map((service, index) => (
+            <motion.a
+              key={service.title}
+              href={service.href}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.08 }}
+              className={`group relative rounded-xl overflow-hidden block ${
+                service.featured ? 'md:row-span-2 lg:row-span-1' : ''
+              }`}
+            >
+              {/* Card background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-card to-background border border-border/50 rounded-xl transition-all duration-500 group-hover:border-primary/30" />
+              
+              {/* Top gold line on hover */}
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Content */}
+              <div className="relative p-6">
+                {/* Icon */}
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 border border-primary/10 flex items-center justify-center mb-5 group-hover:from-primary/25 group-hover:to-primary/10 transition-all duration-300">
+                  <service.icon className="w-6 h-6 text-primary" />
+                </div>
+                
+                {/* Title & Subtitle */}
+                <div className="mb-4">
+                  <p className="text-xs uppercase tracking-widest text-primary/70 font-medium mb-1">
+                    {service.subtitle}
+                  </p>
+                  <h3 className="font-heading font-bold text-xl text-foreground group-hover:text-primary transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                </div>
+                
+                {/* Description */}
+                <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
+                  {service.description}
+                </p>
+                
+                {/* Features */}
+                <ul className="space-y-2.5 mb-6">
+                  {service.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-3 text-sm">
+                      <div className="w-1 h-1 rounded-full bg-primary" />
+                      <span className="text-muted-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                {/* Price & CTA */}
+                <div className="flex items-center justify-between pt-5 border-t border-border/50">
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-0.5">Стоимость</p>
+                    <p className="text-lg font-bold text-foreground">
+                      {service.price} <span className="text-sm font-normal text-muted-foreground">₽</span>
+                    </p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-secondary/50 border border-border/50 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-300">
+                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary-foreground transition-colors" />
+                  </div>
+                </div>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-14"
+        >
+          <Button 
+            size="lg" 
+            variant="outline" 
+            className="text-base px-8 py-6 font-semibold border-border/50 hover:border-primary/50 hover:bg-primary/5"
+            asChild
+          >
+            <a href="/price">
+              Все услуги и цены
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </a>
+          </Button>
+        </motion.div>
+      </div>
     </section>
   );
 };
