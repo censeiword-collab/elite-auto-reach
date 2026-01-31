@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Shield, Volume2, Car, CircleDot, Lock, Check, ChevronRight, Phone, Calculator } from "lucide-react";
 import Header from "@/components/Header";
@@ -22,8 +22,9 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 const ServicePage = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const { data: service, isLoading, error } = useService(slug || "");
+  const location = useLocation();
+  const slug = location.pathname.replace("/", "");
+  const { data: service, isLoading, error } = useService(slug);
 
   if (isLoading) {
     return (
