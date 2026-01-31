@@ -107,7 +107,7 @@ const HeroSection = () => {
               className="flex flex-col sm:flex-row gap-4 mb-12"
             >
               <Button size="lg" className="btn-glow text-base px-8 py-6 font-semibold">
-                Записаться на сервис
+                Записаться в автостудию
                 <ChevronRight className="w-5 h-5 ml-1" />
               </Button>
               <Button size="lg" variant="outline" className="text-base px-8 py-6 font-semibold border-border/50 hover:border-primary/50">
