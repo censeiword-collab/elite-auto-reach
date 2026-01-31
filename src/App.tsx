@@ -12,6 +12,8 @@ import BlogPostPage from "./pages/BlogPostPage";
 import PricePage from "./pages/PricePage";
 import ContactsPage from "./pages/ContactsPage";
 import CalculatorPage from "./pages/CalculatorPage";
+import CasesPage from "./pages/CasesPage";
+import AboutPage from "./pages/AboutPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminSetup from "./pages/AdminSetup";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -46,6 +48,8 @@ const App = () => (
             {/* Additional Pages */}
             <Route path="/price" element={<PricePage />} />
             <Route path="/calculator" element={<CalculatorPage />} />
+            <Route path="/cases" element={<CasesPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
