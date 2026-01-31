@@ -18,7 +18,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Montserrat', 'system-ui', 'sans-serif'],
+        heading: ['Manrope', 'system-ui', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
@@ -62,6 +62,11 @@ export default {
         warning: {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
+        },
+        gold: {
+          DEFAULT: "hsl(38 92% 50%)",
+          light: "hsl(45 93% 55%)",
+          dark: "hsl(30 85% 40%)",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -112,12 +117,16 @@ export default {
           to: { opacity: "1", transform: "translateX(0)" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(24 95% 53% / 0.2)" },
-          "50%": { boxShadow: "0 0 40px hsl(24 95% 53% / 0.4)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(38 92% 50% / 0.15)" },
+          "50%": { boxShadow: "0 0 50px hsl(38 92% 50% / 0.25)" },
         },
         "float": {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
+        },
+        "shimmer": {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
         },
       },
       animation: {
@@ -127,12 +136,14 @@ export default {
         "fade-in-up": "fade-in-up 0.6s ease-out forwards",
         "scale-in": "scale-in 0.4s ease-out forwards",
         "slide-in-right": "slide-in-right 0.5s ease-out forwards",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
-        "float": "float 3s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "float": "float 4s ease-in-out infinite",
+        "shimmer": "shimmer 2s linear infinite",
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-gold': 'linear-gradient(135deg, hsl(45 93% 55%) 0%, hsl(38 92% 50%) 100%)',
       },
     },
   },
