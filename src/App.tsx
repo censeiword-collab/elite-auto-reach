@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import ServicePage from "./pages/ServicePage";
 import BlogPage from "./pages/BlogPage";
 import PricePage from "./pages/PricePage";
+import ContactsPage from "./pages/ContactsPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminSetup from "./pages/AdminSetup";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -42,6 +43,7 @@ const App = () => (
             {/* Additional Pages */}
             <Route path="/price" element={<PricePage />} />
             <Route path="/blog" element={<BlogPage />} />
+            <Route path="/contacts" element={<ContactsPage />} />
             
             {/* Admin Routes */}
             <Route path="/admin/setup" element={<AdminSetup />} />
