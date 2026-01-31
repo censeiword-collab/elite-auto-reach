@@ -14,7 +14,338 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blog_posts: {
+        Row: {
+          author_name: string | null
+          category: string | null
+          content: string | null
+          created_at: string
+          excerpt: string | null
+          featured_image: string | null
+          h1: string | null
+          id: string
+          meta_description: string | null
+          meta_keywords: string[] | null
+          meta_title: string | null
+          published_at: string | null
+          reading_time_minutes: number | null
+          related_service_slug: string | null
+          slug: string
+          status: Database["public"]["Enums"]["content_status"] | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+          views_count: number | null
+        }
+        Insert: {
+          author_name?: string | null
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          excerpt?: string | null
+          featured_image?: string | null
+          h1?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_keywords?: string[] | null
+          meta_title?: string | null
+          published_at?: string | null
+          reading_time_minutes?: number | null
+          related_service_slug?: string | null
+          slug: string
+          status?: Database["public"]["Enums"]["content_status"] | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          views_count?: number | null
+        }
+        Update: {
+          author_name?: string | null
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          excerpt?: string | null
+          featured_image?: string | null
+          h1?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_keywords?: string[] | null
+          meta_title?: string | null
+          published_at?: string | null
+          reading_time_minutes?: number | null
+          related_service_slug?: string | null
+          slug?: string
+          status?: Database["public"]["Enums"]["content_status"] | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          views_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_posts_related_service_slug_fkey"
+            columns: ["related_service_slug"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      cases: {
+        Row: {
+          after_images: Json | null
+          before_images: Json | null
+          car_brand: string | null
+          car_model: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean | null
+          is_featured: boolean | null
+          materials_used: string[] | null
+          result_text: string | null
+          service_slug: string | null
+          slug: string
+          sort_order: number | null
+          title: string
+          work_duration: string | null
+        }
+        Insert: {
+          after_images?: Json | null
+          before_images?: Json | null
+          car_brand?: string | null
+          car_model?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          materials_used?: string[] | null
+          result_text?: string | null
+          service_slug?: string | null
+          slug: string
+          sort_order?: number | null
+          title: string
+          work_duration?: string | null
+        }
+        Update: {
+          after_images?: Json | null
+          before_images?: Json | null
+          car_brand?: string | null
+          car_model?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          materials_used?: string[] | null
+          result_text?: string | null
+          service_slug?: string | null
+          slug?: string
+          sort_order?: number | null
+          title?: string
+          work_duration?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cases_service_slug_fkey"
+            columns: ["service_slug"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      leads: {
+        Row: {
+          car_brand: string | null
+          car_model: string | null
+          created_at: string
+          email: string | null
+          id: string
+          message: string | null
+          name: string
+          notes: string | null
+          phone: string
+          service_slug: string | null
+          source_page: string | null
+          status: Database["public"]["Enums"]["lead_status"] | null
+          updated_at: string
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          car_brand?: string | null
+          car_model?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name: string
+          notes?: string | null
+          phone: string
+          service_slug?: string | null
+          source_page?: string | null
+          status?: Database["public"]["Enums"]["lead_status"] | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          car_brand?: string | null
+          car_model?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string
+          notes?: string | null
+          phone?: string
+          service_slug?: string | null
+          source_page?: string | null
+          status?: Database["public"]["Enums"]["lead_status"] | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leads_service_slug_fkey"
+            columns: ["service_slug"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      reviews: {
+        Row: {
+          car_brand: string | null
+          car_model: string | null
+          client_name: string
+          created_at: string
+          id: string
+          is_active: boolean | null
+          is_verified: boolean | null
+          rating: number | null
+          review_date: string | null
+          review_text: string
+          service_slug: string | null
+          source: string | null
+        }
+        Insert: {
+          car_brand?: string | null
+          car_model?: string | null
+          client_name: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          rating?: number | null
+          review_date?: string | null
+          review_text: string
+          service_slug?: string | null
+          source?: string | null
+        }
+        Update: {
+          car_brand?: string | null
+          car_model?: string | null
+          client_name?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          rating?: number | null
+          review_date?: string | null
+          review_text?: string
+          service_slug?: string | null
+          source?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_service_slug_fkey"
+            columns: ["service_slug"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      services: {
+        Row: {
+          created_at: string
+          faq: Json | null
+          features: Json | null
+          full_description: string | null
+          gallery: Json | null
+          h1: string | null
+          icon: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          meta_description: string | null
+          meta_keywords: string[] | null
+          meta_title: string | null
+          price_from: number | null
+          price_unit: string | null
+          seo_text: string | null
+          short_description: string | null
+          slug: string
+          sort_order: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          faq?: Json | null
+          features?: Json | null
+          full_description?: string | null
+          gallery?: Json | null
+          h1?: string | null
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          meta_description?: string | null
+          meta_keywords?: string[] | null
+          meta_title?: string | null
+          price_from?: number | null
+          price_unit?: string | null
+          seo_text?: string | null
+          short_description?: string | null
+          slug: string
+          sort_order?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          faq?: Json | null
+          features?: Json | null
+          full_description?: string | null
+          gallery?: Json | null
+          h1?: string | null
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          meta_description?: string | null
+          meta_keywords?: string[] | null
+          meta_title?: string | null
+          price_from?: number | null
+          price_unit?: string | null
+          seo_text?: string | null
+          short_description?: string | null
+          slug?: string
+          sort_order?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +354,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      content_status: "draft" | "published" | "archived"
+      lead_status: "new" | "in_progress" | "completed" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +482,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      content_status: ["draft", "published", "archived"],
+      lead_status: ["new", "in_progress", "completed", "cancelled"],
+    },
   },
 } as const
