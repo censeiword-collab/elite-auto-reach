@@ -1,76 +1,103 @@
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Sun, MessageCircle, Send } from "lucide-react";
 
 const services = [
-  { href: "/okleyka-avto-poliuretanovoy-plenkoy-kazan", label: "Оклейка PPF" },
+  { href: "/okleyka-avto-poliuretanovoy-plenkoy-kazan", label: "Защита кузова PPF" },
   { href: "/aktivnyy-vyhlop-kazan", label: "Активный выхлоп" },
   { href: "/shumoizolyaciya-avto-kazan", label: "Шумоизоляция" },
-  { href: "/udalenie-vmyatin-bez-pokraski-kazan", label: "PDR" },
-  { href: "/ustanovka-signalizacii-pandora-kazan", label: "Pandora" },
+  { href: "/udalenie-vmyatin-bez-pokraski-kazan", label: "Удаление вмятин PDR" },
+  { href: "/ustanovka-signalizacii-pandora-kazan", label: "Сигнализации Pandora" },
 ];
 
 const pages = [
-  { href: "/price", label: "Цены" },
-  { href: "/portfolio", label: "Портфолио" },
+  { href: "/price", label: "Услуги и цены" },
   { href: "/blog", label: "Блог" },
-  { href: "/reviews", label: "Отзывы" },
-  { href: "/about", label: "О компании" },
   { href: "/contacts", label: "Контакты" },
 ];
 
+const socials = [
+  { icon: "VK", href: "https://vk.com/sunmaxkzn", label: "ВКонтакте" },
+  { icon: "TG", href: "https://t.me/sunmaxkzn", label: "Telegram" },
+  { icon: "WA", href: "https://wa.me/78435553535", label: "WhatsApp" },
+];
+
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-card border-t border-border">
+    <footer className="bg-card border-t border-border/50">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Company Info */}
-          <div>
-            <a href="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-xl font-bold text-primary-foreground">A</span>
+          <div className="lg:col-span-1">
+            <a href="/" className="flex items-center gap-3 mb-6 group">
+              <div className="relative w-11 h-11 rounded-lg bg-gradient-to-br from-gold-light to-gold-dark flex items-center justify-center shadow-lg">
+                <Sun className="w-6 h-6 text-background" strokeWidth={2.5} />
               </div>
-              <span className="font-heading text-xl font-bold text-foreground">
-                Auto<span className="text-primary">Service</span>
-              </span>
+              <div className="flex flex-col">
+                <span className="font-heading text-xl font-extrabold tracking-tight">
+                  <span className="text-foreground">SUN</span>
+                  <span className="text-gradient">MAX</span>
+                  <span className="text-foreground text-sm font-semibold opacity-70 ml-0.5">KZN</span>
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground font-medium -mt-0.5">
+                  Premium Auto
+                </span>
+              </div>
             </a>
             <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
-              Премиальный автосервис в Казани. Защита кузова, тюнинг и комфорт для автомобилей премиум-класса.
+              Премиальный автосервис в Казани для автомобилей бизнес- и премиум-класса. 
+              Защита, тюнинг, комфорт.
             </p>
+            
+            {/* Contact Info */}
             <div className="space-y-3">
               <a
-                href="tel:+79991234567"
-                className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                href="tel:+78435553535"
+                className="flex items-center gap-3 text-sm text-foreground font-medium hover:text-primary transition-colors"
               >
-                <Phone className="w-4 h-4 text-primary" />
-                +7 (999) 123-45-67
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Phone className="w-4 h-4 text-primary" />
+                </div>
+                +7 (843) 555-35-35
               </a>
               <a
-                href="mailto:info@autoservice.ru"
+                href="mailto:info@sunmaxkzn.ru"
                 className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                <Mail className="w-4 h-4 text-primary" />
-                info@autoservice.ru
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Mail className="w-4 h-4 text-primary" />
+                </div>
+                info@sunmaxkzn.ru
               </a>
               <div className="flex items-start gap-3 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4 text-primary mt-0.5" />
-                <span>Казань, ул. Примерная, 123</span>
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                  <MapPin className="w-4 h-4 text-primary" />
+                </div>
+                <span className="pt-1.5">г. Казань, ул. Техническая, 122</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                <Clock className="w-4 h-4 text-primary" />
-                Пн-Сб: 9:00 - 20:00
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Clock className="w-4 h-4 text-primary" />
+                </div>
+                Ежедневно 9:00 — 21:00
               </div>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-6">Услуги</h4>
+            <h4 className="font-heading font-bold text-base mb-6 flex items-center gap-2">
+              <div className="w-1 h-5 bg-gradient-to-b from-primary to-primary/50 rounded-full" />
+              Услуги
+            </h4>
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service.href}>
                   <a
                     href={service.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
                   >
+                    <span className="w-0 group-hover:w-2 h-px bg-primary transition-all duration-200" />
                     {service.label}
                   </a>
                 </li>
@@ -80,39 +107,82 @@ const Footer = () => {
 
           {/* Pages */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-6">Информация</h4>
+            <h4 className="font-heading font-bold text-base mb-6 flex items-center gap-2">
+              <div className="w-1 h-5 bg-gradient-to-b from-primary to-primary/50 rounded-full" />
+              Информация
+            </h4>
             <ul className="space-y-3">
               {pages.map((page) => (
                 <li key={page.href}>
                   <a
                     href={page.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
                   >
+                    <span className="w-0 group-hover:w-2 h-px bg-primary transition-all duration-200" />
                     {page.label}
                   </a>
                 </li>
               ))}
             </ul>
-          </div>
 
-          {/* Working Hours & Social */}
-          <div>
-            <h4 className="font-heading font-bold text-lg mb-6">Мы в соцсетях</h4>
-            <div className="flex gap-3 mb-8">
-              {["VK", "TG", "WA", "YT"].map((social) => (
+            {/* Social Links */}
+            <h4 className="font-heading font-bold text-base mt-8 mb-4 flex items-center gap-2">
+              <div className="w-1 h-5 bg-gradient-to-b from-primary to-primary/50 rounded-full" />
+              Мы в соцсетях
+            </h4>
+            <div className="flex gap-2">
+              {socials.map((social) => (
                 <a
-                  key={social}
-                  href="#"
-                  className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                  key={social.icon}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-lg bg-secondary/50 border border-border/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
+                  aria-label={social.label}
                 >
-                  <span className="text-xs font-bold">{social}</span>
+                  <span className="text-xs font-bold">{social.icon}</span>
                 </a>
               ))}
             </div>
-            <div className="p-4 rounded-xl bg-secondary/50 border border-border">
-              <p className="text-sm font-medium mb-2">Записаться онлайн</p>
-              <p className="text-xs text-muted-foreground">
-                Оставьте заявку и мы перезвоним в течение 30 минут
+          </div>
+
+          {/* Quick Contact */}
+          <div>
+            <h4 className="font-heading font-bold text-base mb-6 flex items-center gap-2">
+              <div className="w-1 h-5 bg-gradient-to-b from-primary to-primary/50 rounded-full" />
+              Быстрая связь
+            </h4>
+            
+            <a
+              href="https://wa.me/78435553535"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-4 rounded-xl bg-green-500/10 border border-green-500/20 hover:bg-green-500/15 transition-colors mb-3 group"
+            >
+              <MessageCircle className="w-5 h-5 text-green-500" />
+              <div>
+                <p className="text-sm font-semibold text-foreground">WhatsApp</p>
+                <p className="text-xs text-muted-foreground">Напишите нам</p>
+              </div>
+            </a>
+
+            <a
+              href="https://t.me/sunmaxkzn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/15 transition-colors group"
+            >
+              <Send className="w-5 h-5 text-blue-500" />
+              <div>
+                <p className="text-sm font-semibold text-foreground">Telegram</p>
+                <p className="text-xs text-muted-foreground">@sunmaxkzn</p>
+              </div>
+            </a>
+
+            <div className="mt-6 p-4 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20">
+              <p className="text-sm font-semibold text-foreground mb-1">Записаться онлайн</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Оставьте заявку — перезвоним в течение 15 минут
               </p>
             </div>
           </div>
@@ -121,15 +191,14 @@ const Footer = () => {
         {/* Bottom */}
         <div className="separator-glow my-10" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
-            © 2024 AutoService. Все права защищены.
-          </p>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span>© {currentYear}</span>
+            <span className="font-semibold text-foreground">SUNMAXKZN</span>
+            <span>— Премиальный автосервис в Казани</span>
+          </div>
           <div className="flex gap-6">
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Политика конфиденциальности
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Договор оферты
             </a>
           </div>
         </div>
