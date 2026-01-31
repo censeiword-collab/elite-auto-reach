@@ -13,6 +13,7 @@ import {
   Globe,
   Navigation,
   ChevronRight,
+  Calculator,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -63,6 +64,12 @@ const menuItems = [
     group: "Заявки",
     items: [
       { title: "Все заявки", url: "/admin/leads", icon: MessageSquare },
+    ],
+  },
+  {
+    group: "Инструменты",
+    items: [
+      { title: "Калькулятор", url: "/admin/calculator", icon: Calculator },
     ],
   },
 ];

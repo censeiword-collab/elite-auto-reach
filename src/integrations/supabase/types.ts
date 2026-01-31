@@ -91,6 +91,152 @@ export type Database = {
           },
         ]
       }
+      calculator_options: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean | null
+          option_key: string
+          option_name: string
+          service_slug: string
+          sort_order: number | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          option_key: string
+          option_name: string
+          service_slug: string
+          sort_order?: number | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          option_key?: string
+          option_name?: string
+          service_slug?: string
+          sort_order?: number | null
+        }
+        Relationships: []
+      }
+      calculator_prices: {
+        Row: {
+          base_price: number
+          created_at: string
+          duration_days: number | null
+          id: string
+          option_key: string
+          premium_multiplier: number | null
+          service_slug: string
+          size_class: string
+          updated_at: string
+        }
+        Insert: {
+          base_price: number
+          created_at?: string
+          duration_days?: number | null
+          id?: string
+          option_key: string
+          premium_multiplier?: number | null
+          service_slug: string
+          size_class?: string
+          updated_at?: string
+        }
+        Update: {
+          base_price?: number
+          created_at?: string
+          duration_days?: number | null
+          id?: string
+          option_key?: string
+          premium_multiplier?: number | null
+          service_slug?: string
+          size_class?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      car_brands: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean | null
+          is_premium: boolean | null
+          logo_url: string | null
+          name: string
+          slug: string
+          sort_order: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          is_premium?: boolean | null
+          logo_url?: string | null
+          name: string
+          slug: string
+          sort_order?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          is_premium?: boolean | null
+          logo_url?: string | null
+          name?: string
+          slug?: string
+          sort_order?: number | null
+        }
+        Relationships: []
+      }
+      car_models: {
+        Row: {
+          body_type: string | null
+          brand_id: string
+          created_at: string
+          id: string
+          is_active: boolean | null
+          name: string
+          size_class: string | null
+          slug: string
+          sort_order: number | null
+        }
+        Insert: {
+          body_type?: string | null
+          brand_id: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          name: string
+          size_class?: string | null
+          slug: string
+          sort_order?: number | null
+        }
+        Update: {
+          body_type?: string | null
+          brand_id?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          size_class?: string | null
+          slug?: string
+          sort_order?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "car_models_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "car_brands"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cases: {
         Row: {
           after_images: Json | null

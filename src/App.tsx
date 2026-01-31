@@ -11,6 +11,7 @@ import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import PricePage from "./pages/PricePage";
 import ContactsPage from "./pages/ContactsPage";
+import CalculatorPage from "./pages/CalculatorPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminSetup from "./pages/AdminSetup";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -21,6 +22,7 @@ import AdminSEO from "./pages/admin/AdminSEO";
 import AdminMenu from "./pages/admin/AdminMenu";
 import AdminLeads from "./pages/admin/AdminLeads";
 import AdminCases from "./pages/admin/AdminCases";
+import AdminCalculator from "./pages/admin/AdminCalculator";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +45,7 @@ const App = () => (
             
             {/* Additional Pages */}
             <Route path="/price" element={<PricePage />} />
+            <Route path="/calculator" element={<CalculatorPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
@@ -59,6 +62,7 @@ const App = () => (
             <Route path="/admin/menu" element={<AdminMenu />} />
             <Route path="/admin/leads" element={<AdminLeads />} />
             <Route path="/admin/cases" element={<AdminCases />} />
+            <Route path="/admin/calculator" element={<AdminCalculator />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
