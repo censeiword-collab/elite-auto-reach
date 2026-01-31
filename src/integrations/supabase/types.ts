@@ -221,6 +221,164 @@ export type Database = {
           },
         ]
       }
+      menu_items: {
+        Row: {
+          created_at: string
+          id: string
+          is_visible: boolean
+          location: string
+          open_in_new_tab: boolean
+          parent_id: string | null
+          sort_order: number
+          title: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_visible?: boolean
+          location?: string
+          open_in_new_tab?: boolean
+          parent_id?: string | null
+          sort_order?: number
+          title: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_visible?: boolean
+          location?: string
+          open_in_new_tab?: boolean
+          parent_id?: string | null
+          sort_order?: number
+          title?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "menu_items_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "menu_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      page_sections: {
+        Row: {
+          id: string
+          is_visible: boolean
+          page_slug: string
+          section_key: string
+          settings: Json | null
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          is_visible?: boolean
+          page_slug?: string
+          section_key: string
+          settings?: Json | null
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          is_visible?: boolean
+          page_slug?: string
+          section_key?: string
+          settings?: Json | null
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      page_seo: {
+        Row: {
+          canonical_url: string | null
+          h1: string | null
+          id: string
+          meta_description: string | null
+          meta_title: string | null
+          og_description: string | null
+          og_image: string | null
+          og_title: string | null
+          page_slug: string
+          schema_breadcrumb: boolean | null
+          schema_faq: boolean | null
+          schema_local_business: boolean | null
+          schema_organization: boolean | null
+          updated_at: string
+        }
+        Insert: {
+          canonical_url?: string | null
+          h1?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
+          page_slug: string
+          schema_breadcrumb?: boolean | null
+          schema_faq?: boolean | null
+          schema_local_business?: boolean | null
+          schema_organization?: boolean | null
+          updated_at?: string
+        }
+        Update: {
+          canonical_url?: string | null
+          h1?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
+          page_slug?: string
+          schema_breadcrumb?: boolean | null
+          schema_faq?: boolean | null
+          schema_local_business?: boolean | null
+          schema_organization?: boolean | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           car_brand: string | null
@@ -346,14 +504,63 @@ export type Database = {
         }
         Relationships: []
       }
+      site_settings: {
+        Row: {
+          id: string
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          id?: string
+          key: string
+          updated_at?: string
+          value?: Json
+        }
+        Update: {
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
+      app_role: "admin" | "moderator" | "user"
       content_status: "draft" | "published" | "archived"
       lead_status: "new" | "in_progress" | "completed" | "cancelled"
     }
@@ -483,6 +690,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["admin", "moderator", "user"],
       content_status: ["draft", "published", "archived"],
       lead_status: ["new", "in_progress", "completed", "cancelled"],
     },
