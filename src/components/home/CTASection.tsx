@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Calculator, Phone, MessageCircle } from "lucide-react";
+import { Calculator, Phone, MessageCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import PriceCalculator from "@/components/calculator/PriceCalculator";
 
 const CTASection = () => {
+  const [showCalculator, setShowCalculator] = useState(false);
+
   return (
     <section className="section-container">
       <motion.div
@@ -21,68 +25,109 @@ const CTASection = () => {
 
         {/* Content */}
         <div className="relative px-6 py-16 md:px-12 md:py-20 lg:px-20">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="w-20 h-20 rounded-2xl bg-primary flex items-center justify-center mx-auto mb-8 shadow-lg"
-              style={{ boxShadow: "0 0 60px hsl(24 95% 53% / 0.4)" }}
-            >
-              <Calculator className="w-10 h-10 text-primary-foreground" />
-            </motion.div>
+          <div className="max-w-4xl mx-auto">
+            {!showCalculator ? (
+              <div className="text-center">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  className="w-20 h-20 rounded-2xl bg-primary flex items-center justify-center mx-auto mb-8 shadow-lg"
+                  style={{ boxShadow: "0 0 60px hsl(24 95% 53% / 0.4)" }}
+                >
+                  <Calculator className="w-10 h-10 text-primary-foreground" />
+                </motion.div>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl lg:text-5xl font-heading font-black mb-6"
-            >
-              Рассчитайте стоимость{" "}
-              <span className="text-gradient">бесплатно</span>
-            </motion.h2>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="text-3xl md:text-4xl lg:text-5xl font-heading font-black mb-6"
+                >
+                  Рассчитайте стоимость{" "}
+                  <span className="text-gradient">онлайн</span>
+                </motion.h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-muted-foreground mb-10 max-w-xl mx-auto"
-            >
-              Оставьте заявку и получите точный расчёт стоимости работ для вашего автомобиля в течение 30 минут
-            </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="text-xl text-muted-foreground mb-10 max-w-xl mx-auto"
+                >
+                  Выберите автомобиль и услуги — получите примерную стоимость за 1 минуту
+                </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <Button size="lg" className="btn-glow text-lg px-10 py-6">
-                <Calculator className="w-5 h-5 mr-2" />
-                Рассчитать стоимость
-              </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6">
-                <Phone className="w-5 h-5 mr-2" />
-                Позвонить
-              </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6">
-                <MessageCircle className="w-5 h-5 mr-2" />
-                WhatsApp
-              </Button>
-            </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="flex flex-col sm:flex-row gap-4 justify-center"
+                >
+                  <Button 
+                    size="lg" 
+                    className="btn-glow text-lg px-10 py-6"
+                    onClick={() => setShowCalculator(true)}
+                  >
+                    <Calculator className="w-5 h-5 mr-2" />
+                    Открыть калькулятор
+                    <ChevronDown className="w-4 h-4 ml-2" />
+                  </Button>
+                  <a href="tel:+78435553535">
+                    <Button size="lg" variant="outline" className="text-lg px-8 py-6 w-full">
+                      <Phone className="w-5 h-5 mr-2" />
+                      Позвонить
+                    </Button>
+                  </a>
+                  <a 
+                    href="https://wa.me/78435553535" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button size="lg" variant="outline" className="text-lg px-8 py-6 w-full">
+                      <MessageCircle className="w-5 h-5 mr-2" />
+                      WhatsApp
+                    </Button>
+                  </a>
+                </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="text-sm text-muted-foreground mt-6"
-            >
-              Ответим в течение 30 минут в рабочее время
-            </motion.p>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                  className="text-sm text-muted-foreground mt-6"
+                >
+                  Или перейдите на{" "}
+                  <a href="/calculator" className="text-primary hover:underline">
+                    страницу калькулятора
+                  </a>
+                </motion.p>
+              </div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-heading font-bold">
+                    Онлайн-<span className="text-gradient">калькулятор</span>
+                  </h2>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowCalculator(false)}
+                  >
+                    Свернуть
+                    <ChevronUp className="w-4 h-4 ml-1" />
+                  </Button>
+                </div>
+                <PriceCalculator />
+              </motion.div>
+            )}
           </div>
         </div>
       </motion.div>
