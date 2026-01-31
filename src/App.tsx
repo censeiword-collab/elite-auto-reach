@@ -10,6 +10,7 @@ import ServicePage from "./pages/ServicePage";
 import BlogPage from "./pages/BlogPage";
 import PricePage from "./pages/PricePage";
 import AdminLogin from "./pages/AdminLogin";
+import AdminSetup from "./pages/AdminSetup";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminServices from "./pages/admin/AdminServices";
 import AdminBlog from "./pages/admin/AdminBlog";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/blog" element={<BlogPage />} />
             
             {/* Admin Routes */}
+            <Route path="/admin/setup" element={<AdminSetup />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/services" element={<AdminServices />} />
