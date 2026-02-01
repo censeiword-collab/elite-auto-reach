@@ -160,8 +160,10 @@ const PricePage = () => {
                             <ChevronRight className="w-4 h-4 ml-2" />
                           </a>
                         </Button>
-                        <Button variant="outline" className="flex-1">
-                          Рассчитать для моего авто
+                        <Button asChild variant="outline" className="flex-1">
+                          <a href="/calculator">
+                            Рассчитать для моего авто
+                          </a>
                         </Button>
                       </div>
                     </div>
@@ -213,9 +215,11 @@ const PricePage = () => {
               <p className="text-muted-foreground mb-8">
                 Отправьте марку и модель вашего авто — рассчитаем стоимость за 30 минут
               </p>
-              <Button size="lg" className="btn-glow">
-                Рассчитать стоимость
-                <ChevronRight className="w-5 h-5 ml-2" />
+              <Button asChild size="lg" className="btn-glow">
+                <a href="/calculator">
+                  Рассчитать стоимость
+                  <ChevronRight className="w-5 h-5 ml-2" />
+                </a>
               </Button>
             </div>
           </motion.div>
