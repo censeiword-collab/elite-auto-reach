@@ -64,9 +64,9 @@ export default {
           foreground: "hsl(var(--warning-foreground))",
         },
         gold: {
-          DEFAULT: "hsl(38 92% 50%)",
-          light: "hsl(45 93% 55%)",
-          dark: "hsl(30 85% 40%)",
+          DEFAULT: "hsl(25 95% 53%)",
+          light: "hsl(30 95% 58%)",
+          dark: "hsl(20 90% 42%)",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -117,8 +117,8 @@ export default {
           to: { opacity: "1", transform: "translateX(0)" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(38 92% 50% / 0.15)" },
-          "50%": { boxShadow: "0 0 50px hsl(38 92% 50% / 0.25)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(25 95% 53% / 0.2)" },
+          "50%": { boxShadow: "0 0 50px hsl(25 95% 53% / 0.3)" },
         },
         "float": {
           "0%, 100%": { transform: "translateY(0)" },
@@ -143,7 +143,7 @@ export default {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'gradient-gold': 'linear-gradient(135deg, hsl(45 93% 55%) 0%, hsl(38 92% 50%) 100%)',
+        'gradient-gold': 'linear-gradient(135deg, hsl(30 95% 55%) 0%, hsl(25 95% 50%) 100%)',
       },
     },
   },
