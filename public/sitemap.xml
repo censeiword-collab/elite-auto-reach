@@ -1,98 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Главная страница -->
+  <!-- Главные страницы -->
   <url>
     <loc>https://sunmaxkzn.ru/</loc>
     <lastmod>2026-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- Услуги -->
-  <url>
-    <loc>https://sunmaxkzn.ru/okleyka-avto-poliuretanovoy-plenkoy-kazan</loc>
-    <lastmod>2026-02-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://sunmaxkzn.ru/aktivnyy-vyhlop-kazan</loc>
-    <lastmod>2026-02-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://sunmaxkzn.ru/shumoizolyaciya-avto-kazan</loc>
-    <lastmod>2026-02-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://sunmaxkzn.ru/udalenie-vmyatin-bez-pokraski-kazan</loc>
-    <lastmod>2026-02-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://sunmaxkzn.ru/ustanovka-signalizacii-pandora-kazan</loc>
-    <lastmod>2026-02-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Калькулятор -->
-  <url>
-    <loc>https://sunmaxkzn.ru/calculator</loc>
-    <lastmod>2026-02-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Цены -->
   <url>
     <loc>https://sunmaxkzn.ru/price</loc>
     <lastmod>2026-02-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
-
-  <!-- Кейсы -->
   <url>
     <loc>https://sunmaxkzn.ru/cases</loc>
     <lastmod>2026-02-04</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sunmaxkzn.ru/calculator</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- О компании -->
+  <url>
+    <loc>https://sunmaxkzn.ru/faq</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://sunmaxkzn.ru/about</loc>
     <lastmod>2026-02-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- Блог -->
+  <url>
+    <loc>https://sunmaxkzn.ru/contacts</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://sunmaxkzn.ru/blog</loc>
     <lastmod>2026-02-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- Контакты -->
-  <url>
-    <loc>https://sunmaxkzn.ru/contacts</loc>
-    <lastmod>2026-02-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Политика конфиденциальности -->
   <url>
     <loc>https://sunmaxkzn.ru/privacy</loc>
     <lastmod>2026-02-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+
+  <!-- Услуги: Защита и оклейка -->
+  <url>
+    <loc>https://sunmaxkzn.ru/okleyka-avto-poliuretanovoy-plenkoy-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sunmaxkzn.ru/tonirovka-avto-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sunmaxkzn.ru/okleyka-vinilom-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sunmaxkzn.ru/antihrom-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sunmaxkzn.ru/okleyka-salona-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sunmaxkzn.ru/snyatie-plenki-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Услуги: Комфорт и тюнинг -->
+  <url>
+    <loc>https://sunmaxkzn.ru/shumoizolyaciya-avto-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sunmaxkzn.ru/aktivnyy-vyhlop-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sunmaxkzn.ru/deteyling-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Услуги: Ремонт и безопасность -->
+  <url>
+    <loc>https://sunmaxkzn.ru/udalenie-vmyatin-bez-pokraski-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sunmaxkzn.ru/ustanovka-signalizacii-pandora-kazan</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

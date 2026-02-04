@@ -25,3 +25,6 @@ Sitemap: https://sunmaxkzn.ru/sitemap.xml
 
 # Host
 Host: https://sunmaxkzn.ru
+
+# Crawl-delay for all bots
+Crawl-delay: 1

@@ -12,10 +12,14 @@ import { supabase } from "@/integrations/supabase/client";
 const SERVICE_FILTERS = [
   { slug: null, label: "Все работы" },
   { slug: "okleyka-avto-poliuretanovoy-plenkoy-kazan", label: "Защита PPF" },
-  { slug: "aktivnyy-vyhlop-kazan", label: "Активный выхлоп" },
+  { slug: "tonirovka-avto-kazan", label: "Тонировка" },
+  { slug: "okleyka-vinilom-kazan", label: "Винил / Смена цвета" },
+  { slug: "antihrom-kazan", label: "Антихром" },
   { slug: "shumoizolyaciya-avto-kazan", label: "Шумоизоляция" },
+  { slug: "aktivnyy-vyhlop-kazan", label: "Активный выхлоп" },
   { slug: "udalenie-vmyatin-bez-pokraski-kazan", label: "PDR" },
   { slug: "ustanovka-signalizacii-pandora-kazan", label: "Pandora" },
+  { slug: "deteyling-kazan", label: "Детейлинг" },
 ];
 
 const CasesPage = () => {

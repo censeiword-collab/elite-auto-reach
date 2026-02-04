@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Shield, Volume2, Car, CircleDot, Lock, Check, ChevronRight } from "lucide-react";
+import { Shield, Volume2, Car, CircleDot, Lock, Check, ChevronRight, Droplet, Palette, Layers, Sparkles } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -12,9 +12,13 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Car,
   CircleDot,
   Lock,
+  Droplet,
+  Palette,
+  Layers,
+  Sparkles,
 };
 
-const pricingDetails = {
+const pricingDetails: Record<string, { name: string; price: string }[]> = {
   "okleyka-avto-poliuretanovoy-plenkoy-kazan": [
     { name: "Полная оклейка кузова", price: "от 150 000 ₽" },
     { name: "Капот", price: "от 15 000 ₽" },
@@ -23,6 +27,25 @@ const pricingDetails = {
     { name: "Зеркала (2 шт)", price: "от 5 000 ₽" },
     { name: "Фары (2 шт)", price: "от 8 000 ₽" },
     { name: "Пороги (2 шт)", price: "от 10 000 ₽" },
+  ],
+  "tonirovka-avto-kazan": [
+    { name: "Задняя полусфера (5 стёкол)", price: "от 5 000 ₽" },
+    { name: "Лобовое стекло (атермальная)", price: "от 4 000 ₽" },
+    { name: "Передние боковые стёкла", price: "от 2 500 ₽" },
+    { name: "Тонировка хамелеон", price: "от 8 000 ₽" },
+    { name: "Бронирование стёкол", price: "от 12 000 ₽" },
+  ],
+  "okleyka-vinilom-kazan": [
+    { name: "Полная оклейка кузова (глянец/мат)", price: "от 120 000 ₽" },
+    { name: "Крыша", price: "от 15 000 ₽" },
+    { name: "Капот", price: "от 12 000 ₽" },
+    { name: "Оклейка карбоном (элементы)", price: "от 8 000 ₽" },
+  ],
+  "antihrom-kazan": [
+    { name: "Радиаторная решётка", price: "от 8 000 ₽" },
+    { name: "Молдинги (комплект)", price: "от 12 000 ₽" },
+    { name: "Зеркала", price: "от 4 000 ₽" },
+    { name: "Эмблемы и шильдики", price: "от 2 000 ₽" },
   ],
   "aktivnyy-vyhlop-kazan": [
     { name: "Комплект с установкой (1 заслонка)", price: "от 45 000 ₽" },
@@ -52,6 +75,23 @@ const pricingDetails = {
     { name: "Pandora DXL 4950 с установкой", price: "от 55 000 ₽" },
     { name: "Pandora DXL 5000 New с установкой", price: "от 75 000 ₽" },
     { name: "Дополнительная метка", price: "от 5 000 ₽" },
+  ],
+  "okleyka-salona-kazan": [
+    { name: "Центральная консоль", price: "от 15 000 ₽" },
+    { name: "Панель приборов", price: "от 20 000 ₽" },
+    { name: "Вставки дверей", price: "от 12 000 ₽" },
+    { name: "Руль (карбон/кожа)", price: "от 8 000 ₽" },
+  ],
+  "deteyling-kazan": [
+    { name: "Полировка кузова", price: "от 8 000 ₽" },
+    { name: "Химчистка салона", price: "от 5 000 ₽" },
+    { name: "Керамическое покрытие", price: "от 15 000 ₽" },
+    { name: "Комплексный детейлинг", price: "от 25 000 ₽" },
+  ],
+  "snyatie-plenki-kazan": [
+    { name: "Снятие PPF (полное)", price: "от 30 000 ₽" },
+    { name: "Снятие винила (полное)", price: "от 25 000 ₽" },
+    { name: "Снятие с отдельных элементов", price: "от 3 000 ₽" },
   ],
 };
 

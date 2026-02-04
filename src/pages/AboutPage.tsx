@@ -193,7 +193,7 @@ const AboutPage = () => {
 
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <motion.a
-              href="tel:+78435553535"
+              href="tel:+79038687861"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -203,7 +203,7 @@ const AboutPage = () => {
                 <Phone className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-heading font-bold mb-1">Телефон</h3>
-              <p className="text-muted-foreground">+7 (843) 555-35-35</p>
+              <p className="text-muted-foreground">+7 (903) 868-78-61</p>
             </motion.a>
 
             <motion.a

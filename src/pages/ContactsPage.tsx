@@ -150,6 +150,12 @@ const ContactsPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Контакты — SUNMAXKZN | Детейлинг-центр в Казани"
+        description="Свяжитесь с автостудией SUNMAXKZN в Казани. Адрес: ул. Техническая, 122. Телефон: +7 (903) 868-78-61. Работаем ежедневно с 9:00 до 21:00."
+        keywords={["контакты sunmaxkzn", "детейлинг казань адрес", "запись на детейлинг"]}
+        canonicalUrl="https://sunmaxkzn.ru/contacts"
+      />
       <Header />
       
       <main className="pt-20">
@@ -210,6 +216,40 @@ const ContactsPage = () => {
                   </Card>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Messengers */}
+            <div className="grid gap-4 md:grid-cols-2 mt-8 max-w-2xl mx-auto">
+              <motion.a
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="flex items-center gap-4 p-4 rounded-xl bg-green-500/10 border border-green-500/20 hover:bg-green-500/20 transition-colors"
+              >
+                <MessageCircle className="w-8 h-8 text-green-500" />
+                <div>
+                  <p className="font-semibold">WhatsApp</p>
+                  <p className="text-sm text-muted-foreground">Напишите нам в мессенджер</p>
+                </div>
+              </motion.a>
+              <motion.a
+                href="https://t.me/sunmaxkzn"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="flex items-center gap-4 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-colors"
+              >
+                <Send className="w-8 h-8 text-blue-500" />
+                <div>
+                  <p className="font-semibold">Telegram</p>
+                  <p className="text-sm text-muted-foreground">@sunmaxkzn</p>
+                </div>
+              </motion.a>
             </div>
           </div>
         </section>
@@ -297,6 +337,26 @@ const ContactsPage = () => {
                             {errors.phone && (
                               <p className="text-sm text-destructive">{errors.phone}</p>
                             )}
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label htmlFor="service">Интересующая услуга</Label>
+                            <Select
+                              value={formData.service}
+                              onValueChange={(value) => handleChange("service", value)}
+                              disabled={isSubmitting}
+                            >
+                              <SelectTrigger id="service">
+                                <SelectValue placeholder="Выберите услугу" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {serviceOptions.map((option) => (
+                                  <SelectItem key={option.value} value={option.value}>
+                                    {option.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                           </div>
 
                           <div className="space-y-2">
