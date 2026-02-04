@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Check, X } from "lucide-react";
+import { Send, Check } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
+import { useQAOptional } from "@/contexts/QAContext";
 import { toast } from "sonner";
 import type { CalculatorResult } from "@/hooks/useCalculator";
 
@@ -35,6 +36,7 @@ const LeadFormModal = ({
     phone: "",
     message: "",
   });
+  const qaContext = useQAOptional();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,13 +67,39 @@ const LeadFormModal = ({
         .filter(Boolean)
         .join("\n");
 
-      const { error } = await supabase.from("leads").insert({
+      const leadPayload = {
         name: formData.name.trim().substring(0, 100),
         phone: formData.phone.trim().substring(0, 20),
         message: leadMessage.substring(0, 1000),
         source_page: window.location.pathname,
         service_slug: selectedServices[0] || null,
-      });
+      };
+
+      // QA Mode: intercept submission
+      if (qaContext?.isQAMode) {
+        qaContext.addSubmission({
+          formType: "CalculatorLeadForm",
+          sourcePage: window.location.pathname,
+          payload: {
+            ...leadPayload,
+            carInfo,
+            calculatorResult: calculatorResult ? {
+              totalPrice: calculatorResult.totalPrice,
+              breakdown: calculatorResult.breakdown,
+            } : null,
+          },
+        });
+        toast.success("🧪 QA Mode: Форма перехвачена");
+        setIsSuccess(true);
+        setFormData({ name: "", phone: "", message: "" });
+        setTimeout(() => {
+          onOpenChange(false);
+          setIsSuccess(false);
+        }, 2000);
+        return;
+      }
+
+      const { error } = await supabase.from("leads").insert(leadPayload);
 
       if (error) throw error;
 

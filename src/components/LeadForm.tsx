@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useQAOptional } from "@/contexts/QAContext";
 import { z } from "zod";
 
 const leadSchema = z.object({
@@ -50,6 +51,7 @@ const LeadForm = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
+  const qaContext = useQAOptional();
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -85,8 +87,7 @@ const LeadForm = ({
 
     try {
       const utmParams = getUtmParams();
-
-      const { error } = await supabase.from("leads").insert({
+      const leadPayload = {
         name: formData.name.trim(),
         phone: formData.phone.trim(),
         email: formData.email?.trim() || null,
@@ -98,7 +99,26 @@ const LeadForm = ({
         utm_source: utmParams.utm_source,
         utm_medium: utmParams.utm_medium,
         utm_campaign: utmParams.utm_campaign,
-      });
+      };
+
+      // QA Mode: intercept submission
+      if (qaContext?.isQAMode) {
+        qaContext.addSubmission({
+          formType: "LeadForm",
+          sourcePage: window.location.pathname,
+          payload: leadPayload,
+        });
+        toast({
+          title: "🧪 QA Mode",
+          description: "Форма перехвачена. Данные доступны в /qa",
+        });
+        setIsSuccess(true);
+        setFormData({ name: "", phone: "", email: "", carBrand: "", carModel: "", message: "" });
+        onSuccess?.();
+        return;
+      }
+
+      const { error } = await supabase.from("leads").insert(leadPayload);
 
       if (error) throw error;
 

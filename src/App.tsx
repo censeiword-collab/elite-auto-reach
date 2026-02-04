@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { QAProvider } from "@/contexts/QAContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ServicePage from "./pages/ServicePage";
@@ -27,64 +28,70 @@ import AdminMenu from "./pages/admin/AdminMenu";
 import AdminLeads from "./pages/admin/AdminLeads";
 import AdminCases from "./pages/admin/AdminCases";
 import AdminCalculator from "./pages/admin/AdminCalculator";
+import QAPage from "./pages/QAPage";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            
-            {/* Service Pages - Existing */}
-            <Route path="/okleyka-avto-poliuretanovoy-plenkoy-kazan" element={<ServicePage />} />
-            <Route path="/aktivnyy-vyhlop-kazan" element={<ServicePage />} />
-            <Route path="/shumoizolyaciya-avto-kazan" element={<ServicePage />} />
-            <Route path="/udalenie-vmyatin-bez-pokraski-kazan" element={<ServicePage />} />
-            <Route path="/ustanovka-signalizacii-pandora-kazan" element={<ServicePage />} />
-            
-            {/* Service Pages - New */}
-            <Route path="/tonirovka-avto-kazan" element={<ServicePage />} />
-            <Route path="/okleyka-vinilom-kazan" element={<ServicePage />} />
-            <Route path="/antihrom-kazan" element={<ServicePage />} />
-            <Route path="/okleyka-salona-kazan" element={<ServicePage />} />
-            <Route path="/deteyling-kazan" element={<ServicePage />} />
-            <Route path="/snyatie-plenki-kazan" element={<ServicePage />} />
-            
-            {/* Additional Pages */}
-            <Route path="/price" element={<PricePage />} />
-            <Route path="/calculator" element={<CalculatorPage />} />
-            <Route path="/cases" element={<CasesPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:slug" element={<BlogPostPage />} />
-            <Route path="/contacts" element={<ContactsPage />} />
-            <Route path="/privacy" element={<PrivacyPage />} />
-            <Route path="/faq" element={<FAQPage />} />
-            
-            {/* Admin Routes */}
-            <Route path="/admin/setup" element={<AdminSetup />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/services" element={<AdminServices />} />
-            <Route path="/admin/blog" element={<AdminBlog />} />
-            <Route path="/admin/sections" element={<AdminSections />} />
-            <Route path="/admin/seo" element={<AdminSEO />} />
-            <Route path="/admin/seo/og" element={<AdminSEO />} />
-            <Route path="/admin/menu" element={<AdminMenu />} />
-            <Route path="/admin/leads" element={<AdminLeads />} />
-            <Route path="/admin/cases" element={<AdminCases />} />
-            <Route path="/admin/calculator" element={<AdminCalculator />} />
-            
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <QAProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              
+              {/* Service Pages - Existing */}
+              <Route path="/okleyka-avto-poliuretanovoy-plenkoy-kazan" element={<ServicePage />} />
+              <Route path="/aktivnyy-vyhlop-kazan" element={<ServicePage />} />
+              <Route path="/shumoizolyaciya-avto-kazan" element={<ServicePage />} />
+              <Route path="/udalenie-vmyatin-bez-pokraski-kazan" element={<ServicePage />} />
+              <Route path="/ustanovka-signalizacii-pandora-kazan" element={<ServicePage />} />
+              
+              {/* Service Pages - New */}
+              <Route path="/tonirovka-avto-kazan" element={<ServicePage />} />
+              <Route path="/okleyka-vinilom-kazan" element={<ServicePage />} />
+              <Route path="/antihrom-kazan" element={<ServicePage />} />
+              <Route path="/okleyka-salona-kazan" element={<ServicePage />} />
+              <Route path="/deteyling-kazan" element={<ServicePage />} />
+              <Route path="/snyatie-plenki-kazan" element={<ServicePage />} />
+              
+              {/* Additional Pages */}
+              <Route path="/price" element={<PricePage />} />
+              <Route path="/calculator" element={<CalculatorPage />} />
+              <Route path="/cases" element={<CasesPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/contacts" element={<ContactsPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/faq" element={<FAQPage />} />
+              
+              {/* QA Page */}
+              <Route path="/qa" element={<QAPage />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin/setup" element={<AdminSetup />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/services" element={<AdminServices />} />
+              <Route path="/admin/blog" element={<AdminBlog />} />
+              <Route path="/admin/sections" element={<AdminSections />} />
+              <Route path="/admin/seo" element={<AdminSEO />} />
+              <Route path="/admin/seo/og" element={<AdminSEO />} />
+              <Route path="/admin/menu" element={<AdminMenu />} />
+              <Route path="/admin/leads" element={<AdminLeads />} />
+              <Route path="/admin/cases" element={<AdminCases />} />
+              <Route path="/admin/calculator" element={<AdminCalculator />} />
+              
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QAProvider>
     </AuthProvider>
   </QueryClientProvider>
 );
