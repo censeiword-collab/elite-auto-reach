@@ -3,7 +3,7 @@ import { Shield, Volume2, Car, CircleDot, Lock, Palette, Droplet, Layers, Sun, W
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import MobileStickyCTA from "@/components/MobileStickyСTA";
+import MobileStickyCTA from "@/components/MobileStickyCTA";
 import { Button } from "@/components/ui/button";
 import { useService } from "@/hooks/useService";
 import {
