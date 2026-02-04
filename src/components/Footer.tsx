@@ -205,6 +205,9 @@ const Footer = () => {
             <a href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Политика конфиденциальности
             </a>
+            <a href="/admin/login" className="text-sm text-muted-foreground/50 hover:text-muted-foreground transition-colors">
+              Вход для администратора
+            </a>
           </div>
         </div>
       </div>
