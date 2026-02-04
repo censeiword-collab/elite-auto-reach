@@ -19,6 +19,7 @@ Allow: /
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /qa/
 
 # Sitemap
 Sitemap: https://sunmaxkzn.ru/sitemap.xml

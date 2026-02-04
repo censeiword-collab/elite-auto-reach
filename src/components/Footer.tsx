@@ -1,8 +1,5 @@
 import { Phone, Mail, MapPin, Clock, Sun, MessageCircle, Send } from "lucide-react";
-
-const PHONE_NUMBER = "+79038687861";
-const PHONE_DISPLAY = "+7 (903) 868-78-61";
-const WHATSAPP_NUMBER = "79038687861";
+import { CONTACT, WORKING_HOURS, getPhoneLink, getWhatsAppLink, getMapLink } from "@/lib/constants";
 
 const services = [
   { href: "/okleyka-avto-poliuretanovoy-plenkoy-kazan", label: "Защита кузова PPF" },
@@ -24,9 +21,9 @@ const pages = [
 ];
 
 const socials = [
-  { icon: "VK", href: "https://vk.com/sunmaxkzn", label: "ВКонтакте" },
-  { icon: "TG", href: "https://t.me/sunmaxkzn", label: "Telegram" },
-  { icon: "WA", href: `https://wa.me/${WHATSAPP_NUMBER}`, label: "WhatsApp" },
+  { icon: "VK", href: CONTACT.social.vk, label: "ВКонтакте" },
+  { icon: "TG", href: CONTACT.social.telegram, label: "Telegram" },
+  { icon: "WA", href: getWhatsAppLink(), label: "WhatsApp" },
 ];
 
 const Footer = () => {
@@ -61,16 +58,16 @@ const Footer = () => {
             {/* Contact Info */}
             <div className="space-y-3">
               <a
-                href={`tel:${PHONE_NUMBER}`}
+                href={getPhoneLink()}
                 className="flex items-center gap-3 text-sm text-foreground font-medium hover:text-primary transition-colors"
               >
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <Phone className="w-4 h-4 text-primary" />
                 </div>
-                {PHONE_DISPLAY}
+                {CONTACT.phone.display}
               </a>
               <a
-                href="mailto:info@sunmaxkzn.ru"
+                href={`mailto:${CONTACT.email}`}
                 className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -168,7 +165,7 @@ const Footer = () => {
             </h4>
             
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              href={getWhatsAppLink()}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 rounded-xl bg-green-500/10 border border-green-500/20 hover:bg-green-500/15 transition-colors mb-3 group"
