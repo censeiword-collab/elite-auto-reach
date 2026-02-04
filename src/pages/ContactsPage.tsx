@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useQAOptional } from "@/contexts/QAContext";
+import { CONTACT, WORKING_HOURS, getPhoneLink, getWhatsAppLink, getMapLink } from "@/lib/constants";
 import { z } from "zod";
 import {
   Select,
@@ -19,10 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const PHONE_NUMBER = "+79038687861";
-const PHONE_DISPLAY = "+7 (903) 868-78-61";
-const WHATSAPP_NUMBER = "79038687861";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Имя должно быть минимум 2 символа").max(100, "Имя слишком длинное"),
@@ -48,30 +46,30 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Адрес",
-    content: "г. Казань, ул. Техническая, 122",
-    subtext: "Рядом с ТЦ МЕГА",
-    href: "https://yandex.ru/maps/?text=Казань,+ул.+Техническая,+122",
+    content: CONTACT.address.full,
+    subtext: CONTACT.address.landmark,
+    href: getMapLink(),
     external: true,
   },
   {
     icon: Phone,
     title: "Телефон",
-    content: PHONE_DISPLAY,
+    content: CONTACT.phone.display,
     subtext: "Звоните с 9:00 до 21:00",
-    href: `tel:${PHONE_NUMBER}`,
+    href: getPhoneLink(),
   },
   {
     icon: Mail,
     title: "Email",
-    content: "info@sunmaxkzn.ru",
+    content: CONTACT.email,
     subtext: "Ответим в течение часа",
-    href: "mailto:info@sunmaxkzn.ru",
+    href: `mailto:${CONTACT.email}`,
   },
   {
     icon: Clock,
     title: "Режим работы",
-    content: "Пн-Вс: 9:00 - 21:00",
-    subtext: "Без перерывов и выходных",
+    content: WORKING_HOURS.detailed,
+    subtext: WORKING_HOURS.note,
   },
 ];
 
@@ -87,6 +85,7 @@ const ContactsPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
+  const qaContext = useQAOptional();
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -116,7 +115,7 @@ const ContactsPage = () => {
       // Get UTM params from URL
       const urlParams = new URLSearchParams(window.location.search);
       
-      const { error } = await supabase.from("leads").insert({
+      const leadPayload = {
         name: formData.name.trim(),
         phone: formData.phone.trim(),
         email: formData.email?.trim() || null,
@@ -125,7 +124,25 @@ const ContactsPage = () => {
         utm_source: urlParams.get("utm_source"),
         utm_medium: urlParams.get("utm_medium"),
         utm_campaign: urlParams.get("utm_campaign"),
-      });
+      };
+
+      // QA Mode: intercept submission
+      if (qaContext?.isQAMode) {
+        qaContext.addSubmission({
+          formType: "ContactForm",
+          sourcePage: "/contacts",
+          payload: leadPayload,
+        });
+        toast({
+          title: "🧪 QA Mode",
+          description: "Форма перехвачена. Данные доступны в /qa",
+        });
+        setIsSuccess(true);
+        setFormData({ name: "", phone: "", email: "", message: "", service: "" });
+        return;
+      }
+
+      const { error } = await supabase.from("leads").insert(leadPayload);
 
       if (error) throw error;
 
@@ -221,30 +238,30 @@ const ContactsPage = () => {
             {/* Messengers */}
             <div className="grid gap-4 md:grid-cols-2 mt-8 max-w-2xl mx-auto">
               <motion.a
-                href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="flex items-center gap-4 p-4 rounded-xl bg-green-500/10 border border-green-500/20 hover:bg-green-500/20 transition-colors"
+                className="flex items-center gap-4 p-4 rounded-xl bg-accent/50 border border-border hover:bg-accent transition-colors"
               >
-                <MessageCircle className="w-8 h-8 text-green-500" />
+                <MessageCircle className="w-8 h-8 text-primary" />
                 <div>
                   <p className="font-semibold">WhatsApp</p>
                   <p className="text-sm text-muted-foreground">Напишите нам в мессенджер</p>
                 </div>
               </motion.a>
               <motion.a
-                href="https://t.me/sunmaxkzn"
+                href={CONTACT.social.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="flex items-center gap-4 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-colors"
+                className="flex items-center gap-4 p-4 rounded-xl bg-accent/50 border border-border hover:bg-accent transition-colors"
               >
-                <Send className="w-8 h-8 text-blue-500" />
+                <Send className="w-8 h-8 text-primary" />
                 <div>
                   <p className="font-semibold">Telegram</p>
                   <p className="text-sm text-muted-foreground">@sunmaxkzn</p>
@@ -287,8 +304,8 @@ const ContactsPage = () => {
                   <CardContent className="pt-6">
                     {isSuccess ? (
                       <div className="text-center py-12">
-                        <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500/10 rounded-full mb-4">
-                          <CheckCircle className="w-8 h-8 text-green-500" />
+                        <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+                          <CheckCircle className="w-8 h-8 text-primary" />
                         </div>
                         <h3 className="text-xl font-bold mb-2">Заявка отправлена!</h3>
                         <p className="text-muted-foreground mb-6">
