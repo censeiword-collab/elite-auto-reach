@@ -143,7 +143,7 @@ export const qaRoutes: QARoute[] = [
   {
     path: "/antihrom-kazan",
     title: "Антихром в Казани | SUNMAXKZN",
-    h1: "Антихром — оклейка хрома в чёрный",
+    h1: "Антихром — оклейка хрома в чёрный в Казани",
     description: "Оклейка хромированных деталей в чёрный цвет",
     type: "dynamic",
     requiresAuth: false,
@@ -151,7 +151,7 @@ export const qaRoutes: QARoute[] = [
   {
     path: "/okleyka-salona-kazan",
     title: "Оклейка салона в Казани | SUNMAXKZN",
-    h1: "Оклейка салона автомобиля",
+    h1: "Оклейка салона автомобиля в Казани",
     description: "Защита и декорирование интерьера авто",
     type: "dynamic",
     requiresAuth: false,
@@ -167,7 +167,7 @@ export const qaRoutes: QARoute[] = [
   {
     path: "/snyatie-plenki-kazan",
     title: "Снятие плёнки в Казани | SUNMAXKZN",
-    h1: "Снятие защитной плёнки с авто",
+    h1: "Снятие защитной плёнки с авто в Казани",
     description: "Профессиональное удаление старой PPF/винила",
     type: "dynamic",
     requiresAuth: false,
