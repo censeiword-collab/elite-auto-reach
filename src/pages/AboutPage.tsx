@@ -221,19 +221,22 @@ const AboutPage = () => {
               <p className="text-muted-foreground">info@sunmaxkzn.ru</p>
             </motion.a>
 
-            <motion.div
+            <motion.a
+              href="https://yandex.ru/maps/?text=Казань,+ул.+Техническая,+122"
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="card-premium p-6 text-center"
+              className="card-premium p-6 text-center group"
             >
-              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
                 <MapPin className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-heading font-bold mb-1">Адрес</h3>
-              <p className="text-muted-foreground">г. Казань, ул. Примерная, 1</p>
-            </motion.div>
+              <p className="text-muted-foreground">г. Казань, ул. Техническая, 122</p>
+            </motion.a>
           </div>
 
           <motion.div

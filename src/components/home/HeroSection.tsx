@@ -106,12 +106,14 @@ const HeroSection = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 mb-12"
             >
-              <Button size="lg" className="btn-glow text-base px-8 py-6 font-semibold">
-                Записаться в автостудию
-                <ChevronRight className="w-5 h-5 ml-1" />
+              <Button asChild size="lg" className="btn-glow text-base px-8 py-6 font-semibold">
+                <a href="/contacts">
+                  Записаться в автостудию
+                  <ChevronRight className="w-5 h-5 ml-1" />
+                </a>
               </Button>
-              <Button size="lg" variant="outline" className="text-base px-8 py-6 font-semibold border-border/50 hover:border-primary/50">
-                Наши работы
+              <Button asChild size="lg" variant="outline" className="text-base px-8 py-6 font-semibold border-border/50 hover:border-primary/50">
+                <a href="/cases">Наши работы</a>
               </Button>
             </motion.div>
 

@@ -69,12 +69,17 @@ const Footer = () => {
                 </div>
                 info@sunmaxkzn.ru
               </a>
-              <div className="flex items-start gap-3 text-sm text-muted-foreground">
+              <a
+                href="https://yandex.ru/maps/?text=Казань,+ул.+Техническая,+122"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <MapPin className="w-4 h-4 text-primary" />
                 </div>
                 <span className="pt-1.5">г. Казань, ул. Техническая, 122</span>
-              </div>
+              </a>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <Clock className="w-4 h-4 text-primary" />
