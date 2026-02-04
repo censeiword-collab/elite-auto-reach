@@ -61,9 +61,10 @@ const PricePage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Цены на услуги автосервиса в Казани — AutoService"
+        title="Цены на услуги — SUNMAXKZN | Детейлинг в Казани"
         description="Актуальные цены на оклейку PPF, шумоизоляцию, активный выхлоп, PDR и установку Pandora в Казани. Прозрачное ценообразование для премиальных автомобилей."
-        keywords={["цены автосервис казань", "стоимость ppf казань", "цены шумоизоляция авто"]}
+        keywords={["цены детейлинг казань", "стоимость ppf казань", "цены шумоизоляция авто", "SUNMAXKZN прайс"]}
+        canonicalUrl="https://sunmaxkzn.ru/price"
       />
 
       <Header />
@@ -88,7 +89,7 @@ const PricePage = () => {
                 className="text-3xl md:text-4xl lg:text-5xl font-heading font-black mb-6"
               >
                 Цены на услуги{" "}
-                <span className="text-gradient">AutoService</span>
+                <span className="text-gradient">SUNMAXKZN</span>
               </motion.h1>
 
               <motion.p

@@ -68,9 +68,10 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Блог AutoService — статьи о защите и тюнинге авто в Казани"
+        title="Блог SUNMAXKZN — статьи о защите и тюнинге авто в Казани"
         description="Полезные статьи о PPF плёнке, шумоизоляции, активном выхлопе, PDR ремонте и охранных системах Pandora. Экспертные советы для владельцев премиальных авто."
-        keywords={["блог автосервис казань", "статьи о ppf", "советы по уходу за авто", "тюнинг авто статьи"]}
+        keywords={["блог детейлинг казань", "статьи о ppf", "советы по уходу за авто", "тюнинг авто статьи", "SUNMAXKZN блог"]}
+        canonicalUrl="https://sunmaxkzn.ru/blog"
       />
 
       <Header />
@@ -104,7 +105,7 @@ const BlogPage = () => {
                 transition={{ delay: 0.2 }}
                 className="text-xl text-muted-foreground"
               >
-                Экспертные советы от мастеров AutoService для владельцев премиальных автомобилей
+                Экспертные советы от мастеров SUNMAXKZN для владельцев премиальных автомобилей
               </motion.p>
             </div>
           </div>
@@ -187,9 +188,11 @@ const BlogPage = () => {
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
               Свяжитесь с нами — наши эксперты бесплатно проконсультируют вас по любым вопросам
             </p>
-            <Button size="lg" className="btn-glow">
-              Получить консультацию
-              <ChevronRight className="w-5 h-5 ml-2" />
+            <Button asChild size="lg" className="btn-glow">
+              <a href="/contacts">
+                Получить консультацию
+                <ChevronRight className="w-5 h-5 ml-2" />
+              </a>
             </Button>
           </motion.div>
         </section>

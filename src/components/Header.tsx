@@ -66,8 +66,8 @@ const Header = () => {
                 <span className="text-[10px] text-muted-foreground">Ежедневно 9:00–21:00</span>
               </div>
             </a>
-            <Button className="btn-glow font-semibold">
-              Записаться
+            <Button asChild className="btn-glow font-semibold">
+              <a href="/contacts">Записаться</a>
             </Button>
           </div>
 
@@ -115,8 +115,8 @@ const Header = () => {
                     <span className="text-xs text-muted-foreground">Ежедневно 9:00–21:00</span>
                   </div>
                 </a>
-                <Button className="w-full mt-3 btn-glow font-semibold">
-                  Записаться на сервис
+                <Button asChild className="w-full mt-3 btn-glow font-semibold">
+                  <a href="/contacts" onClick={() => setIsOpen(false)}>Записаться на сервис</a>
                 </Button>
               </div>
             </nav>

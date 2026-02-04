@@ -25,6 +25,8 @@ const contactInfo = [
     title: "Адрес",
     content: "г. Казань, ул. Техническая, 122",
     subtext: "Рядом с ТЦ МЕГА",
+    href: "https://yandex.ru/maps/?text=Казань,+ул.+Техническая,+122",
+    external: true,
   },
   {
     icon: Phone,
@@ -36,9 +38,9 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    content: "info@pmgdetailing.ru",
+    content: "info@sunmaxkzn.ru",
     subtext: "Ответим в течение часа",
-    href: "mailto:info@pmgdetailing.ru",
+    href: "mailto:info@sunmaxkzn.ru",
   },
   {
     icon: Clock,
@@ -162,10 +164,11 @@ const ContactsPage = () => {
                         </div>
                         <div>
                           <p className="text-sm text-muted-foreground mb-1">{item.title}</p>
-                          {item.href ? (
+                        {item.href ? (
                             <a
                               href={item.href}
                               className="font-semibold hover:text-primary transition-colors"
+                              {...((item as any).external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                             >
                               {item.content}
                             </a>
