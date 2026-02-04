@@ -90,8 +90,8 @@ const PrivacyPage = () => {
                 <ul className="list-none space-y-2">
                   <li>
                     <strong className="text-foreground">Телефон:</strong>{" "}
-                    <a href="tel:+78435553535" className="text-primary hover:underline">
-                      +7 (843) 555-35-35
+                    <a href="tel:+79038687861" className="text-primary hover:underline">
+                      +7 (903) 868-78-61
                     </a>
                   </li>
                   <li>

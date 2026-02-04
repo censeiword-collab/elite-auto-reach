@@ -203,21 +203,21 @@ export default SchemaOrg;
 export const sunmaxBusinessData: LocalBusinessSchema = {
   name: "SUNMAXKZN — Премиальная автостудия детейлинга и тюнинга",
   description:
-    "Профессиональный детейлинг и тюнинг автомобилей в Казани. Оклейка PPF, активный выхлоп, шумоизоляция, PDR, сигнализации Pandora.",
+    "Профессиональный детейлинг и тюнинг автомобилей в Казани. Оклейка PPF, тонировка, оклейка винилом, шумоизоляция, активный выхлоп, PDR, сигнализации Pandora.",
   url: "https://sunmaxkzn.ru",
-  telephone: "+7 (843) 555-55-55",
+  telephone: "+7 (903) 868-78-61",
   address: {
-    streetAddress: "ул. Примерная, д. 1",
+    streetAddress: "ул. Техническая, 122",
     addressLocality: "Казань",
     addressRegion: "Республика Татарстан",
     postalCode: "420000",
     addressCountry: "RU",
   },
   geo: {
-    latitude: 55.7887,
-    longitude: 49.1221,
+    latitude: 55.796127,
+    longitude: 49.122141,
   },
-  openingHours: ["Mo-Fr 09:00-20:00", "Sa 10:00-18:00"],
+  openingHours: ["Mo-Su 09:00-21:00"],
   priceRange: "₽₽₽",
   image: "https://sunmaxkzn.ru/og-image.jpg",
 };

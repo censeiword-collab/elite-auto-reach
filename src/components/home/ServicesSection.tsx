@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Shield, Volume2, CircleDot, Car, Lock, ArrowRight, Sparkles } from "lucide-react";
+import { Shield, Volume2, CircleDot, Car, Lock, ArrowRight, Sparkles, Droplet, Palette, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const services = [
@@ -14,13 +14,31 @@ const services = [
     featured: true,
   },
   {
-    icon: Volume2,
-    title: "Активный выхлоп",
-    subtitle: "Управляемый звук",
-    description: "Электронные заслонки для контроля звука выхлопа. Управление с пульта или смартфона.",
-    features: ["Электронные заслонки", "Управление со смартфона", "Спортивный режим"],
-    price: "от 45 000",
-    href: "/aktivnyy-vyhlop-kazan",
+    icon: Droplet,
+    title: "Тонировка",
+    subtitle: "Атермальная и классическая",
+    description: "Тонировка стёкол плёнками 3M, LLumar, SunTek. Атермальная, зеркальная, хамелеон.",
+    features: ["Атермальная плёнка", "Защита от ультрафиолета", "Любой процент затемнения"],
+    price: "от 3 000",
+    href: "/tonirovka-avto-kazan",
+  },
+  {
+    icon: Palette,
+    title: "Оклейка винилом",
+    subtitle: "Смена цвета",
+    description: "Полная и частичная оклейка виниловой плёнкой. Матовые, глянцевые, текстурные покрытия.",
+    features: ["Смена цвета кузова", "Матовая оклейка", "Карбон, текстуры"],
+    price: "от 80 000",
+    href: "/okleyka-vinilom-kazan",
+  },
+  {
+    icon: Layers,
+    title: "Антихром",
+    subtitle: "Оклейка хрома",
+    description: "Оклейка хромированных деталей в чёрный или другой цвет. Решётка, молдинги, эмблемы.",
+    features: ["Радиаторная решётка", "Молдинги и накладки", "Эмблемы и шильдики"],
+    price: "от 5 000",
+    href: "/antihrom-kazan",
   },
   {
     icon: Car,
@@ -30,6 +48,15 @@ const services = [
     features: ["Полная шумоизоляция", "Виброизоляция дверей", "Акустический комфорт"],
     price: "от 25 000",
     href: "/shumoizolyaciya-avto-kazan",
+  },
+  {
+    icon: Volume2,
+    title: "Активный выхлоп",
+    subtitle: "Управляемый звук",
+    description: "Электронные заслонки для контроля звука выхлопа. Управление с пульта или смартфона.",
+    features: ["Электронные заслонки", "Управление со смартфона", "Спортивный режим"],
+    price: "от 45 000",
+    href: "/aktivnyy-vyhlop-kazan",
   },
   {
     icon: CircleDot,
@@ -95,7 +122,7 @@ const ServicesSection = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {services.map((service, index) => (
             <motion.a
               key={service.title}
