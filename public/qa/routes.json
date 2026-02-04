@@ -1,0 +1,149 @@
+[
+  {
+    "url": "/",
+    "title": "SUNMAXKZN — Премиальный детейлинг и тюнинг в Казани",
+    "h1": "Премиальный детейлинг автомобилей в Казани",
+    "type": "static",
+    "requiresAuth": false
+  },
+  {
+    "url": "/price",
+    "title": "Цены на услуги | SUNMAXKZN Казань",
+    "h1": "Прайс-лист на услуги",
+    "type": "static",
+    "requiresAuth": false
+  },
+  {
+    "url": "/cases",
+    "title": "Наши работы | SUNMAXKZN Казань",
+    "h1": "Портфолио работ",
+    "type": "static",
+    "requiresAuth": false
+  },
+  {
+    "url": "/calculator",
+    "title": "Калькулятор стоимости | SUNMAXKZN Казань",
+    "h1": "Рассчитайте стоимость услуг",
+    "type": "static",
+    "requiresAuth": false
+  },
+  {
+    "url": "/about",
+    "title": "О нас | SUNMAXKZN Казань",
+    "h1": "О студии SUNMAXKZN",
+    "type": "static",
+    "requiresAuth": false
+  },
+  {
+    "url": "/contacts",
+    "title": "Контакты | SUNMAXKZN Казань",
+    "h1": "Свяжитесь с нами",
+    "type": "static",
+    "requiresAuth": false
+  },
+  {
+    "url": "/faq",
+    "title": "Частые вопросы | SUNMAXKZN Казань",
+    "h1": "Ответы на частые вопросы",
+    "type": "static",
+    "requiresAuth": false
+  },
+  {
+    "url": "/blog",
+    "title": "Блог | SUNMAXKZN Казань",
+    "h1": "Полезные статьи",
+    "type": "static",
+    "requiresAuth": false
+  },
+  {
+    "url": "/privacy",
+    "title": "Политика конфиденциальности | SUNMAXKZN",
+    "h1": "Политика конфиденциальности",
+    "type": "static",
+    "requiresAuth": false
+  },
+  {
+    "url": "/okleyka-avto-poliuretanovoy-plenkoy-kazan",
+    "title": "Оклейка авто полиуретановой плёнкой в Казани | SUNMAXKZN",
+    "h1": "Оклейка авто полиуретановой плёнкой в Казани",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/tonirovka-avto-kazan",
+    "title": "Тонировка авто в Казани | SUNMAXKZN",
+    "h1": "Тонировка автомобиля в Казани",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/aktivnyy-vyhlop-kazan",
+    "title": "Активный выхлоп в Казани | SUNMAXKZN",
+    "h1": "Установка активного выхлопа в Казани",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/shumoizolyaciya-avto-kazan",
+    "title": "Шумоизоляция авто в Казани | SUNMAXKZN",
+    "h1": "Шумоизоляция автомобиля в Казани",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/udalenie-vmyatin-bez-pokraski-kazan",
+    "title": "Удаление вмятин без покраски PDR в Казани | SUNMAXKZN",
+    "h1": "Удаление вмятин без покраски (PDR) в Казани",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/ustanovka-signalizacii-pandora-kazan",
+    "title": "Установка сигнализации Pandora в Казани | SUNMAXKZN",
+    "h1": "Установка сигнализации Pandora в Казани",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/okleyka-vinilom-kazan",
+    "title": "Оклейка винилом в Казани | SUNMAXKZN",
+    "h1": "Оклейка авто винилом в Казани",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/antihrom-kazan",
+    "title": "Антихром в Казани | SUNMAXKZN",
+    "h1": "Антихром — оклейка хрома в чёрный",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/okleyka-salona-kazan",
+    "title": "Оклейка салона в Казани | SUNMAXKZN",
+    "h1": "Оклейка салона автомобиля",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/deteyling-kazan",
+    "title": "Детейлинг в Казани | SUNMAXKZN",
+    "h1": "Полный детейлинг автомобиля в Казани",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/snyatie-plenki-kazan",
+    "title": "Снятие плёнки в Казани | SUNMAXKZN",
+    "h1": "Снятие защитной плёнки с авто",
+    "type": "dynamic",
+    "requiresAuth": false
+  },
+  {
+    "url": "/qa",
+    "title": "QA Dashboard | SUNMAXKZN",
+    "h1": "QA Testing Dashboard",
+    "type": "static",
+    "requiresAuth": false
+  }
+]
