@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Shield, Volume2, Car, CircleDot, Lock, Check, ChevronRight, Phone, Calculator } from "lucide-react";
+import { Shield, Volume2, Car, CircleDot, Lock, Check, ChevronRight, Phone, Calculator, Palette, Droplet, Layers } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -13,12 +13,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+const PHONE_NUMBER = "+79038687861";
+const PHONE_DISPLAY = "+7 (903) 868-78-61";
+
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Shield,
   Volume2,
   Car,
   CircleDot,
   Lock,
+  Palette,
+  Droplet,
+  Layers,
 };
 
 const ServicePage = () => {
@@ -122,7 +128,7 @@ const ServicePage = () => {
                   </a>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="text-lg px-8">
-                  <a href="tel:+78435553535">
+                  <a href={`tel:${PHONE_NUMBER}`}>
                     <Phone className="w-5 h-5 mr-2" />
                     Позвонить
                   </a>
@@ -238,9 +244,9 @@ const ServicePage = () => {
                   </a>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                  <a href="tel:+78435553535">
+                  <a href={`tel:${PHONE_NUMBER}`}>
                     <Phone className="w-5 h-5 mr-2" />
-                    +7 (843) 555-35-35
+                    {PHONE_DISPLAY}
                   </a>
                 </Button>
               </div>
