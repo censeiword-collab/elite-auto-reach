@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, MessageCircle, Car } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,13 +12,37 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const PHONE_NUMBER = "+79038687861";
+const PHONE_DISPLAY = "+7 (903) 868-78-61";
+const WHATSAPP_NUMBER = "79038687861";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Имя должно быть минимум 2 символа").max(100, "Имя слишком длинное"),
   phone: z.string().trim().min(10, "Введите корректный номер телефона").max(20, "Номер слишком длинный"),
   email: z.string().trim().email("Введите корректный email").max(255, "Email слишком длинный").optional().or(z.literal("")),
   message: z.string().trim().max(1000, "Сообщение слишком длинное").optional(),
+  service: z.string().optional(),
 });
+
+const serviceOptions = [
+  { value: "ppf", label: "Защита кузова PPF" },
+  { value: "tonirovka", label: "Тонировка" },
+  { value: "vinyl", label: "Оклейка винилом" },
+  { value: "antihrom", label: "Антихром" },
+  { value: "shumoizolyaciya", label: "Шумоизоляция" },
+  { value: "vyhlop", label: "Активный выхлоп" },
+  { value: "pdr", label: "Удаление вмятин PDR" },
+  { value: "pandora", label: "Сигнализация Pandora" },
+  { value: "other", label: "Другое" },
+];
 
 const contactInfo = [
   {
@@ -31,9 +56,9 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Телефон",
-    content: "+7 (843) 555-35-35",
+    content: PHONE_DISPLAY,
     subtext: "Звоните с 9:00 до 21:00",
-    href: "tel:+78435553535",
+    href: `tel:${PHONE_NUMBER}`,
   },
   {
     icon: Mail,
@@ -56,6 +81,7 @@ const ContactsPage = () => {
     phone: "",
     email: "",
     message: "",
+    service: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -104,7 +130,7 @@ const ContactsPage = () => {
       if (error) throw error;
 
       setIsSuccess(true);
-      setFormData({ name: "", phone: "", email: "", message: "" });
+      setFormData({ name: "", phone: "", email: "", message: "", service: "" });
       
       toast({
         title: "Заявка отправлена!",

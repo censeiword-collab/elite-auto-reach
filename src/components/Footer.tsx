@@ -1,23 +1,32 @@
 import { Phone, Mail, MapPin, Clock, Sun, MessageCircle, Send } from "lucide-react";
 
+const PHONE_NUMBER = "+79038687861";
+const PHONE_DISPLAY = "+7 (903) 868-78-61";
+const WHATSAPP_NUMBER = "79038687861";
+
 const services = [
   { href: "/okleyka-avto-poliuretanovoy-plenkoy-kazan", label: "Защита кузова PPF" },
   { href: "/aktivnyy-vyhlop-kazan", label: "Активный выхлоп" },
   { href: "/shumoizolyaciya-avto-kazan", label: "Шумоизоляция" },
   { href: "/udalenie-vmyatin-bez-pokraski-kazan", label: "Удаление вмятин PDR" },
   { href: "/ustanovka-signalizacii-pandora-kazan", label: "Сигнализации Pandora" },
+  { href: "/tonirovka-avto-kazan", label: "Тонировка" },
+  { href: "/okleyka-vinilom-kazan", label: "Оклейка винилом" },
 ];
 
 const pages = [
   { href: "/price", label: "Услуги и цены" },
+  { href: "/cases", label: "Примеры работ" },
+  { href: "/faq", label: "Вопросы и ответы" },
   { href: "/blog", label: "Блог" },
+  { href: "/about", label: "О компании" },
   { href: "/contacts", label: "Контакты" },
 ];
 
 const socials = [
   { icon: "VK", href: "https://vk.com/sunmaxkzn", label: "ВКонтакте" },
   { icon: "TG", href: "https://t.me/sunmaxkzn", label: "Telegram" },
-  { icon: "WA", href: "https://wa.me/78435553535", label: "WhatsApp" },
+  { icon: "WA", href: `https://wa.me/${WHATSAPP_NUMBER}`, label: "WhatsApp" },
 ];
 
 const Footer = () => {
@@ -52,13 +61,13 @@ const Footer = () => {
             {/* Contact Info */}
             <div className="space-y-3">
               <a
-                href="tel:+78435553535"
+                href={`tel:${PHONE_NUMBER}`}
                 className="flex items-center gap-3 text-sm text-foreground font-medium hover:text-primary transition-colors"
               >
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <Phone className="w-4 h-4 text-primary" />
                 </div>
-                +7 (843) 555-35-35
+                {PHONE_DISPLAY}
               </a>
               <a
                 href="mailto:info@sunmaxkzn.ru"
@@ -159,7 +168,7 @@ const Footer = () => {
             </h4>
             
             <a
-              href="https://wa.me/78435553535"
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 rounded-xl bg-green-500/10 border border-green-500/20 hover:bg-green-500/15 transition-colors mb-3 group"

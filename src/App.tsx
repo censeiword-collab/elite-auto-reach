@@ -15,6 +15,7 @@ import CalculatorPage from "./pages/CalculatorPage";
 import CasesPage from "./pages/CasesPage";
 import AboutPage from "./pages/AboutPage";
 import PrivacyPage from "./pages/PrivacyPage";
+import FAQPage from "./pages/FAQPage";
 import AdminLogin from "./pages/AdminLogin";
 import AdminSetup from "./pages/AdminSetup";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -39,12 +40,20 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             
-            {/* Service Pages */}
+            {/* Service Pages - Existing */}
             <Route path="/okleyka-avto-poliuretanovoy-plenkoy-kazan" element={<ServicePage />} />
             <Route path="/aktivnyy-vyhlop-kazan" element={<ServicePage />} />
             <Route path="/shumoizolyaciya-avto-kazan" element={<ServicePage />} />
             <Route path="/udalenie-vmyatin-bez-pokraski-kazan" element={<ServicePage />} />
             <Route path="/ustanovka-signalizacii-pandora-kazan" element={<ServicePage />} />
+            
+            {/* Service Pages - New */}
+            <Route path="/tonirovka-avto-kazan" element={<ServicePage />} />
+            <Route path="/okleyka-vinilom-kazan" element={<ServicePage />} />
+            <Route path="/antihrom-kazan" element={<ServicePage />} />
+            <Route path="/okleyka-salona-kazan" element={<ServicePage />} />
+            <Route path="/deteyling-kazan" element={<ServicePage />} />
+            <Route path="/snyatie-plenki-kazan" element={<ServicePage />} />
             
             {/* Additional Pages */}
             <Route path="/price" element={<PricePage />} />
@@ -55,6 +64,7 @@ const App = () => (
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/faq" element={<FAQPage />} />
             
             {/* Admin Routes */}
             <Route path="/admin/setup" element={<AdminSetup />} />

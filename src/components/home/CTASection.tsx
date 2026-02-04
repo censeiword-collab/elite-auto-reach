@@ -4,6 +4,10 @@ import { Calculator, Phone, MessageCircle, ChevronDown, ChevronUp } from "lucide
 import { Button } from "@/components/ui/button";
 import PriceCalculator from "@/components/calculator/PriceCalculator";
 
+const PHONE_NUMBER = "+79038687861";
+const PHONE_DISPLAY = "+7 (903) 868-78-61";
+const WHATSAPP_NUMBER = "79038687861";
+
 const CTASection = () => {
   const [showCalculator, setShowCalculator] = useState(false);
 
@@ -75,14 +79,14 @@ const CTASection = () => {
                     Открыть калькулятор
                     <ChevronDown className="w-4 h-4 ml-2" />
                   </Button>
-                  <a href="tel:+78435553535">
+                  <a href={`tel:${PHONE_NUMBER}`}>
                     <Button size="lg" variant="outline" className="text-lg px-8 py-6 w-full">
                       <Phone className="w-5 h-5 mr-2" />
                       Позвонить
                     </Button>
                   </a>
                   <a 
-                    href="https://wa.me/78435553535" 
+                    href={`https://wa.me/${WHATSAPP_NUMBER}`}
                     target="_blank" 
                     rel="noopener noreferrer"
                   >

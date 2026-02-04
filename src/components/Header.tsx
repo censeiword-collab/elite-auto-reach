@@ -5,14 +5,16 @@ import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { href: "/", label: "Главная" },
-  { href: "/okleyka-avto-poliuretanovoy-plenkoy-kazan", label: "Защита PPF" },
-  { href: "/aktivnyy-vyhlop-kazan", label: "Выхлоп" },
-  { href: "/shumoizolyaciya-avto-kazan", label: "Шумоизоляция" },
-  { href: "/udalenie-vmyatin-bez-pokraski-kazan", label: "PDR" },
-  { href: "/ustanovka-signalizacii-pandora-kazan", label: "Pandora" },
   { href: "/price", label: "Услуги" },
+  { href: "/cases", label: "Работы" },
+  { href: "/calculator", label: "Калькулятор" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/about", label: "О нас" },
   { href: "/contacts", label: "Контакты" },
 ];
+
+const PHONE_NUMBER = "+79038687861";
+const PHONE_DISPLAY = "+7 (903) 868-78-61";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,14 +57,14 @@ const Header = () => {
           {/* Phone & CTA */}
           <div className="hidden md:flex items-center gap-6">
             <a
-              href="tel:+78435553535"
+              href={`tel:${PHONE_NUMBER}`}
               className="flex items-center gap-2 text-foreground hover:text-primary transition-colors group"
             >
               <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <Phone className="w-4 h-4 text-primary" />
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-sm">+7 (843) 555-35-35</span>
+                <span className="font-semibold text-sm">{PHONE_DISPLAY}</span>
                 <span className="text-[10px] text-muted-foreground">Ежедневно 9:00–21:00</span>
               </div>
             </a>
@@ -104,14 +106,14 @@ const Header = () => {
               ))}
               <div className="pt-4 border-t border-border/50 mt-2">
                 <a
-                  href="tel:+78435553535"
+                  href={`tel:${PHONE_NUMBER}`}
                   className="flex items-center gap-3 py-3 px-4 text-foreground"
                 >
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                     <Phone className="w-5 h-5 text-primary" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold">+7 (843) 555-35-35</span>
+                    <span className="font-semibold">{PHONE_DISPLAY}</span>
                     <span className="text-xs text-muted-foreground">Ежедневно 9:00–21:00</span>
                   </div>
                 </a>
