@@ -1,16 +1,15 @@
 import { motion } from "framer-motion";
 import { Shield, Award, Clock, ChevronRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { WARRANTY, MARKETING } from "@/lib/constants";
 
 const stats = [
   { value: "8+", label: "лет опыта" },
   { value: "2500+", label: "автомобилей" },
-  { value: "10", label: "лет гарантии" },
+  { value: WARRANTY.max.years.toString(), label: "лет гарантии" },
 ];
 
-const premiumBrands = [
-  "Porsche", "BMW", "Mercedes-Benz", "Audi", "Lexus", "Land Rover", "Bentley", "Maserati"
-];
+const premiumBrands = MARKETING.premiumBrands;
 
 const usps = [
   {
@@ -21,7 +20,7 @@ const usps = [
   {
     icon: Award,
     title: "Безупречное качество",
-    description: "Гарантия до 10 лет. Каждая работа — эталон мастерства",
+    description: `Гарантия ${WARRANTY.max.display}. Каждая работа — эталон мастерства`,
   },
   {
     icon: Clock,

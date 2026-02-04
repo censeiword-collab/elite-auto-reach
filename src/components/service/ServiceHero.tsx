@@ -2,9 +2,7 @@ import { motion } from "framer-motion";
 import { Phone, Calculator, MapPin, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Service } from "@/hooks/useService";
-
-const PHONE_NUMBER = "+79038687861";
-const PHONE_DISPLAY = "+7 (903) 868-78-61";
+import { CONTACT, CITY, getPhoneLink } from "@/lib/constants";
 
 interface ServiceHeroProps {
   service: Service;
@@ -24,7 +22,7 @@ const ServiceHero = ({ service, IconComponent }: ServiceHeroProps) => {
             <span className="badge-premium">Услуга</span>
             <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
               <MapPin className="w-4 h-4 text-primary" />
-              Казань
+              {CITY.name}
             </span>
           </motion.div>
 
@@ -80,9 +78,9 @@ const ServiceHero = ({ service, IconComponent }: ServiceHeroProps) => {
               </a>
             </Button>
             <Button asChild size="lg" variant="outline" className="text-lg px-8">
-              <a href={`tel:${PHONE_NUMBER}`}>
+              <a href={getPhoneLink()}>
                 <Phone className="w-5 h-5 mr-2" />
-                {PHONE_DISPLAY}
+                {CONTACT.phone.display}
               </a>
             </Button>
           </motion.div>
