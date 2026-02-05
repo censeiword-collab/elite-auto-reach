@@ -20,23 +20,114 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useQA } from "@/contexts/QAContext";
-import {
-  qaRoutes,
-  qaContent,
-  generateRoutesJSON,
-  generateContentJSON,
-  QARoute,
-} from "@/lib/qa-routes";
+ import {
+   generateRoutesJSON,
+   generateContentJSON,
+   getAllPublicPages,
+   GLOBAL_SEO_CONFIG,
+ } from "@/lib/seo-config";
+ import { SERVICES_SEO_CONFIG } from "@/lib/constants";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
+ 
+ // QA Route type for display
+ interface QARouteDisplay {
+   path: string;
+   title: string;
+   h1: string;
+   type: "static" | "dynamic" | "admin";
+   requiresAuth: boolean;
+ }
+ 
+ // Build routes from unified config
+ const buildQARoutes = (): QARouteDisplay[] => {
+   const routes: QARouteDisplay[] = [];
+   
+   // Static pages from global config
+   GLOBAL_SEO_CONFIG.forEach((page) => {
+     routes.push({
+       path: page.path,
+       title: page.title,
+       h1: page.h1,
+       type: page.type,
+       requiresAuth: false,
+     });
+   });
+   
+   // Service pages
+   SERVICES_SEO_CONFIG.forEach((service) => {
+     routes.push({
+       path: `/${service.slug}`,
+       title: service.metaTitle,
+       h1: service.h1,
+       type: "dynamic",
+       requiresAuth: false,
+     });
+   });
+   
+   // QA page itself
+   routes.push({
+     path: "/qa",
+     title: "QA Dashboard | SUNMAXKZN",
+     h1: "QA Testing Dashboard",
+     type: "static",
+     requiresAuth: false,
+   });
+   
+   // Admin routes
+   const adminRoutesList = [
+     { path: "/admin", title: "Админ-панель | SUNMAXKZN", h1: "Панель управления" },
+     { path: "/admin/login", title: "Вход в админ-панель | SUNMAXKZN", h1: "Вход" },
+     { path: "/admin/settings", title: "Глобальные настройки | SUNMAXKZN", h1: "Глобальные настройки" },
+     { path: "/admin/services", title: "Управление услугами | SUNMAXKZN", h1: "Услуги" },
+     { path: "/admin/blog", title: "Управление блогом | SUNMAXKZN", h1: "Блог" },
+     { path: "/admin/cases", title: "Управление работами | SUNMAXKZN", h1: "Работы" },
+     { path: "/admin/leads", title: "Заявки | SUNMAXKZN", h1: "Заявки клиентов" },
+     { path: "/admin/calculator", title: "Настройки калькулятора | SUNMAXKZN", h1: "Калькулятор" },
+     { path: "/admin/seo", title: "SEO настройки | SUNMAXKZN", h1: "SEO" },
+     { path: "/admin/menu", title: "Управление меню | SUNMAXKZN", h1: "Меню" },
+     { path: "/admin/sections", title: "Секции страниц | SUNMAXKZN", h1: "Секции" },
+   ];
+   
+   adminRoutesList.forEach((admin) => {
+     routes.push({
+       ...admin,
+       type: "admin",
+       requiresAuth: admin.path !== "/admin/login",
+     });
+   });
+   
+   return routes;
+ };
+ 
+ // Build content from unified config
+ const buildQAContent = () => {
+   const jsonStr = generateContentJSON();
+   try {
+     return JSON.parse(jsonStr) as Array<{
+       url: string;
+       title: string;
+       h1: string;
+       mainText: string[];
+       ctaButtons: string[];
+       formLabels: string[];
+       errorMessages: string[];
+       keyFacts: Record<string, string>;
+     }>;
+   } catch {
+     return [];
+   }
+ };
 
 const QAPage = () => {
   const { isQAMode, toggleQAMode, submissions, clearSubmissions } = useQA();
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
-  const publicRoutes = qaRoutes.filter((r) => r.type !== "admin");
-  const adminRoutes = qaRoutes.filter((r) => r.type === "admin");
+   const qaRoutes = buildQARoutes();
+   const qaContent = buildQAContent();
+   const publicRoutes = qaRoutes.filter((r) => r.type !== "admin");
+   const adminRoutes = qaRoutes.filter((r) => r.type === "admin");
 
   const copyToClipboard = async (text: string, label: string) => {
     await navigator.clipboard.writeText(text);
@@ -56,7 +147,7 @@ const QAPage = () => {
     toast.success(`Файл ${filename} скачан`);
   };
 
-  const RouteCard = ({ route }: { route: QARoute }) => (
+   const RouteCard = ({ route }: { route: QARouteDisplay }) => (
     <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-accent/50 transition-colors">
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
@@ -219,15 +310,15 @@ const QAPage = () => {
                     <div className="space-y-6">
                       {qaContent.map((content) => (
                         <div
-                          key={content.page}
+                           key={content.url}
                           className="p-4 rounded-lg border border-border"
                         >
                           <div className="flex items-center justify-between mb-3">
                             <h3 className="font-mono text-primary font-semibold">
-                              {content.page}
+                               {content.url}
                             </h3>
                             <a
-                              href={content.page}
+                               href={content.url}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-xs text-muted-foreground hover:text-primary"
@@ -243,7 +334,7 @@ const QAPage = () => {
                                 Кнопки:
                               </p>
                               <div className="flex flex-wrap gap-1">
-                                {content.buttons.map((btn) => (
+                                 {content.ctaButtons.map((btn: string) => (
                                   <Badge key={btn} variant="secondary" className="text-xs">
                                     {btn}
                                   </Badge>
@@ -267,7 +358,7 @@ const QAPage = () => {
                                 Сообщения об ошибках:
                               </p>
                               <div className="flex flex-wrap gap-1">
-                                {content.errorMessages.map((msg) => (
+                                 {content.errorMessages.map((msg: string) => (
                                   <Badge
                                     key={msg}
                                     variant="destructive"
@@ -278,6 +369,18 @@ const QAPage = () => {
                                 ))}
                               </div>
                             </div>
+                             {content.mainText && content.mainText.length > 0 && (
+                               <div className="md:col-span-2">
+                                 <p className="text-muted-foreground mb-1">
+                                   Основной текст:
+                                 </p>
+                                 <ul className="text-xs space-y-1">
+                                   {content.mainText.slice(0, 5).map((text: string, i: number) => (
+                                     <li key={i} className="text-muted-foreground">• {text}</li>
+                                   ))}
+                                 </ul>
+                               </div>
+                             )}
                           </div>
                         </div>
                       ))}
