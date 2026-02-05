@@ -29,6 +29,9 @@ import type { Json } from "@/integrations/supabase/types";
    telegram: string;
    vk: string;
    instagram: string;
+  // Координаты для карты
+  mapLatitude: number;
+  mapLongitude: number;
    // Admin toggles
    whitelistBrands: string[];
    installmentEnabled: boolean;
@@ -37,28 +40,31 @@ import type { Json } from "@/integrations/supabase/types";
    noiseReductionPercentEnabled: boolean;
  }
  
- const defaultSettings: SiteSettings = {
-   brandName: "SUNMAXKZN",
-   tagline: "студия детейлинга, оклейки и тюнинга в Казани",
-   positioning: "SUNMAXKZN — студия детейлинга, оклейки и тюнинга в Казани",
-   phone: "+79038687861",
-   phoneDisplay: "+7 (903) 868-78-61",
-   email: "info@sunmaxkzn.ru",
-   address: "",
-   landmark: "",
-   city: "Казань",
-   workingHours: "Ежедневно 9:00 — 21:00",
-   whatsapp: "79038687861",
-   telegram: "https://t.me/sunmaxkzn",
-   vk: "https://vk.com/sunmaxkzn",
-   instagram: "https://instagram.com/sunmaxkzn",
-   // Admin toggles - defaults
-   whitelistBrands: [],
-   installmentEnabled: false,
-   installmentText: "Рассрочка (условия уточняются при записи)",
-   authorizedCenterClaimEnabled: false,
-   noiseReductionPercentEnabled: false,
- };
+const defaultSettings: SiteSettings = {
+  brandName: "SUNMAXKZN",
+  tagline: "студия детейлинга, оклейки и тюнинга в Казани",
+  positioning: "SUNMAXKZN — студия детейлинга, оклейки и тюнинга в Казани",
+  phone: "+79038687861",
+  phoneDisplay: "+7 (903) 868-78-61",
+  email: "info@sunmaxkzn.ru",
+  address: "г. Казань, ул. Техническая, 122",
+  landmark: "Рядом с ТЦ МЕГА",
+  city: "Казань",
+  workingHours: "Ежедневно 9:00 — 21:00",
+  whatsapp: "79038687861",
+  telegram: "https://t.me/sunmaxkzn",
+  vk: "https://vk.com/sunmaxkzn",
+  instagram: "https://instagram.com/sunmaxkzn",
+  // Координаты для карты (дефолт — Казань, ул. Техническая)
+  mapLatitude: 55.796127,
+  mapLongitude: 49.122141,
+  // Admin toggles - defaults
+  whitelistBrands: [],
+  installmentEnabled: false,
+  installmentText: "Рассрочка (условия уточняются при записи)",
+  authorizedCenterClaimEnabled: false,
+  noiseReductionPercentEnabled: false,
+};
  
  const AdminSettings = () => {
    const { toast } = useToast();
@@ -321,6 +327,44 @@ import type { Json } from "@/integrations/supabase/types";
                      />
                  </div>
  
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="mapLatitude">Широта (для карты)</Label>
+                    <Input
+                      id="mapLatitude"
+                      type="number"
+                      step="0.000001"
+                      value={settings.mapLatitude}
+                      onChange={(e) =>
+                        setSettings((prev) => ({
+                          ...prev,
+                          mapLatitude: parseFloat(e.target.value) || 55.796127,
+                        }))
+                      }
+                      placeholder="55.796127"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="mapLongitude">Долгота (для карты)</Label>
+                    <Input
+                      id="mapLongitude"
+                      type="number"
+                      step="0.000001"
+                      value={settings.mapLongitude}
+                      onChange={(e) =>
+                        setSettings((prev) => ({
+                          ...prev,
+                          mapLongitude: parseFloat(e.target.value) || 49.122141,
+                        }))
+                      }
+                      placeholder="49.122141"
+                    />
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Координаты можно найти на Яндекс.Картах: ПКМ по точке → "Что здесь?"
+                </p>
+
                  <div className="space-y-2">
                    <Label htmlFor="workingHours">Режим работы</Label>
                    <Input
