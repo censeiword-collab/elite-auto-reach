@@ -1,0 +1,77 @@
+ [
+   {
+     "location": "header",
+     "items": [
+       { "href": "/", "label": "Главная" },
+       {
+         "href": "/services",
+         "label": "Услуги",
+         "dropdown": {
+           "groups": [
+             {
+               "title": "Оклейка и защита",
+               "items": [
+                 { "href": "/okleyka-avto-poliuretanovoy-plenkoy-kazan", "label": "Антигравийная защита PPF" },
+                 { "href": "/okleyka-vinilom-kazan", "label": "Оклейка винилом" },
+                 { "href": "/antihrom-kazan", "label": "Антихром" },
+                 { "href": "/okleyka-salona-kazan", "label": "Оклейка салона" },
+                 { "href": "/snyatie-plenki-kazan", "label": "Снятие плёнки" }
+               ]
+             },
+             {
+               "title": "Детейлинг",
+               "items": [
+                 { "href": "/deteyling-kazan", "label": "Детейлинг" },
+                 { "href": "/tonirovka-avto-kazan", "label": "Тонировка" }
+               ]
+             },
+             {
+               "title": "Тюнинг и доп.оборудование",
+               "items": [
+                 { "href": "/aktivnyy-vyhlop-kazan", "label": "Активный выхлоп" },
+                 { "href": "/shumoizolyaciya-avto-kazan", "label": "Шумоизоляция" },
+                 { "href": "/udalenie-vmyatin-bez-pokraski-kazan", "label": "Удаление вмятин PDR" },
+                 { "href": "/ustanovka-signalizacii-pandora-kazan", "label": "Сигнализации Pandora" }
+               ]
+             }
+           ],
+           "allServicesLink": { "href": "/services", "label": "Все услуги" }
+         }
+       },
+       { "href": "/cases", "label": "Портфолио" },
+       { "href": "/price", "label": "Цены" },
+       { "href": "/faq", "label": "FAQ" },
+       { "href": "/about", "label": "О нас" },
+       { "href": "/contacts", "label": "Контакты" }
+     ]
+   },
+   {
+     "location": "footer",
+     "services": [
+       { "href": "/okleyka-avto-poliuretanovoy-plenkoy-kazan", "label": "Защита кузова PPF" },
+       { "href": "/okleyka-vinilom-kazan", "label": "Оклейка винилом" },
+       { "href": "/antihrom-kazan", "label": "Антихром" },
+       { "href": "/tonirovka-avto-kazan", "label": "Тонировка" },
+       { "href": "/aktivnyy-vyhlop-kazan", "label": "Активный выхлоп" },
+       { "href": "/shumoizolyaciya-avto-kazan", "label": "Шумоизоляция" },
+       { "href": "/udalenie-vmyatin-bez-pokraski-kazan", "label": "Удаление вмятин PDR" }
+     ],
+     "pages": [
+       { "href": "/services", "label": "Все услуги" },
+       { "href": "/price", "label": "Цены" },
+       { "href": "/cases", "label": "Портфолио" },
+       { "href": "/faq", "label": "Вопросы и ответы" },
+       { "href": "/blog", "label": "Блог" },
+       { "href": "/about", "label": "О компании" },
+       { "href": "/contacts", "label": "Контакты" }
+     ]
+   },
+   {
+     "location": "mobileQuickActions",
+     "items": [
+       { "href": "/contacts", "label": "Записаться", "icon": "Calendar" },
+       { "href": "https://wa.me/79038687861", "label": "WhatsApp", "icon": "MessageCircle", "external": true },
+       { "href": "tel:+79038687861", "label": "Позвонить", "icon": "Phone" }
+     ]
+   }
+ ]

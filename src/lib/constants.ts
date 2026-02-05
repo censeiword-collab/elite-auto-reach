@@ -54,54 +54,101 @@ export const WORKING_HOURS = {
 // ========================
 // ГАРАНТИИ (СТАНДАРТ)
 // ========================
+export type WarrantyType = "years" | "lifetime" | "unknown";
+
+export interface WarrantyConfig {
+  type: WarrantyType;
+  years: number | null;
+  display: string;
+  description: string;
+}
+
+/**
+ * Форматирует гарантию по стандарту "до X лет"
+ */
+export const formatWarranty = (type: WarrantyType, years: number | null): string => {
+  if (type === "lifetime") return "пожизненная";
+  if (type === "unknown" || years === null) return "уточняется при записи";
+  if (years === 1) return "до 1 года";
+  return `до ${years} лет`;
+};
+
 export const WARRANTY = {
   ppf: {
+    type: "years" as WarrantyType,
     years: 10,
     display: "до 10 лет",
     description: "Гарантия производителя на PPF-плёнку",
   },
   tinting: {
+    type: "years" as WarrantyType,
     years: 5,
-    display: "5 лет",
+    display: "до 5 лет",
     description: "Гарантия на тонировку стёкол",
   },
   vinyl: {
+    type: "years" as WarrantyType,
     years: 5,
     display: "до 5 лет",
     description: "Гарантия на виниловую плёнку",
   },
   soundproofing: {
+    type: "years" as WarrantyType,
     years: 3,
-    display: "3 года",
+    display: "до 3 лет",
     description: "Гарантия на шумоизоляцию",
   },
   exhaust: {
+    type: "years" as WarrantyType,
     years: 2,
-    display: "2 года",
+    display: "до 2 лет",
     description: "Гарантия на установку активного выхлопа",
   },
   pdr: {
-    years: null, // Пожизненная
+    type: "lifetime" as WarrantyType,
+    years: null,
     display: "пожизненная",
     description: "Пожизненная гарантия на удаление вмятин",
   },
   pandora: {
+    type: "years" as WarrantyType,
     years: 3,
-    display: "3 года",
+    display: "до 3 лет",
     description: "Гарантия производителя + установка",
   },
   equipment: {
+    type: "years" as WarrantyType,
     years: 2,
-    display: "2 года",
+    display: "до 2 лет",
     description: "Гарантия на установку оборудования",
   },
   detailing: {
+    type: "years" as WarrantyType,
     years: 1,
-    display: "1 год",
+    display: "до 1 года",
     description: "Гарантия на детейлинг-услуги",
+  },
+  filmRemoval: {
+    type: "unknown" as WarrantyType,
+    years: null,
+    display: "уточняется при записи",
+    description: "Услуга без гарантии (зависит от состояния плёнки)",
+  },
+  interior: {
+    type: "years" as WarrantyType,
+    years: 3,
+    display: "до 3 лет",
+    description: "Гарантия на оклейку салона",
+  },
+  antichrome: {
+    type: "years" as WarrantyType,
+    years: 5,
+    display: "до 5 лет",
+    description: "Гарантия на антихром",
   },
   // Общая максимальная (для маркетинга)
   max: {
+    type: "years" as WarrantyType,
     years: 10,
     display: "до 10 лет",
     description: "Максимальная гарантия на услуги",
@@ -336,7 +383,7 @@ export const SERVICES_SEO_CONFIG: ServiceSEOConfig[] = [
     metaDescription: "Профессиональная тонировка стёкол в Казани. Атермальная плёнка, защита от УФ. Гарантия 5 лет. Работы за 2–4 часа. Запись онлайн.",
     ogTitle: "Тонировка авто в Казани | SUNMAXKZN",
     ogDescription: "Тонировка стёкол атермальной плёнкой — комфорт и защита от солнца",
-    warranty: { display: "5 лет", years: 5 },
+    warranty: { display: "до 5 лет", years: 5 },
     timing: { display: "2–4 часа" },
     priceFrom: 3000,
     keywords: ["тонировка авто Казань", "тонировка стёкол Казань", "атермальная тонировка Казань", "тонировка задней полусферы Казань", "растонировка Казань"],
@@ -392,7 +439,7 @@ export const SERVICES_SEO_CONFIG: ServiceSEOConfig[] = [
     metaDescription: "Снятие защитной плёнки в Казани — демонтаж PPF и винила без повреждения ЛКП. Профессиональный подход. Запись онлайн.",
     ogTitle: "Снятие плёнки в Казани | SUNMAXKZN",
     ogDescription: "Демонтаж плёнки без повреждения лакокрасочного покрытия",
-    warranty: { display: "—", years: null },
+    warranty: { display: "уточняется при записи", years: null },
     timing: { display: "1–2 дня" },
     priceFrom: 10000,
     keywords: ["снятие плёнки Казань", "демонтаж плёнки Казань", "снять винил Казань", "снять ppf Казань"],
@@ -406,7 +453,7 @@ export const SERVICES_SEO_CONFIG: ServiceSEOConfig[] = [
     metaDescription: "Детейлинг автомобиля в Казани — полировка кузова, химчистка салона, нанесение керамики. Гарантия 1 год. Запись по телефону.",
     ogTitle: "Детейлинг в Казани | SUNMAXKZN",
     ogDescription: "Полный детейлинг — полировка, химчистка, нанесение защитных составов",
-    warranty: { display: "1 год", years: 1 },
+    warranty: { display: "до 1 года", years: 1 },
     timing: { display: "1–2 дня" },
     priceFrom: 15000,
     keywords: ["детейлинг Казань", "детейлинг авто Казань", "полировка кузова Казань", "химчистка салона Казань"],
@@ -420,7 +467,7 @@ export const SERVICES_SEO_CONFIG: ServiceSEOConfig[] = [
     metaDescription: "Установка активного выхлопа в Казани. Электронные заслонки, управление со смартфона. Гарантия 2 года. Запись онлайн.",
     ogTitle: "Активный выхлоп в Казани | SUNMAXKZN",
     ogDescription: "Управляемый звук выхлопа — тихий режим для города, спортивный для трассы",
-    warranty: { display: "2 года", years: 2 },
+    warranty: { display: "до 2 лет", years: 2 },
     timing: { display: "1–2 дня" },
     priceFrom: 45000,
     keywords: ["активный выхлоп Казань", "активный звук выхлопа Казань", "установка активного выхлопа Казань", "заслонки на выхлоп Казань"],
@@ -434,7 +481,7 @@ export const SERVICES_SEO_CONFIG: ServiceSEOConfig[] = [
     metaDescription: "Комплексная шумоизоляция авто в Казани. Виброизоляция дверей, пола, багажника. Гарантия 3 года. Запись по телефону.",
     ogTitle: "Шумоизоляция авто в Казани | SUNMAXKZN",
     ogDescription: "Комплексная шумо- и виброизоляция — тишина премиум-класса в салоне",
-    warranty: { display: "3 года", years: 3 },
+    warranty: { display: "до 3 лет", years: 3 },
     timing: { display: "2–5 дней" },
     priceFrom: 25000,
     keywords: ["шумоизоляция авто Казань", "виброшумоизоляция Казань", "шумоизоляция дверей Казань", "шумоизоляция пола Казань", "шумоизоляция багажника Казань"],
@@ -462,7 +509,7 @@ export const SERVICES_SEO_CONFIG: ServiceSEOConfig[] = [
     metaDescription: "Установка сигнализации Pandora в Казани. Автозапуск, GPS-мониторинг, управление со смартфона. Гарантия 3 года. Запись по телефону.",
     ogTitle: "Установка сигнализации Pandora в Казани | SUNMAXKZN",
     ogDescription: "Охранные системы Pandora с автозапуском и GPS-мониторингом",
-    warranty: { display: "3 года", years: 3 },
+    warranty: { display: "до 3 лет", years: 3 },
     timing: { display: "1 день" },
     priceFrom: 35000,
     keywords: ["установка Pandora Казань", "сигнализация Pandora установка Казань", "установка автосигнализации Казань", "pandora Казань"],
