@@ -5,7 +5,8 @@
  import { motion } from "framer-motion";
  import { Shield, Volume2, CircleDot, Car, Lock, ArrowRight, Sparkles, Droplet, Palette, Layers, Scissors, Star } from "lucide-react";
  import { Button } from "@/components/ui/button";
- import { SERVICES_SEO_CONFIG, SERVICE_CATEGORIES, PRICING, POSITIONING } from "@/lib/constants";
+import { SERVICES_SEO_CONFIG, SERVICE_CATEGORIES, PRICING } from "@/lib/constants";
+import { getPageSEO, UNIFIED_POSITIONING } from "@/lib/seo-config";
  import { useState } from "react";
  
  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -42,6 +43,7 @@
  
  const ServicesPage = () => {
    const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const seoConfig = getPageSEO("/services");
  
    const categories = Object.entries(SERVICE_CATEGORIES).map(([key, value]) => ({
      key,
@@ -55,8 +57,8 @@
    return (
      <div className="min-h-screen bg-background">
        <SEOHead
-         title="SUNMAXKZN — Все услуги детейлинга и тюнинга в Казани"
-         description="Каталог услуг SUNMAXKZN: оклейка PPF, винил, антихром, тонировка, детейлинг, шумоизоляция, активный выхлоп, PDR, сигнализации Pandora. Записаться онлайн."
+        title={seoConfig?.title || "SUNMAXKZN — Все услуги детейлинга и тюнинга в Казани"}
+        description={seoConfig?.metaDescription || "Каталог услуг SUNMAXKZN: оклейка PPF, винил, антихром, тонировка, детейлинг, шумоизоляция, активный выхлоп, PDR, сигнализации Pandora. Записаться онлайн."}
          keywords={["услуги детейлинга Казань", "оклейка авто Казань", "тюнинг Казань"]}
          canonicalUrl="https://sunmaxkzn.ru/services"
        />
@@ -74,7 +76,7 @@
              >
                <Sparkles className="w-4 h-4 text-primary" />
                <span className="text-sm font-semibold text-primary tracking-wide">
-                 {POSITIONING.tagline}
+                  {UNIFIED_POSITIONING.short}
                </span>
              </motion.div>
  
@@ -84,8 +86,7 @@
                transition={{ delay: 0.1 }}
                className="text-3xl md:text-4xl lg:text-5xl font-heading font-extrabold mb-5"
              >
-               Все услуги{" "}
-               <span className="text-gradient">SUNMAXKZN</span>
+              {seoConfig?.h1 || "Все услуги SUNMAXKZN"}
              </motion.h1>
  
              <motion.p
