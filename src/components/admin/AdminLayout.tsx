@@ -15,6 +15,7 @@ import {
   ChevronRight,
   Calculator,
   Cog,
+   Car,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -77,6 +78,7 @@ const menuItems = [
     group: "Инструменты",
     items: [
       { title: "Калькулятор", url: "/admin/calculator", icon: Calculator },
+       { title: "Марки авто", url: "/admin/cars", icon: Car },
     ],
   },
 ];

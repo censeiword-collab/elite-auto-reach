@@ -284,12 +284,12 @@ export const generateContentJSON = (): string => {
         "Прозрачное ценообразование без скрытых платежей",
         "Цены указаны ориентировочно и зависят от марки и модели автомобиля",
         "Точную стоимость рассчитаем после осмотра автомобиля",
-        "Предоставляем гарантию на все виды работ",
+         "Гарантия до 10 лет — зависит от услуги",
       ],
       ctaButtons: ["Подробнее об услуге", "Рассчитать для моего авто"],
       formLabels: [],
       errorMessages: [],
-      keyFacts: { warranty: "гарантия на все виды работ", priceFormat: "от X ₽" },
+       keyFacts: { warranty: "до 10 лет — зависит от услуги", priceFormat: "от X ₽" },
     });
   }
   
@@ -343,9 +343,9 @@ export const generateContentJSON = (): string => {
       h1: contactsSEO.h1,
       mainText: ["Приезжайте к нам или оставьте заявку — мы свяжемся с вами в течение 15 минут", "+7 (903) 868-78-61", "Ежедневно 9:00 — 21:00"],
       ctaButtons: ["Отправить заявку", "WhatsApp", "Telegram"],
-      formLabels: ["Ваше имя *", "Телефон *", "Интересующая услуга", "Email", "Сообщение"],
-      errorMessages: ["Имя должно быть минимум 2 символа", "Введите корректный номер телефона", "Введите корректный email"],
-      keyFacts: { phone: "+7 (903) 868-78-61", workingHours: "Ежедневно 9:00 — 21:00", callbackTime: "в течение 15 минут" },
+       formLabels: ["Ваше имя *", "Телефон *", "Интересующая услуга", "Email (необязательно)", "Сообщение"],
+       errorMessages: ["Имя должно быть минимум 2 символа", "Введите корректный номер телефона"],
+       keyFacts: { phone: "+7 (903) 868-78-61", workingHours: "Ежедневно 9:00 — 21:00", callbackTime: "в течение 15 минут" },
     });
   }
   
@@ -355,13 +355,13 @@ export const generateContentJSON = (): string => {
       url: "/faq",
       title: faqSEO.title,
       h1: faqSEO.h1,
-      mainText: ["Собрали ответы на популярные вопросы о наших услугах, гарантии, сроках и оплате", "Общие вопросы", "Защитная плёнка PPF", "Сроки выполнения", "Гарантия и качество"],
-      ctaButtons: ["Задать вопрос", "+7 (903) 868-78-61"],
+       mainText: ["Собрали ответы на популярные вопросы о наших услугах, гарантии, сроках и оплате", "Оклейка и защита", "Детейлинг", "Тюнинг", "Оплата и документы", "Уход и рекомендации", "Срочность и сроки"],
+       ctaButtons: ["Задать вопрос", "+7 (903) 868-78-61"],
       formLabels: [],
       errorMessages: [],
-      keyFacts: { warrantyPPF: "до 10 лет", warrantySoundproofing: "3 года", warrantyEquipment: "2 года", warrantyPDR: "пожизненная" },
-    });
-  }
+       keyFacts: { warrantyPPF: "до 10 лет", warrantyTinting: "до 5 лет", warrantySoundproofing: "до 3 лет", warrantyEquipment: "до 2 лет", warrantyPDR: "пожизненная", faqCategories: "6", faqQuestions: "24" },
+     });
+   }
   
   const blogSEO = getPageSEO("/blog");
   if (blogSEO) {

@@ -30,6 +30,7 @@ import AdminLeads from "./pages/admin/AdminLeads";
 import AdminCases from "./pages/admin/AdminCases";
 import AdminCalculator from "./pages/admin/AdminCalculator";
 import AdminSettings from "./pages/admin/AdminSettings";
+ import AdminCars from "./pages/admin/AdminCars";
 import QAPage from "./pages/QAPage";
 import ServicesPage from "./pages/ServicesPage";
 
@@ -91,6 +92,7 @@ const App = () => (
               <Route path="/admin/cases" element={<AdminCases />} />
               <Route path="/admin/calculator" element={<AdminCalculator />} />
               <Route path="/admin/settings" element={<AdminSettings />} />
+               <Route path="/admin/cars" element={<AdminCars />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
