@@ -12,9 +12,17 @@ export const qaRoutes: QARoute[] = [
   // Main pages
   {
     path: "/",
-    title: "SUNMAXKZN — Премиальный детейлинг и тюнинг в Казани",
-    h1: "Премиальный детейлинг автомобилей в Казани",
+    title: "SUNMAXKZN — Студия детейлинга, оклейки и тюнинга в Казани",
+    h1: "SUNMAXKZN — Детейлинг, оклейка и тюнинг в Казани",
     description: "Главная страница с услугами, кейсами и отзывами",
+    type: "static",
+    requiresAuth: false,
+  },
+  {
+    path: "/services",
+    title: "SUNMAXKZN — Все услуги детейлинга и тюнинга в Казани",
+    h1: "Все услуги SUNMAXKZN",
+    description: "Каталог всех услуг студии с фильтрами по категориям",
     type: "static",
     requiresAuth: false,
   },
@@ -86,15 +94,15 @@ export const qaRoutes: QARoute[] = [
   // Service pages
   {
     path: "/okleyka-avto-poliuretanovoy-plenkoy-kazan",
-    title: "Оклейка авто полиуретановой плёнкой в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Оклейка авто полиуретановой плёнкой PPF в Казани",
     h1: "Оклейка авто полиуретановой плёнкой в Казани",
-    description: "Защитная PPF плёнка XPEL/SunTek с гарантией до 10 лет",
+    description: "Антигравийная защита кузова плёнкой PPF. Гарантия до 10 лет",
     type: "dynamic",
     requiresAuth: false,
   },
   {
     path: "/tonirovka-avto-kazan",
-    title: "Тонировка авто в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Тонировка авто в Казани | Атермальная, классическая",
     h1: "Тонировка автомобиля в Казани",
     description: "Профессиональная тонировка стёкол с гарантией 5 лет",
     type: "dynamic",
@@ -102,7 +110,7 @@ export const qaRoutes: QARoute[] = [
   },
   {
     path: "/aktivnyy-vyhlop-kazan",
-    title: "Активный выхлоп в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Активный выхлоп в Казани | Управляемый звук",
     h1: "Установка активного выхлопа в Казани",
     description: "Системы активного выхлопа с управлением звуком",
     type: "dynamic",
@@ -110,7 +118,7 @@ export const qaRoutes: QARoute[] = [
   },
   {
     path: "/shumoizolyaciya-avto-kazan",
-    title: "Шумоизоляция авто в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Шумоизоляция авто в Казани | Комфорт премиум-класса",
     h1: "Шумоизоляция автомобиля в Казани",
     description: "Комплексная шумо- и виброизоляция автомобиля",
     type: "dynamic",
@@ -118,7 +126,7 @@ export const qaRoutes: QARoute[] = [
   },
   {
     path: "/udalenie-vmyatin-bez-pokraski-kazan",
-    title: "Удаление вмятин без покраски PDR в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Удаление вмятин без покраски в Казани | PDR",
     h1: "Удаление вмятин без покраски (PDR) в Казани",
     description: "Технология PDR для устранения вмятин без повреждения ЛКП",
     type: "dynamic",
@@ -126,7 +134,7 @@ export const qaRoutes: QARoute[] = [
   },
   {
     path: "/ustanovka-signalizacii-pandora-kazan",
-    title: "Установка сигнализации Pandora в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Установка сигнализации Pandora в Казани",
     h1: "Установка сигнализации Pandora в Казани",
     description: "Профессиональная установка охранных систем Pandora",
     type: "dynamic",
@@ -134,7 +142,7 @@ export const qaRoutes: QARoute[] = [
   },
   {
     path: "/okleyka-vinilom-kazan",
-    title: "Оклейка винилом в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Оклейка авто винилом в Казани | Смена цвета",
     h1: "Оклейка авто винилом в Казани",
     description: "Изменение цвета автомобиля виниловой плёнкой",
     type: "dynamic",
@@ -142,7 +150,7 @@ export const qaRoutes: QARoute[] = [
   },
   {
     path: "/antihrom-kazan",
-    title: "Антихром в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Антихром в Казани | Оклейка хрома в чёрный",
     h1: "Антихром — оклейка хрома в чёрный в Казани",
     description: "Оклейка хромированных деталей в чёрный цвет",
     type: "dynamic",
@@ -150,7 +158,7 @@ export const qaRoutes: QARoute[] = [
   },
   {
     path: "/okleyka-salona-kazan",
-    title: "Оклейка салона в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Оклейка салона в Казани | Защита интерьера",
     h1: "Оклейка салона автомобиля в Казани",
     description: "Защита и декорирование интерьера авто",
     type: "dynamic",
@@ -158,7 +166,7 @@ export const qaRoutes: QARoute[] = [
   },
   {
     path: "/deteyling-kazan",
-    title: "Детейлинг в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Детейлинг в Казани | Полировка, химчистка, защита",
     h1: "Полный детейлинг автомобиля в Казани",
     description: "Комплексный уход и восстановление внешнего вида",
     type: "dynamic",
@@ -166,11 +174,21 @@ export const qaRoutes: QARoute[] = [
   },
   {
     path: "/snyatie-plenki-kazan",
-    title: "Снятие плёнки в Казани | SUNMAXKZN",
+    title: "SUNMAXKZN — Снятие плёнки в Казани | Демонтаж PPF и винила",
     h1: "Снятие защитной плёнки с авто в Казани",
     description: "Профессиональное удаление старой PPF/винила",
     type: "dynamic",
     requiresAuth: false,
+  },
+
+  // Admin settings
+  {
+    path: "/admin/settings",
+    title: "Глобальные настройки | SUNMAXKZN",
+    h1: "Глобальные настройки",
+    description: "Бренд, контакты, позиционирование сайта",
+    type: "admin",
+    requiresAuth: true,
   },
 
   // Admin pages
@@ -279,23 +297,25 @@ export interface QAContent {
 export const qaContent: QAContent[] = [
   {
     page: "/",
-    h1: "Премиальный детейлинг автомобилей в Казани",
+    h1: "SUNMAXKZN — Детейлинг, оклейка и тюнинг в Казани",
     buttons: [
       "Записаться",
       "Рассчитать стоимость",
-      "Смотреть все работы",
+      "Смотреть все услуги",
+      "Наши работы",
       "Оставить заявку",
     ],
-    formLabels: ["Ваше имя", "Телефон", "Email", "Сообщение"],
+    formLabels: ["Ваше имя", "Телефон", "Сообщение"],
     errorMessages: [
       "Имя должно быть минимум 2 символа",
       "Введите корректный номер телефона",
-      "Введите корректный email",
     ],
     mainText: [
-      "Защитим ваш автомобиль от сколов и царапин",
+      "Студия для автомобилей бизнес- и премиум-класса",
       "Гарантия до 10 лет",
-      "Работаем с премиальными автомобилями",
+      "Аккуратная работа с кромками и стыками",
+      "Почему выбирают SUNMAXKZN",
+      "Как проходит работа",
     ],
   },
   {

@@ -1,23 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Sun } from "lucide-react";
+import { Menu, X, Phone, Sun, ChevronDown, Calculator, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CONTACT, NAVIGATION, getWhatsAppLink, getPhoneLink } from "@/lib/constants";
 
-const navLinks = [
-  { href: "/", label: "Главная" },
-  { href: "/price", label: "Услуги" },
-  { href: "/cases", label: "Работы" },
-  { href: "/calculator", label: "Калькулятор" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/about", label: "О нас" },
-  { href: "/contacts", label: "Контакты" },
-];
-
-const PHONE_NUMBER = "+79038687861";
-const PHONE_DISPLAY = "+7 (903) 868-78-61";
+const navLinks = NAVIGATION.header;
+const servicesDropdown = NAVIGATION.servicesDropdown;
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
@@ -43,31 +35,97 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.slice(0, 7).map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="nav-link text-muted-foreground hover:text-foreground"
-              >
-                {link.label}
-              </a>
+            {navLinks.map((link) => (
+              link.hasDropdown ? (
+                <div
+                  key={link.href}
+                  className="relative"
+                  onMouseEnter={() => setIsServicesOpen(true)}
+                  onMouseLeave={() => setIsServicesOpen(false)}
+                >
+                  <button
+                    className="nav-link text-muted-foreground hover:text-foreground flex items-center gap-1"
+                  >
+                    {link.label}
+                    <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  
+                  <AnimatePresence>
+                    {isServicesOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-0 pt-2 w-[560px]"
+                      >
+                        <div className="glass rounded-xl border border-border/50 p-4 shadow-xl">
+                          <div className="grid grid-cols-3 gap-4">
+                            {servicesDropdown.groups.map((group) => (
+                              <div key={group.title}>
+                                <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">
+                                  {group.title}
+                                </p>
+                                <ul className="space-y-1.5">
+                                  {group.items.map((item) => (
+                                    <li key={item.href}>
+                                      <a
+                                        href={item.href}
+                                        className="text-sm text-muted-foreground hover:text-foreground hover:bg-accent px-2 py-1.5 rounded-md block transition-colors"
+                                      >
+                                        {item.label}
+                                      </a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="border-t border-border/50 mt-4 pt-4">
+                            <a
+                              href={servicesDropdown.allServicesLink.href}
+                              className="text-sm font-semibold text-primary hover:underline"
+                            >
+                              {servicesDropdown.allServicesLink.label} →
+                            </a>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="nav-link text-muted-foreground hover:text-foreground"
+                >
+                  {link.label}
+                </a>
+              )
             ))}
           </nav>
 
           {/* Phone & CTA */}
           <div className="hidden md:flex items-center gap-6">
             <a
-              href={`tel:${PHONE_NUMBER}`}
+              href={getPhoneLink()}
               className="flex items-center gap-2 text-foreground hover:text-primary transition-colors group"
             >
               <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                 <Phone className="w-4 h-4 text-primary" />
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-sm">{PHONE_DISPLAY}</span>
+                <span className="font-semibold text-sm">{CONTACT.phone.display}</span>
                 <span className="text-[10px] text-muted-foreground">Ежедневно 9:00–21:00</span>
               </div>
             </a>
+            <Button asChild variant="outline" className="font-semibold" size="sm">
+              <a href="/calculator">
+                <Calculator className="w-4 h-4 mr-2" />
+                Рассчитать
+              </a>
+            </Button>
             <Button asChild className="btn-glow font-semibold">
               <a href="/contacts">Записаться</a>
             </Button>
@@ -95,31 +153,73 @@ const Header = () => {
           >
             <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
               {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors font-medium"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </a>
+                link.hasDropdown ? (
+                  <div key={link.href}>
+                    <a
+                      href={link.href}
+                      className="py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors font-medium flex items-center justify-between"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.label}
+                      <ChevronDown className="w-4 h-4" />
+                    </a>
+                    <div className="pl-4 space-y-1 mt-1">
+                      {servicesDropdown.groups.flatMap((group) =>
+                        group.items.slice(0, 3).map((item) => (
+                          <a
+                            key={item.href}
+                            href={item.href}
+                            className="py-2 px-4 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors block"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {item.label}
+                          </a>
+                        ))
+                      )}
+                      <a
+                        href="/services"
+                        className="py-2 px-4 text-sm text-primary font-medium hover:bg-accent rounded-lg transition-colors block"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Все услуги →
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors font-medium"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                )
               ))}
               <div className="pt-4 border-t border-border/50 mt-2">
                 <a
-                  href={`tel:${PHONE_NUMBER}`}
+                  href={getPhoneLink()}
                   className="flex items-center gap-3 py-3 px-4 text-foreground"
                 >
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                     <Phone className="w-5 h-5 text-primary" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold">{PHONE_DISPLAY}</span>
+                    <span className="font-semibold">{CONTACT.phone.display}</span>
                     <span className="text-xs text-muted-foreground">Ежедневно 9:00–21:00</span>
                   </div>
                 </a>
-                <Button asChild className="w-full mt-3 btn-glow font-semibold">
-                  <a href="/contacts" onClick={() => setIsOpen(false)}>Записаться на сервис</a>
-                </Button>
+                <div className="grid grid-cols-2 gap-2 mt-3">
+                  <Button asChild variant="outline" className="font-semibold">
+                    <a href="/calculator" onClick={() => setIsOpen(false)}>
+                      <Calculator className="w-4 h-4 mr-2" />
+                      Расчёт
+                    </a>
+                  </Button>
+                  <Button asChild className="btn-glow font-semibold">
+                    <a href="/contacts" onClick={() => setIsOpen(false)}>Записаться</a>
+                  </Button>
+                </div>
               </div>
             </nav>
           </motion.div>

@@ -71,7 +71,7 @@ const AdminDashboard = () => {
         <div>
           <h1 className="text-3xl font-bold">Панель управления</h1>
           <p className="text-muted-foreground mt-1">
-            Добро пожаловать в админ-панель PMGDETAILING
+            Добро пожаловать в админ-панель SUNMAXKZN
           </p>
         </div>
 
