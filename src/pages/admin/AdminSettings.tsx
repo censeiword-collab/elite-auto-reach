@@ -8,8 +8,10 @@
  import { Textarea } from "@/components/ui/textarea";
  import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
  import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+ import { Switch } from "@/components/ui/switch";
+ import { Badge } from "@/components/ui/badge";
  import { useToast } from "@/hooks/use-toast";
- import { Save, Globe, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
+ import { Save, Globe, Phone, MapPin, MessageCircle, Shield, X, Plus } from "lucide-react";
 import type { Json } from "@/integrations/supabase/types";
  
  interface SiteSettings {
@@ -20,12 +22,19 @@ import type { Json } from "@/integrations/supabase/types";
    phoneDisplay: string;
    email: string;
    address: string;
+   landmark: string;
    city: string;
    workingHours: string;
    whatsapp: string;
    telegram: string;
    vk: string;
    instagram: string;
+   // Admin toggles
+   whitelistBrands: string[];
+   installmentEnabled: boolean;
+   installmentText: string;
+   authorizedCenterClaimEnabled: boolean;
+   noiseReductionPercentEnabled: boolean;
  }
  
  const defaultSettings: SiteSettings = {
@@ -35,19 +44,27 @@ import type { Json } from "@/integrations/supabase/types";
    phone: "+79038687861",
    phoneDisplay: "+7 (903) 868-78-61",
    email: "info@sunmaxkzn.ru",
-   address: "г. Казань, ул. Техническая, 122",
+   address: "",
+   landmark: "",
    city: "Казань",
    workingHours: "Ежедневно 9:00 — 21:00",
    whatsapp: "79038687861",
    telegram: "https://t.me/sunmaxkzn",
    vk: "https://vk.com/sunmaxkzn",
    instagram: "https://instagram.com/sunmaxkzn",
+   // Admin toggles - defaults
+   whitelistBrands: [],
+   installmentEnabled: false,
+   installmentText: "Рассрочка (условия уточняются при записи)",
+   authorizedCenterClaimEnabled: false,
+   noiseReductionPercentEnabled: false,
  };
  
  const AdminSettings = () => {
    const { toast } = useToast();
    const queryClient = useQueryClient();
    const [settings, setSettings] = useState<SiteSettings>(defaultSettings);
+   const [newBrand, setNewBrand] = useState("");
  
    const { data: savedSettings, isLoading } = useQuery({
      queryKey: ["site-settings-global"],
@@ -177,6 +194,10 @@ import type { Json } from "@/integrations/supabase/types";
                <MessageCircle className="w-4 h-4 mr-2" />
                Соцсети
              </TabsTrigger>
+               <TabsTrigger value="claims">
+                 <Shield className="w-4 h-4 mr-2" />
+                 Заявления
+               </TabsTrigger>
            </TabsList>
  
            <TabsContent value="brand" className="mt-6 space-y-6">
@@ -285,6 +306,19 @@ import type { Json } from "@/integrations/supabase/types";
                      onChange={(e) => handleChange("address", e.target.value)}
                      placeholder="г. Казань, ул. Техническая, 122"
                    />
+                     <p className="text-xs text-muted-foreground">
+                       Оставьте пустым, чтобы скрыть адрес на сайте
+                     </p>
+                   </div>
+ 
+                   <div className="space-y-2">
+                     <Label htmlFor="landmark">Ориентир</Label>
+                     <Input
+                       id="landmark"
+                       value={settings.landmark}
+                       onChange={(e) => handleChange("landmark", e.target.value)}
+                       placeholder="Рядом с ТЦ МЕГА"
+                     />
                  </div>
  
                  <div className="space-y-2">
@@ -353,6 +387,157 @@ import type { Json } from "@/integrations/supabase/types";
                </CardContent>
              </Card>
            </TabsContent>
+ 
+             <TabsContent value="claims" className="mt-6 space-y-6">
+               <Card>
+                 <CardHeader>
+                   <CardTitle>Маркетинговые заявления</CardTitle>
+                   <CardDescription>
+                     Управление утверждениями, которые требуют подтверждения владельца
+                   </CardDescription>
+                 </CardHeader>
+                 <CardContent className="space-y-6">
+                   <div className="space-y-4 border-b pb-4">
+                     <div className="flex items-center justify-between">
+                       <div>
+                         <h4 className="font-medium">Рассрочка</h4>
+                         <p className="text-sm text-muted-foreground">
+                           Показывать информацию о рассрочке на странице цен
+                         </p>
+                       </div>
+                       <Switch
+                         checked={settings.installmentEnabled}
+                         onCheckedChange={(checked) =>
+                           setSettings((prev) => ({ ...prev, installmentEnabled: checked }))
+                         }
+                       />
+                     </div>
+                     {settings.installmentEnabled && (
+                       <Input
+                         value={settings.installmentText}
+                         onChange={(e) => handleChange("installmentText", e.target.value)}
+                         placeholder="Рассрочка без переплаты"
+                       />
+                     )}
+                   </div>
+ 
+                   <div className="space-y-4 border-b pb-4">
+                     <div className="flex items-center justify-between">
+                       <div>
+                         <h4 className="font-medium">Авторизованный центр Pandora</h4>
+                         <p className="text-sm text-muted-foreground">
+                           Показывать статус "Авторизованный установочный центр"
+                         </p>
+                       </div>
+                       <Switch
+                         checked={settings.authorizedCenterClaimEnabled}
+                         onCheckedChange={(checked) =>
+                           setSettings((prev) => ({ ...prev, authorizedCenterClaimEnabled: checked }))
+                         }
+                       />
+                     </div>
+                     <p className="text-xs text-muted-foreground">
+                       {settings.authorizedCenterClaimEnabled
+                         ? 'Будет отображаться: "Авторизованный установочный центр"'
+                         : 'Будет отображаться: "Профессиональная установка оборудования"'}
+                     </p>
+                   </div>
+ 
+                   <div className="space-y-4">
+                     <div className="flex items-center justify-between">
+                       <div>
+                         <h4 className="font-medium">Проценты снижения шума</h4>
+                         <p className="text-sm text-muted-foreground">
+                           Показывать "снижение на 40–60%" на странице шумоизоляции
+                         </p>
+                       </div>
+                       <Switch
+                         checked={settings.noiseReductionPercentEnabled}
+                         onCheckedChange={(checked) =>
+                           setSettings((prev) => ({ ...prev, noiseReductionPercentEnabled: checked }))
+                         }
+                       />
+                     </div>
+                     <p className="text-xs text-muted-foreground">
+                       {settings.noiseReductionPercentEnabled
+                         ? 'Будет отображаться: "Снижение шума на 40–60%"'
+                         : 'Будет отображаться: "Заметное снижение шума"'}
+                     </p>
+                   </div>
+                 </CardContent>
+               </Card>
+ 
+               <Card>
+                 <CardHeader>
+                   <CardTitle>Whitelist брендов материалов</CardTitle>
+                   <CardDescription>
+                     Бренды из этого списка можно упоминать на сайте (XPEL, SunTek, 3M и т.д.)
+                   </CardDescription>
+                 </CardHeader>
+                 <CardContent className="space-y-4">
+                   <div className="flex gap-2">
+                     <Input
+                       value={newBrand}
+                       onChange={(e) => setNewBrand(e.target.value)}
+                       placeholder="Название бренда (например, XPEL)"
+                       onKeyDown={(e) => {
+                         if (e.key === "Enter" && newBrand.trim()) {
+                           e.preventDefault();
+                           if (!settings.whitelistBrands.includes(newBrand.trim())) {
+                             setSettings((prev) => ({
+                               ...prev,
+                               whitelistBrands: [...prev.whitelistBrands, newBrand.trim()],
+                             }));
+                           }
+                           setNewBrand("");
+                         }
+                       }}
+                     />
+                     <Button
+                       type="button"
+                       variant="outline"
+                       onClick={() => {
+                         if (newBrand.trim() && !settings.whitelistBrands.includes(newBrand.trim())) {
+                           setSettings((prev) => ({
+                             ...prev,
+                             whitelistBrands: [...prev.whitelistBrands, newBrand.trim()],
+                           }));
+                         }
+                         setNewBrand("");
+                       }}
+                     >
+                       <Plus className="w-4 h-4" />
+                     </Button>
+                   </div>
+ 
+                   <div className="flex flex-wrap gap-2">
+                     {settings.whitelistBrands.length === 0 ? (
+                       <p className="text-sm text-muted-foreground">
+                         Список пуст. Бренды материалов не отображаются на сайте.
+                       </p>
+                     ) : (
+                       settings.whitelistBrands.map((brand) => (
+                         <Badge key={brand} variant="secondary" className="gap-1">
+                           {brand}
+                           <button
+                             type="button"
+                             onClick={() =>
+                               setSettings((prev) => ({
+                                 ...prev,
+                                 whitelistBrands: prev.whitelistBrands.filter((b) => b !== brand),
+                               }))
+                             }
+                             className="ml-1 hover:text-destructive"
+                           >
+                             <X className="w-3 h-3" />
+                           </button>
+                         </Badge>
+                       ))
+                     )}
+                   </div>
+                 </CardContent>
+               </Card>
+             </TabsContent>
          </Tabs>
        </div>
      </AdminLayout>
