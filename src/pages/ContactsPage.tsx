@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle, MessageCircle, Car } from "lucide-react";
 import Header from "@/components/Header";
@@ -12,7 +14,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useQAOptional } from "@/contexts/QAContext";
-import { CONTACT, WORKING_HOURS, getPhoneLink, getWhatsAppLink, getMapLink } from "@/lib/constants";
+import { CONTACT, WORKING_HOURS } from "@/lib/constants";
 import { z } from "zod";
 import {
   Select,
@@ -45,36 +47,18 @@ const serviceOptions = [
   { value: "other", label: "Другое" },
 ];
 
-const contactInfo = [
-  {
-    icon: MapPin,
-    title: "Адрес",
-    content: CONTACT.address.full,
-    subtext: CONTACT.address.landmark,
-    href: getMapLink(),
-    external: true,
-  },
-  {
-    icon: Phone,
-    title: "Телефон",
-    content: CONTACT.phone.display,
-    subtext: "Звоните с 9:00 до 21:00",
-    href: getPhoneLink(),
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    content: CONTACT.email,
-    subtext: "Ответим в течение часа",
-    href: `mailto:${CONTACT.email}`,
-  },
-  {
-    icon: Clock,
-    title: "Режим работы",
-    content: WORKING_HOURS.detailed,
-    subtext: WORKING_HOURS.note,
-  },
-];
+interface SiteSettings {
+  address?: string;
+  landmark?: string;
+  phone?: string;
+  phoneDisplay?: string;
+  email?: string;
+  workingHours?: string;
+  whatsapp?: string;
+  telegram?: string;
+  mapLatitude?: number;
+  mapLongitude?: number;
+}
 
 const ContactsPage = () => {
   const [formData, setFormData] = useState({
@@ -89,6 +73,92 @@ const ContactsPage = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
   const qaContext = useQAOptional();
+
+  // Загружаем настройки из базы для синхронизации с админкой
+  const { data: siteSettings } = useQuery({
+    queryKey: ["site-settings-global"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("*")
+        .eq("key", "global")
+        .single();
+      if (error && error.code !== "PGRST116") return null;
+      return data?.value as unknown as SiteSettings | null;
+    },
+  });
+
+  // Формируем контактные данные с учётом админ-настроек
+  const contactData = useMemo(() => {
+    const address = siteSettings?.address || CONTACT.address.full;
+    const landmark = siteSettings?.landmark || CONTACT.address.landmark;
+    const phoneDisplay = siteSettings?.phoneDisplay || CONTACT.phone.display;
+    const phone = siteSettings?.phone || CONTACT.phone.raw;
+    const email = siteSettings?.email || CONTACT.email;
+    const workingHours = siteSettings?.workingHours || WORKING_HOURS.detailed;
+    const lat = siteSettings?.mapLatitude || CONTACT.geo.latitude;
+    const lon = siteSettings?.mapLongitude || CONTACT.geo.longitude;
+    const telegram = siteSettings?.telegram || CONTACT.social.telegram;
+    const whatsapp = siteSettings?.whatsapp || CONTACT.phone.whatsapp;
+
+    return { address, landmark, phoneDisplay, phone, email, workingHours, lat, lon, telegram, whatsapp };
+  }, [siteSettings]);
+
+  // Динамические контактные карточки
+  const contactInfo = useMemo(() => {
+    const items: Array<{
+      icon: typeof MapPin;
+      title: string;
+      content: string;
+      subtext: string;
+      href?: string;
+      external?: boolean;
+    }> = [];
+    
+    // Адрес показываем только если он заполнен
+    if (contactData.address) {
+      items.push({
+        icon: MapPin,
+        title: "Адрес",
+        content: contactData.address,
+        subtext: contactData.landmark || "",
+        href: `https://yandex.ru/maps/?pt=${contactData.lon},${contactData.lat}&z=16&l=map`,
+        external: true,
+      });
+    }
+    
+    items.push({
+      icon: Phone,
+      title: "Телефон",
+      content: contactData.phoneDisplay,
+      subtext: "Звоните с 9:00 до 21:00",
+      href: `tel:${contactData.phone}`,
+    });
+    
+    items.push({
+      icon: Mail,
+      title: "Email",
+      content: contactData.email,
+      subtext: "Ответим в течение часа",
+      href: `mailto:${contactData.email}`,
+    });
+    
+    items.push({
+      icon: Clock,
+      title: "Режим работы",
+      content: contactData.workingHours,
+      subtext: WORKING_HOURS.note,
+    });
+    
+    return items;
+  }, [contactData]);
+
+  // Генерируем URL для Яндекс.Карты на основе координат
+  const mapIframeSrc = useMemo(() => {
+    const lat = contactData.lat;
+    const lon = contactData.lon;
+    return `https://yandex.ru/map-widget/v1/?ll=${lon}%2C${lat}&z=16&pt=${lon}%2C${lat}%2Cpm2rdm`;
+  }, [contactData.lat, contactData.lon]);
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -241,7 +311,7 @@ const ContactsPage = () => {
             {/* Messengers */}
             <div className="grid gap-4 md:grid-cols-2 mt-8 max-w-2xl mx-auto">
               <motion.a
-                href={getWhatsAppLink()}
+                href={`https://wa.me/${contactData.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
@@ -256,7 +326,7 @@ const ContactsPage = () => {
                 </div>
               </motion.a>
               <motion.a
-                href={CONTACT.social.telegram}
+                href={contactData.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
@@ -286,7 +356,7 @@ const ContactsPage = () => {
               >
                 <Card className="overflow-hidden h-full min-h-[400px]">
                   <iframe
-                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A0a8f9c8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f8f&amp;source=constructor&amp;ll=49.122141%2C55.796127&amp;z=16&amp;pt=49.122141%2C55.796127%2Cpm2rdm"
+                    src={mapIframeSrc}
                     width="100%"
                     height="100%"
                     frameBorder="0"
