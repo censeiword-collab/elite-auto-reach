@@ -28,7 +28,9 @@ import AdminMenu from "./pages/admin/AdminMenu";
 import AdminLeads from "./pages/admin/AdminLeads";
 import AdminCases from "./pages/admin/AdminCases";
 import AdminCalculator from "./pages/admin/AdminCalculator";
+import AdminSettings from "./pages/admin/AdminSettings";
 import QAPage from "./pages/QAPage";
+import ServicesPage from "./pages/ServicesPage";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +61,7 @@ const App = () => (
               <Route path="/snyatie-plenki-kazan" element={<ServicePage />} />
               
               {/* Additional Pages */}
+              <Route path="/services" element={<ServicesPage />} />
               <Route path="/price" element={<PricePage />} />
               <Route path="/calculator" element={<CalculatorPage />} />
               <Route path="/cases" element={<CasesPage />} />
@@ -85,6 +88,7 @@ const App = () => (
               <Route path="/admin/leads" element={<AdminLeads />} />
               <Route path="/admin/cases" element={<AdminCases />} />
               <Route path="/admin/calculator" element={<AdminCalculator />} />
+              <Route path="/admin/settings" element={<AdminSettings />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

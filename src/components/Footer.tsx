@@ -1,24 +1,8 @@
 import { Phone, Mail, MapPin, Clock, Sun, MessageCircle, Send } from "lucide-react";
-import { CONTACT, WORKING_HOURS, getPhoneLink, getWhatsAppLink, getMapLink } from "@/lib/constants";
+import { CONTACT, WORKING_HOURS, getPhoneLink, getWhatsAppLink, getMapLink, NAVIGATION, POSITIONING } from "@/lib/constants";
 
-const services = [
-  { href: "/okleyka-avto-poliuretanovoy-plenkoy-kazan", label: "Защита кузова PPF" },
-  { href: "/aktivnyy-vyhlop-kazan", label: "Активный выхлоп" },
-  { href: "/shumoizolyaciya-avto-kazan", label: "Шумоизоляция" },
-  { href: "/udalenie-vmyatin-bez-pokraski-kazan", label: "Удаление вмятин PDR" },
-  { href: "/ustanovka-signalizacii-pandora-kazan", label: "Сигнализации Pandora" },
-  { href: "/tonirovka-avto-kazan", label: "Тонировка" },
-  { href: "/okleyka-vinilom-kazan", label: "Оклейка винилом" },
-];
-
-const pages = [
-  { href: "/price", label: "Услуги и цены" },
-  { href: "/cases", label: "Примеры работ" },
-  { href: "/faq", label: "Вопросы и ответы" },
-  { href: "/blog", label: "Блог" },
-  { href: "/about", label: "О компании" },
-  { href: "/contacts", label: "Контакты" },
-];
+const services = NAVIGATION.footer.services;
+const pages = NAVIGATION.footer.pages;
 
 const socials = [
   { icon: "VK", href: CONTACT.social.vk, label: "ВКонтакте" },
@@ -51,8 +35,7 @@ const Footer = () => {
               </div>
             </a>
             <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
-              Премиальный автосервис в Казани для автомобилей бизнес- и премиум-класса. 
-              Защита, тюнинг, комфорт.
+              {POSITIONING.full}. Защита, оклейка, тюнинг.
             </p>
             
             {/* Contact Info */}
@@ -168,9 +151,9 @@ const Footer = () => {
               href={getWhatsAppLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 rounded-xl bg-green-500/10 border border-green-500/20 hover:bg-green-500/15 transition-colors mb-3 group"
+              className="flex items-center gap-3 p-4 rounded-xl bg-accent/50 border border-accent hover:bg-accent transition-colors mb-3 group"
             >
-              <MessageCircle className="w-5 h-5 text-green-500" />
+              <MessageCircle className="w-5 h-5 text-primary" />
               <div>
                 <p className="text-sm font-semibold text-foreground">WhatsApp</p>
                 <p className="text-xs text-muted-foreground">Напишите нам</p>
@@ -181,9 +164,9 @@ const Footer = () => {
               href="https://t.me/sunmaxkzn"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/15 transition-colors group"
+              className="flex items-center gap-3 p-4 rounded-xl bg-accent/50 border border-accent hover:bg-accent transition-colors group"
             >
-              <Send className="w-5 h-5 text-blue-500" />
+              <Send className="w-5 h-5 text-primary" />
               <div>
                 <p className="text-sm font-semibold text-foreground">Telegram</p>
                 <p className="text-xs text-muted-foreground">@sunmaxkzn</p>
@@ -205,7 +188,7 @@ const Footer = () => {
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>© {currentYear}</span>
             <span className="font-semibold text-foreground">SUNMAXKZN</span>
-            <span>— Премиальный автосервис в Казани</span>
+            <span>— {POSITIONING.tagline}</span>
           </div>
           <div className="flex gap-6">
             <a href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">

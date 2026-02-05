@@ -14,6 +14,7 @@ import {
   Navigation,
   ChevronRight,
   Calculator,
+  Cog,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -37,6 +38,12 @@ interface AdminLayoutProps {
 }
 
 const menuItems = [
+  {
+    group: "Настройки",
+    items: [
+      { title: "Глобальные настройки", url: "/admin/settings", icon: Cog },
+    ],
+  },
   {
     group: "Контент",
     items: [
@@ -109,9 +116,9 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           <SidebarHeader className="border-b p-4">
             <Link to="/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">P</span>
+                <span className="text-primary-foreground font-bold text-sm">S</span>
               </div>
-              <span className="font-semibold text-lg">PMGDETAILING</span>
+              <span className="font-semibold text-lg">SUNMAXKZN</span>
             </Link>
           </SidebarHeader>
 

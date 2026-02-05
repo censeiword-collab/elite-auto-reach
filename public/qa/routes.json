@@ -1,8 +1,15 @@
 [
   {
     "url": "/",
-    "title": "SUNMAXKZN — Премиальный детейлинг и тюнинг в Казани",
-    "h1": "Премиальный детейлинг автомобилей в Казани",
+    "title": "SUNMAXKZN — Студия детейлинга, оклейки и тюнинга в Казани",
+    "h1": "SUNMAXKZN — Детейлинг, оклейка и тюнинг в Казани",
+    "type": "static",
+    "requiresAuth": false
+  },
+  {
+    "url": "/services",
+    "title": "SUNMAXKZN — Все услуги детейлинга и тюнинга в Казани",
+    "h1": "Все услуги SUNMAXKZN",
     "type": "static",
     "requiresAuth": false
   },
@@ -113,14 +120,14 @@
   },
   {
     "url": "/antihrom-kazan",
-    "title": "Антихром в Казани | SUNMAXKZN",
+    "title": "SUNMAXKZN — Антихром в Казани | Оклейка хрома в чёрный",
     "h1": "Антихром — оклейка хрома в чёрный в Казани",
     "type": "dynamic",
     "requiresAuth": false
   },
   {
     "url": "/okleyka-salona-kazan",
-    "title": "Оклейка салона в Казани | SUNMAXKZN",
+    "title": "SUNMAXKZN — Оклейка салона в Казани | Защита интерьера",
     "h1": "Оклейка салона автомобиля в Казани",
     "type": "dynamic",
     "requiresAuth": false
@@ -134,7 +141,7 @@
   },
   {
     "url": "/snyatie-plenki-kazan",
-    "title": "Снятие плёнки в Казани | SUNMAXKZN",
+    "title": "SUNMAXKZN — Снятие плёнки в Казани | Демонтаж PPF и винила",
     "h1": "Снятие защитной плёнки с авто в Казани",
     "type": "dynamic",
     "requiresAuth": false

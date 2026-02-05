@@ -6,9 +6,11 @@ import CasesSection from "@/components/home/CasesSection";
 import ReviewsSection from "@/components/home/ReviewsSection";
 import CTASection from "@/components/home/CTASection";
 import SEOTextSection from "@/components/home/SEOTextSection";
+import WhyUsSection from "@/components/home/WhyUsSection";
+import HowWeWorkSection from "@/components/home/HowWeWorkSection";
 import SEOHead from "@/components/SEOHead";
 import SchemaOrg, { sunmaxBusinessData } from "@/components/seo/SchemaOrg";
-import { WARRANTY, TIMING } from "@/lib/constants";
+import { WARRANTY, TIMING, POSITIONING } from "@/lib/constants";
 
 const homeFAQ = [
   {
@@ -33,7 +35,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="SUNMAXKZN — Премиальная автостудия детейлинга и тюнинга в Казани"
+        title={`SUNMAXKZN — ${POSITIONING.tagline.charAt(0).toUpperCase() + POSITIONING.tagline.slice(1)}`}
         description={`Профессиональный детейлинг и тюнинг автомобилей премиум-класса в Казани. Оклейка PPF, активный выхлоп, шумоизоляция, PDR, сигнализации Pandora. Гарантия ${WARRANTY.max.display}.`}
         keywords={[
           "детейлинг казань",
@@ -54,6 +56,8 @@ const Index = () => {
         <HeroSection />
         <ServicesSection />
         <CasesSection />
+        <WhyUsSection />
+        <HowWeWorkSection />
         <ReviewsSection />
         <CTASection />
         <SEOTextSection />
