@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { QAProvider } from "@/contexts/QAContext";
+ import AIChatWidget from "@/components/ai/AIChatWidget";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ServicePage from "./pages/ServicePage";
@@ -41,6 +42,7 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
+             <AIChatWidget />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
