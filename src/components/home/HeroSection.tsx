@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Shield, Award, Clock, ChevronRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { WARRANTY, MARKETING, POSITIONING, BRAND } from "@/lib/constants";
+import { WARRANTY, MARKETING, BRAND } from "@/lib/constants";
+import { UNIFIED_POSITIONING } from "@/lib/seo-config";
 
 const stats = [
   { value: "8+", label: "лет опыта" },
@@ -62,12 +63,9 @@ const HeroSection = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold leading-[1.1] mb-6"
             >
-              <span className="text-gradient">{BRAND.name}</span>
-              <span className="text-foreground"> — </span>
-              <br />
-              <span className="text-foreground">Детейлинг, оклейка и тюнинг</span>
-              <br />
-              <span className="text-foreground">в Казани</span>
+              <span className="text-gradient">{BRAND.name}</span>{" "}
+              <span className="text-foreground">—</span>{" "}
+              <span className="text-foreground">{UNIFIED_POSITIONING.short}</span>
             </motion.h1>
 
             {/* Subtitle */}

@@ -3,7 +3,7 @@
  // Используется для страниц сайта, QA-экспортов и sitemap
  // =============================================================
  
- import { SERVICES_SEO_CONFIG, POSITIONING } from "./constants";
+import { SERVICES_SEO_CONFIG } from "./constants";
  
  // ========================
  // ТИПЫ
@@ -36,14 +36,23 @@
    keyFacts: Record<string, string>;
  }
  
+// ========================
+// ЕДИНАЯ СТРОКА ПОЗИЦИОНИРОВАНИЯ
+// ========================
+export const UNIFIED_POSITIONING = {
+  title: "SUNMAXKZN — студия детейлинга, оклейки и тюнинга в Казани",
+  h1: "SUNMAXKZN — Детейлинг, оклейка и тюнинг в Казани",
+  short: "Детейлинг, оклейка и тюнинг в Казани",
+} as const;
+
  // ========================
  // ГЛОБАЛЬНЫЕ SEO-КОНФИГИ СТРАНИЦ
  // ========================
  export const GLOBAL_SEO_CONFIG: PageSEOConfig[] = [
    {
      path: "/",
-     title: `SUNMAXKZN — ${POSITIONING.tagline.charAt(0).toUpperCase() + POSITIONING.tagline.slice(1)}`,
-     h1: "SUNMAXKZN — Детейлинг, оклейка и тюнинг в Казани",
+    title: UNIFIED_POSITIONING.title,
+    h1: UNIFIED_POSITIONING.h1,
      metaDescription: "Профессиональный детейлинг и тюнинг автомобилей премиум-класса в Казани. Оклейка PPF, активный выхлоп, шумоизоляция, PDR, сигнализации Pandora. Гарантия до 10 лет.",
      type: "static",
      category: "main",

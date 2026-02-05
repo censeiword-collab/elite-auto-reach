@@ -10,7 +10,8 @@ import WhyUsSection from "@/components/home/WhyUsSection";
 import HowWeWorkSection from "@/components/home/HowWeWorkSection";
 import SEOHead from "@/components/SEOHead";
 import SchemaOrg, { sunmaxBusinessData } from "@/components/seo/SchemaOrg";
-import { WARRANTY, TIMING, POSITIONING } from "@/lib/constants";
+import { WARRANTY, TIMING } from "@/lib/constants";
+import { UNIFIED_POSITIONING, getPageSEO } from "@/lib/seo-config";
 
 const homeFAQ = [
   {
@@ -32,10 +33,12 @@ const homeFAQ = [
 ];
 
 const Index = () => {
+  const seoConfig = getPageSEO("/");
+  
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`SUNMAXKZN — ${POSITIONING.tagline.charAt(0).toUpperCase() + POSITIONING.tagline.slice(1)}`}
+        title={seoConfig?.title || UNIFIED_POSITIONING.title}
         description={`Профессиональный детейлинг и тюнинг автомобилей премиум-класса в Казани. Оклейка PPF, активный выхлоп, шумоизоляция, PDR, сигнализации Pandora. Гарантия ${WARRANTY.max.display}.`}
         keywords={[
           "детейлинг казань",
