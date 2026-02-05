@@ -25,7 +25,10 @@ import {
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Имя должно быть минимум 2 символа").max(100, "Имя слишком длинное"),
   phone: z.string().trim().min(10, "Введите корректный номер телефона").max(20, "Номер слишком длинный"),
-  email: z.string().trim().email("Введите корректный email").max(255, "Email слишком длинный").optional().or(z.literal("")),
+  email: z.string().trim().max(255, "Email слишком длинный").optional().refine(
+    (val) => !val || val === "" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
+    { message: "Введите корректный email" }
+  ),
   message: z.string().trim().max(1000, "Сообщение слишком длинное").optional(),
   service: z.string().optional(),
 });
@@ -377,7 +380,7 @@ const ContactsPage = () => {
                           </div>
 
                           <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email">Email (необязательно)</Label>
                             <Input
                               id="email"
                               type="email"

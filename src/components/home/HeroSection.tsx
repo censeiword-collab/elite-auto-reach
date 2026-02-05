@@ -63,8 +63,8 @@ const HeroSection = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold leading-[1.1] mb-6"
             >
-              <span className="text-gradient">{BRAND.name}</span>{" "}
-              <span className="text-foreground">—</span>{" "}
+              <span className="text-gradient">{BRAND.name}</span>
+              <span className="text-foreground"> — </span>
               <span className="text-foreground">{UNIFIED_POSITIONING.short}</span>
             </motion.h1>
 

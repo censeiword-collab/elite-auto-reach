@@ -59,8 +59,8 @@ export interface QAContentExport {
 // ========================
 export const UNIFIED_POSITIONING = {
   title: "SUNMAXKZN — студия детейлинга, оклейки и тюнинга в Казани",
-  h1: "SUNMAXKZN — Детейлинг, оклейка и тюнинг в Казани",
-  short: "Детейлинг, оклейка и тюнинг в Казани",
+  h1: "SUNMAXKZN — студия детейлинга, оклейки и тюнинга в Казани",
+  short: "студия детейлинга, оклейки и тюнинга в Казани",
 } as const;
 
 // ========================
@@ -77,23 +77,23 @@ export const GLOBAL_SEO_CONFIG: PageSEOConfig[] = [
   },
   {
     path: "/services",
-    title: "SUNMAXKZN — Все услуги детейлинга и тюнинга в Казани",
+    title: "SUNMAXKZN — Все услуги детейлинга, оклейки и тюнинга в Казани",
     h1: "Все услуги SUNMAXKZN",
-    metaDescription: "Каталог услуг SUNMAXKZN: оклейка PPF, винил, антихром, тонировка, детейлинг, шумоизоляция, активный выхлоп, PDR, сигнализации Pandora. Записаться онлайн.",
+    metaDescription: "Каталог услуг SUNMAXKZN: оклейка PPF, винил, антихром, тонировка, детейлинг, шумоизоляция, активный выхлоп, PDR, Pandora. Запись онлайн в Казани.",
     type: "static",
     category: "main",
   },
   {
     path: "/price",
-    title: "Цены на услуги | SUNMAXKZN Казань",
+    title: "SUNMAXKZN — Цены на детейлинг, оклейку и тюнинг в Казани",
     h1: "Прайс-лист на услуги",
-    metaDescription: "Цены на детейлинг, оклейку, тюнинг и установку оборудования в Казани. Прозрачное ценообразование. Гарантия на все работы.",
+    metaDescription: "Цены на детейлинг, оклейку, тюнинг и установку оборудования в Казани. Прозрачное ценообразование. Гарантия до 10 лет — зависит от услуги.",
     type: "static",
     category: "main",
   },
   {
     path: "/cases",
-    title: "Наши работы | SUNMAXKZN Казань",
+    title: "SUNMAXKZN — Портфолио работ по детейлингу и оклейке в Казани",
     h1: "Портфолио работ",
     metaDescription: "Примеры работ SUNMAXKZN: оклейка PPF, винил, детейлинг, шумоизоляция. Фото до и после. Реальные проекты в Казани.",
     type: "static",
@@ -101,7 +101,7 @@ export const GLOBAL_SEO_CONFIG: PageSEOConfig[] = [
   },
   {
     path: "/calculator",
-    title: "Калькулятор стоимости | SUNMAXKZN Казань",
+    title: "SUNMAXKZN — Калькулятор стоимости услуг в Казани",
     h1: "Рассчитайте стоимость услуг",
     metaDescription: "Онлайн-калькулятор стоимости оклейки, детейлинга и тюнинга в Казани. Получите точный расчёт за 1 минуту.",
     type: "static",
@@ -109,7 +109,7 @@ export const GLOBAL_SEO_CONFIG: PageSEOConfig[] = [
   },
   {
     path: "/about",
-    title: "О нас | SUNMAXKZN Казань",
+    title: "SUNMAXKZN — О студии детейлинга и оклейки в Казани",
     h1: "О студии SUNMAXKZN",
     metaDescription: "SUNMAXKZN — студия детейлинга, оклейки и тюнинга в Казани. 8+ лет опыта, 2500+ автомобилей, гарантия до 10 лет.",
     type: "static",
@@ -117,7 +117,7 @@ export const GLOBAL_SEO_CONFIG: PageSEOConfig[] = [
   },
   {
     path: "/contacts",
-    title: "Контакты | SUNMAXKZN Казань",
+    title: "SUNMAXKZN — Контакты студии детейлинга в Казани",
     h1: "Свяжитесь с нами",
     metaDescription: "Контакты студии SUNMAXKZN в Казани. Телефон +7 (903) 868-78-61. Запись на оклейку, детейлинг, шумоизоляцию.",
     type: "static",
@@ -125,7 +125,7 @@ export const GLOBAL_SEO_CONFIG: PageSEOConfig[] = [
   },
   {
     path: "/faq",
-    title: "Частые вопросы | SUNMAXKZN Казань",
+    title: "SUNMAXKZN — Частые вопросы о детейлинге и оклейке в Казани",
     h1: "Ответы на частые вопросы",
     metaDescription: "Ответы на вопросы об оклейке PPF, тонировке, шумоизоляции, гарантии и ценах. FAQ студии SUNMAXKZN в Казани.",
     type: "static",
@@ -133,7 +133,7 @@ export const GLOBAL_SEO_CONFIG: PageSEOConfig[] = [
   },
   {
     path: "/blog",
-    title: "Блог | SUNMAXKZN Казань",
+    title: "SUNMAXKZN — Блог о детейлинге и уходе за авто в Казани",
     h1: "Полезные статьи",
     metaDescription: "Статьи о детейлинге, оклейке и тюнинге автомобилей. Советы по уходу за авто от экспертов SUNMAXKZN.",
     type: "static",
@@ -141,7 +141,7 @@ export const GLOBAL_SEO_CONFIG: PageSEOConfig[] = [
   },
   {
     path: "/privacy",
-    title: "Политика конфиденциальности | SUNMAXKZN",
+    title: "SUNMAXKZN — Политика конфиденциальности",
     h1: "Политика конфиденциальности",
     metaDescription: "Политика обработки персональных данных SUNMAXKZN. Защита информации клиентов.",
     type: "static",

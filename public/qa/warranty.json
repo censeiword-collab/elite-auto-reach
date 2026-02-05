@@ -1,0 +1,88 @@
+ {
+   "_comment": "Гарантийные значения после нормализации. Стандарт: 'до X лет' для years, 'пожизненная' для lifetime, 'уточняется при записи' для unknown.",
+   "services": [
+     {
+       "slug": "okleyka-avto-poliuretanovoy-plenkoy-kazan",
+       "title": "Антигравийная защита PPF",
+       "warrantyType": "years",
+       "warrantyYears": 10,
+       "warrantyDisplay": "до 10 лет"
+     },
+     {
+       "slug": "tonirovka-avto-kazan",
+       "title": "Тонировка",
+       "warrantyType": "years",
+       "warrantyYears": 5,
+       "warrantyDisplay": "до 5 лет"
+     },
+     {
+       "slug": "okleyka-vinilom-kazan",
+       "title": "Оклейка винилом",
+       "warrantyType": "years",
+       "warrantyYears": 5,
+       "warrantyDisplay": "до 5 лет"
+     },
+     {
+       "slug": "antihrom-kazan",
+       "title": "Антихром",
+       "warrantyType": "years",
+       "warrantyYears": 5,
+       "warrantyDisplay": "до 5 лет"
+     },
+     {
+       "slug": "okleyka-salona-kazan",
+       "title": "Оклейка салона",
+       "warrantyType": "years",
+       "warrantyYears": 3,
+       "warrantyDisplay": "до 3 лет"
+     },
+     {
+       "slug": "snyatie-plenki-kazan",
+       "title": "Снятие плёнки",
+       "warrantyType": "unknown",
+       "warrantyYears": null,
+       "warrantyDisplay": "уточняется при записи"
+     },
+     {
+       "slug": "deteyling-kazan",
+       "title": "Детейлинг",
+       "warrantyType": "years",
+       "warrantyYears": 1,
+       "warrantyDisplay": "до 1 года"
+     },
+     {
+       "slug": "aktivnyy-vyhlop-kazan",
+       "title": "Активный выхлоп",
+       "warrantyType": "years",
+       "warrantyYears": 2,
+       "warrantyDisplay": "до 2 лет"
+     },
+     {
+       "slug": "shumoizolyaciya-avto-kazan",
+       "title": "Шумоизоляция",
+       "warrantyType": "years",
+       "warrantyYears": 3,
+       "warrantyDisplay": "до 3 лет"
+     },
+     {
+       "slug": "udalenie-vmyatin-bez-pokraski-kazan",
+       "title": "Удаление вмятин PDR",
+       "warrantyType": "lifetime",
+       "warrantyYears": null,
+       "warrantyDisplay": "пожизненная"
+     },
+     {
+       "slug": "ustanovka-signalizacii-pandora-kazan",
+       "title": "Сигнализации Pandora",
+       "warrantyType": "years",
+       "warrantyYears": 3,
+       "warrantyDisplay": "до 3 лет"
+     }
+   ],
+   "standard": {
+     "formatTemplate": "до X лет",
+     "lifetimeText": "пожизненная",
+     "unknownText": "уточняется при записи",
+     "maxWarranty": "до 10 лет"
+   }
+ }
