@@ -234,7 +234,7 @@ const PricePage = () => {
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <span>Возможна рассрочка без переплаты</span>
+                <span>Рассрочка (условия уточняются при записи)</span>
               </li>
             </ul>
           </div>
