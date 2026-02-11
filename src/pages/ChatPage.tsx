@@ -31,7 +31,6 @@ const ChatPage = () => {
   const { toast } = useToast();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Persist to localStorage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
   }, [messages]);
@@ -89,10 +88,10 @@ const ChatPage = () => {
     <>
       <SEOHead title="Chat — SUNMAXKZN" description="AI-чат с ассистентом SUNMAXKZN" />
       <Header />
-      <main className="min-h-screen bg-background pt-20 pb-10">
-        <div className="container max-w-3xl mx-auto px-4 flex flex-col" style={{ height: "calc(100vh - 160px)" }}>
+      <main className="bg-background">
+        <div className="container max-w-3xl mx-auto px-4 py-8">
           {/* Header bar */}
-          <div className="flex items-center justify-between py-4 border-b border-border">
+          <div className="flex items-center justify-between py-4 border-b border-border mb-4">
             <h1 className="text-xl font-bold text-foreground">Chat</h1>
             {messages.length > 0 && (
               <Button variant="ghost" size="sm" onClick={clearChat} className="text-muted-foreground hover:text-destructive">
@@ -102,13 +101,15 @@ const ChatPage = () => {
             )}
           </div>
 
-          {/* Messages */}
-          <ChatMessageList messages={messages} isLoading={isLoading} />
+          {/* Messages area */}
+          <div className="min-h-[400px] mb-6 p-4 bg-muted/20 rounded-lg border border-border overflow-y-auto max-h-[500px]">
+            <ChatMessageList messages={messages} isLoading={isLoading} />
+          </div>
 
           {/* Input area */}
-          <div className="border-t border-border pt-4 space-y-2">
+          <div className="space-y-3 border-t border-border pt-4">
             <div className="flex gap-2 items-end">
-              <div className="flex-1 relative">
+              <div className="flex-1">
                 <Textarea
                   ref={textareaRef}
                   value={input}
@@ -116,7 +117,7 @@ const ChatPage = () => {
                   onKeyDown={handleKeyDown}
                   placeholder="Напишите сообщение… (Enter — отправить, Shift+Enter — перенос)"
                   disabled={isLoading}
-                  className="min-h-[56px] max-h-[160px] resize-none pr-4"
+                  className="min-h-[56px] max-h-[160px] resize-none"
                   rows={2}
                 />
               </div>
