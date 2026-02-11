@@ -16,14 +16,14 @@ const ChatMessageList = ({ messages, isLoading }: Props) => {
 
   if (messages.length === 0 && !isLoading) {
     return (
-      <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm">
+      <div className="text-center text-muted-foreground text-sm py-8">
         Начните диалог — напишите сообщение ниже
       </div>
     );
   }
 
   return (
-    <div className="flex-1 overflow-y-auto py-4 space-y-4">
+    <>
       {messages.map((msg, idx) => (
         <div key={idx} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
           <div
@@ -47,7 +47,7 @@ const ChatMessageList = ({ messages, isLoading }: Props) => {
       )}
 
       <div ref={bottomRef} />
-    </div>
+    </>
   );
 };
 
