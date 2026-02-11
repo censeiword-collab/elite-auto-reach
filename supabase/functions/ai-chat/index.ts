@@ -1,9 +1,10 @@
- import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
- 
- const corsHeaders = {
-   "Access-Control-Allow-Origin": "*",
-   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
- };
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+};
  
  // ========================
  // KNOWLEDGE BASE (RAG context from site data)
@@ -14,7 +15,7 @@
    phone: "+7 (903) 868-78-61",
    whatsapp: "79038687861",
    telegram: "https://t.me/sunmaxkzn",
-   address: "г. Казань, ул. Техническая, 122",
+   address: "г. Казань, ул. Сибхата Хакима, 23/1",
    hours: "Ежедневно 9:00 — 21:00",
  };
  
@@ -125,7 +126,7 @@
    { q: "Сколько стоит оклейка?", a: "Стоимость зависит от услуги, марки автомобиля и объёма работ. Точную цену рассчитаем после уточнения деталей." },
    { q: "Какая гарантия?", a: "Гарантия от 1 до 10 лет в зависимости от услуги. PPF — до 10 лет, тонировка — 5 лет, шумоизоляция — 3 года." },
    { q: "Как записаться?", a: "Позвоните, напишите в WhatsApp или Telegram, либо оставьте заявку на сайте — мы перезвоним в течение 15 минут." },
-   { q: "Где вы находитесь?", a: "Казань, ул. Техническая, 122. Работаем ежедневно с 9:00 до 21:00." },
+   { q: "Где вы находитесь?", a: "Казань, ул. Сибхата Хакима, 23/1. Работаем ежедневно с 9:00 до 21:00." },
  ];
  
  // ========================
@@ -153,38 +154,39 @@
  // ========================
  // BUILD SYSTEM PROMPT
  // ========================
- function buildSystemPrompt(): string {
-   const servicesContext = SERVICES_DATA.map(
-     (s) =>
-       `- ${s.title}: ${s.description}. Цена от ${s.priceFrom?.toLocaleString("ru-RU")} ₽. Срок: ${s.timing}. Гарантия: ${s.warranty || "—"}.`
-   ).join("\n");
- 
-   const faqContext = FAQ_DATA.map((f) => `Q: ${f.q}\nA: ${f.a}`).join("\n\n");
- 
-   return `Ты — виртуальный консультант студии ${BRAND_INFO.positioning}.
- 
- СТРОГИЕ ПРАВИЛА:
- 1. Отвечай ТОЛЬКО на основе данных ниже. Если информации нет — скажи "Уточним при записи или по фото".
- 2. ЗАПРЕЩЕНО: выдумывать цены, бренды материалов, проценты эффекта, "рассрочка без переплаты", "авторизованный центр".
- 3. Если спрашивают про ремонт, ТО, диагностику — вежливо объясни: "Мы специализируемся на детейлинге, оклейке и тюнинге. Ремонт и ТО не выполняем."
- 4. Отвечай кратко, по делу, дружелюбно. Максимум 3-4 предложения.
- 5. В конце каждого ответа предлагай следующие шаги: записаться, рассчитать стоимость, написать в WhatsApp.
- 
- ДАННЫЕ СТУДИИ:
- Телефон: ${BRAND_INFO.phone}
- WhatsApp: wa.me/${BRAND_INFO.whatsapp}
- Telegram: ${BRAND_INFO.telegram}
- Адрес: ${BRAND_INFO.address}
- Часы работы: ${BRAND_INFO.hours}
- 
- УСЛУГИ:
- ${servicesContext}
- 
- ЧАСТЫЕ ВОПРОСЫ:
- ${faqContext}
- 
- Формат ответа: краткий текст + предложение записаться/рассчитать/написать.`;
- }
+function buildSystemPrompt(dynamicAddress?: string): string {
+  const address = dynamicAddress || BRAND_INFO.address;
+  const servicesContext = SERVICES_DATA.map(
+    (s) =>
+      `- ${s.title}: ${s.description}. Цена от ${s.priceFrom?.toLocaleString("ru-RU")} ₽. Срок: ${s.timing}. Гарантия: ${s.warranty || "—"}.`
+  ).join("\n");
+
+  const faqContext = FAQ_DATA.map((f) => `Q: ${f.q}\nA: ${f.a}`).join("\n\n");
+
+  return `Ты — виртуальный консультант студии ${BRAND_INFO.positioning}.
+
+СТРОГИЕ ПРАВИЛА:
+1. Отвечай ТОЛЬКО на основе данных ниже. Если информации нет — скажи "Уточним при записи или по фото".
+2. ЗАПРЕЩЕНО: выдумывать цены, бренды материалов, проценты эффекта, "рассрочка без переплаты", "авторизованный центр".
+3. Если спрашивают про ремонт, ТО, диагностику — вежливо объясни: "Мы специализируемся на детейлинге, оклейке и тюнинге. Ремонт и ТО не выполняем."
+4. Отвечай кратко, по делу, дружелюбно. Максимум 3-4 предложения.
+5. В конце каждого ответа предлагай следующие шаги: записаться, рассчитать стоимость, написать в WhatsApp.
+
+ДАННЫЕ СТУДИИ:
+Телефон: ${BRAND_INFO.phone}
+WhatsApp: wa.me/${BRAND_INFO.whatsapp}
+Telegram: ${BRAND_INFO.telegram}
+Адрес: ${address}
+Часы работы: ${BRAND_INFO.hours}
+
+УСЛУГИ:
+${servicesContext}
+
+ЧАСТЫЕ ВОПРОСЫ:
+${faqContext}
+
+Формат ответа: краткий текст + предложение записаться/рассчитать/написать.`;
+}
  
  serve(async (req) => {
    // Handle CORS preflight
@@ -217,16 +219,34 @@
        );
      }
  
-     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-     if (!LOVABLE_API_KEY) {
-       console.error("LOVABLE_API_KEY is not configured");
-       return new Response(
-         JSON.stringify({ error: "AI service not configured" }),
-         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-       );
-     }
- 
-     const systemPrompt = buildSystemPrompt();
+      const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+      if (!LOVABLE_API_KEY) {
+        console.error("LOVABLE_API_KEY is not configured");
+        return new Response(
+          JSON.stringify({ error: "AI service not configured" }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      // Fetch dynamic address from site_settings
+      let dynamicAddress: string | undefined;
+      try {
+        const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+        const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+        const sb = createClient(supabaseUrl, supabaseKey);
+        const { data: addrSetting } = await sb
+          .from("site_settings")
+          .select("value")
+          .eq("key", "fullAddress")
+          .maybeSingle();
+        if (addrSetting?.value) {
+          dynamicAddress = typeof addrSetting.value === "string" ? addrSetting.value : String(addrSetting.value);
+        }
+      } catch (e) {
+        console.warn("Failed to fetch address from DB, using default:", e);
+      }
+
+      const systemPrompt = buildSystemPrompt(dynamicAddress);
  
      const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
        method: "POST",
