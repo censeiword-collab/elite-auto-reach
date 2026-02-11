@@ -23,8 +23,8 @@ const Header = () => {
             </div>
             <div className="flex flex-col">
               <span className="font-heading text-xl font-extrabold tracking-tight">
-                <span className="text-blue-400">SUN</span>
-                <span className="text-red-400">MAX</span>
+                <span className="text-blue-500">SUN</span>
+                <span className="text-red-500">MAX</span>
                 <span className="text-foreground text-sm font-semibold opacity-70 ml-0.5">KZN</span>
               </span>
               <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium -mt-0.5">
