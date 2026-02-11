@@ -1,7 +1,10 @@
- project_id = "xqgnbdevkurlambdadvs"
- 
- [functions.ai-chat]
- verify_jwt = false
- 
- [functions.sync-car-brands]
- verify_jwt = true
+project_id = "xqgnbdevkurlambdadvs"
+
+[functions.ai-chat]
+verify_jwt = false
+
+[functions.openai-chat]
+verify_jwt = false
+
+[functions.sync-car-brands]
+verify_jwt = true
