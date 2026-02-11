@@ -32,6 +32,7 @@ import AdminCalculator from "./pages/admin/AdminCalculator";
 import AdminSettings from "./pages/admin/AdminSettings";
  import AdminCars from "./pages/admin/AdminCars";
 import QAPage from "./pages/QAPage";
+import ChatPage from "./pages/ChatPage";
 import ServicesPage from "./pages/ServicesPage";
 
 const queryClient = new QueryClient();
@@ -76,7 +77,9 @@ const App = () => (
               <Route path="/faq" element={<FAQPage />} />
               
               {/* QA Page */}
+              {/* QA & Chat Pages */}
               <Route path="/qa" element={<QAPage />} />
+              <Route path="/chat" element={<ChatPage />} />
               
               {/* Admin Routes */}
               <Route path="/admin/setup" element={<AdminSetup />} />
