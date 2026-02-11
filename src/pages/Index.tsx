@@ -10,7 +10,6 @@ import WhyUsSection from "@/components/home/WhyUsSection";
 import HowWeWorkSection from "@/components/home/HowWeWorkSection";
 import SEOHead from "@/components/SEOHead";
 import SchemaOrg, { sunmaxBusinessData } from "@/components/seo/SchemaOrg";
-
 import { WARRANTY, TIMING } from "@/lib/constants";
 import { UNIFIED_POSITIONING, getPageSEO } from "@/lib/seo-config";
 
@@ -57,7 +56,6 @@ const Index = () => {
       
       <Header />
       <main>
-        
         <HeroSection />
         <ServicesSection />
         <CasesSection />
