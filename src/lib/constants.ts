@@ -28,9 +28,9 @@ export const CONTACT = {
   },
   email: "info@sunmaxkzn.ru",
   address: {
-    street: "ул. Техническая, 122",
-    full: "г. Казань, ул. Техническая, 122",
-    landmark: "Рядом с ТЦ МЕГА",
+    street: "ул. Сибхата Хакима, 23/1",
+    full: "г. Казань, ул. Сибхата Хакима, 23/1",
+    landmark: "",
   },
   geo: {
     latitude: 55.796127,

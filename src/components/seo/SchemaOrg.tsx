@@ -207,7 +207,7 @@ export const sunmaxBusinessData: LocalBusinessSchema = {
   url: "https://sunmaxkzn.ru",
   telephone: "+7 (903) 868-78-61",
   address: {
-    streetAddress: "ул. Техническая, 122",
+    streetAddress: "ул. Сибхата Хакима, 23/1",
     addressLocality: "Казань",
     addressRegion: "Республика Татарстан",
     postalCode: "420000",
