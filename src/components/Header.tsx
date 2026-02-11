@@ -17,14 +17,14 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3 group">
-            <div className="relative w-11 h-11 rounded-lg bg-gradient-to-br from-gold-light to-gold-dark flex items-center justify-center shadow-lg group-hover:shadow-gold transition-shadow duration-300">
-              <Sun className="w-6 h-6 text-background" strokeWidth={2.5} />
+            <div className="relative w-11 h-11 rounded-lg bg-gradient-to-br from-blue-500 to-red-500 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_20px_hsl(220_90%_50%/0.4)] transition-shadow duration-300">
+              <Sun className="w-6 h-6 text-white" strokeWidth={2.5} />
               <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/20 to-transparent" />
             </div>
             <div className="flex flex-col">
               <span className="font-heading text-xl font-extrabold tracking-tight">
-                <span className="text-foreground">SUN</span>
-                <span className="text-gradient">MAX</span>
+                <span className="text-blue-500">SUN</span>
+                <span className="text-red-500">MAX</span>
                 <span className="text-foreground text-sm font-semibold opacity-70 ml-0.5">KZN</span>
               </span>
               <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium -mt-0.5">
