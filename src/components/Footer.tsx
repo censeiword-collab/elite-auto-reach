@@ -1,17 +1,19 @@
 import { Phone, Mail, MapPin, Clock, Sun, MessageCircle, Send } from "lucide-react";
-import { CONTACT, WORKING_HOURS, getPhoneLink, getWhatsAppLink, getMapLink, NAVIGATION, POSITIONING } from "@/lib/constants";
+import { NAVIGATION, POSITIONING } from "@/lib/constants";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const services = NAVIGATION.footer.services;
 const pages = NAVIGATION.footer.pages;
 
-const socials = [
-  { icon: "VK", href: CONTACT.social.vk, label: "ВКонтакте" },
-  { icon: "TG", href: CONTACT.social.telegram, label: "Telegram" },
-  { icon: "WA", href: getWhatsAppLink(), label: "WhatsApp" },
-];
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { settings } = useSiteSettings();
+
+  const socials = [
+    { icon: "VK", href: settings.vk, label: "ВКонтакте" },
+    { icon: "TG", href: settings.telegram, label: "Telegram" },
+    { icon: "WA", href: `https://wa.me/${settings.whatsapp}`, label: "WhatsApp" },
+  ];
 
   return (
     <footer className="bg-card border-t border-border/50">
@@ -35,45 +37,47 @@ const Footer = () => {
               </div>
             </a>
             <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
-              {POSITIONING.full}. Защита, оклейка, тюнинг.
+              {settings.positioning}. Защита, оклейка, тюнинг.
             </p>
             
             {/* Contact Info */}
             <div className="space-y-3">
               <a
-                href={getPhoneLink()}
+                href={`tel:${settings.phone}`}
                 className="flex items-center gap-3 text-sm text-foreground font-medium hover:text-primary transition-colors"
               >
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <Phone className="w-4 h-4 text-primary" />
                 </div>
-                {CONTACT.phone.display}
+                {settings.phoneDisplay}
               </a>
               <a
-                href={`mailto:${CONTACT.email}`}
+                href={`mailto:${settings.email}`}
                 className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <Mail className="w-4 h-4 text-primary" />
                 </div>
-                info@sunmaxkzn.ru
+                {settings.email}
               </a>
-              <a
-                href="https://yandex.ru/maps/?text=Казань,+ул.+Техническая,+122"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <MapPin className="w-4 h-4 text-primary" />
-                </div>
-                <span className="pt-1.5">г. Казань, ул. Техническая, 122</span>
-              </a>
+              {settings.address && (
+                <a
+                  href={`https://yandex.ru/maps/?pt=${settings.lon},${settings.lat}&z=16&l=map`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4 text-primary" />
+                  </div>
+                  <span className="pt-1.5">{settings.address}</span>
+                </a>
+              )}
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <Clock className="w-4 h-4 text-primary" />
                 </div>
-                Ежедневно 9:00 — 21:00
+                {settings.workingHours}
               </div>
             </div>
           </div>
@@ -148,7 +152,7 @@ const Footer = () => {
             </h4>
             
             <a
-              href={getWhatsAppLink()}
+              href={`https://wa.me/${settings.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 rounded-xl bg-accent/50 border border-accent hover:bg-accent transition-colors mb-3 group"
@@ -161,7 +165,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://t.me/sunmaxkzn"
+              href={settings.telegram}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 rounded-xl bg-accent/50 border border-accent hover:bg-accent transition-colors group"
@@ -187,8 +191,8 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>© {currentYear}</span>
-            <span className="font-semibold text-foreground">SUNMAXKZN</span>
-            <span>— {POSITIONING.tagline}</span>
+            <span className="font-semibold text-foreground">{settings.brandName}</span>
+            <span>— {settings.tagline}</span>
           </div>
           <div className="flex gap-6">
             <a href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">

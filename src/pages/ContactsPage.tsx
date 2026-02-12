@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle, MessageCircle, Car } from "lucide-react";
 import Header from "@/components/Header";
@@ -14,7 +13,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useQAOptional } from "@/contexts/QAContext";
-import { CONTACT, WORKING_HOURS } from "@/lib/constants";
+import { WORKING_HOURS } from "@/lib/constants";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { z } from "zod";
 import {
   Select,
@@ -47,19 +47,6 @@ const serviceOptions = [
   { value: "other", label: "Другое" },
 ];
 
-interface SiteSettings {
-  address?: string;
-  landmark?: string;
-  phone?: string;
-  phoneDisplay?: string;
-  email?: string;
-  workingHours?: string;
-  whatsapp?: string;
-  telegram?: string;
-  mapLatitude?: number;
-  mapLongitude?: number;
-}
-
 const ContactsPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -73,36 +60,7 @@ const ContactsPage = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
   const qaContext = useQAOptional();
-
-  // Загружаем настройки из базы для синхронизации с админкой
-  const { data: siteSettings } = useQuery({
-    queryKey: ["site-settings-global"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("site_settings")
-        .select("*")
-        .eq("key", "global")
-        .single();
-      if (error && error.code !== "PGRST116") return null;
-      return data?.value as unknown as SiteSettings | null;
-    },
-  });
-
-  // Формируем контактные данные с учётом админ-настроек
-  const contactData = useMemo(() => {
-    const address = siteSettings?.address || CONTACT.address.full;
-    const landmark = siteSettings?.landmark || CONTACT.address.landmark;
-    const phoneDisplay = siteSettings?.phoneDisplay || CONTACT.phone.display;
-    const phone = siteSettings?.phone || CONTACT.phone.raw;
-    const email = siteSettings?.email || CONTACT.email;
-    const workingHours = siteSettings?.workingHours || WORKING_HOURS.detailed;
-    const lat = siteSettings?.mapLatitude || CONTACT.geo.latitude;
-    const lon = siteSettings?.mapLongitude || CONTACT.geo.longitude;
-    const telegram = siteSettings?.telegram || CONTACT.social.telegram;
-    const whatsapp = siteSettings?.whatsapp || CONTACT.phone.whatsapp;
-
-    return { address, landmark, phoneDisplay, phone, email, workingHours, lat, lon, telegram, whatsapp };
-  }, [siteSettings]);
+  const { settings: contactData } = useSiteSettings();
 
   // Динамические контактные карточки
   const contactInfo = useMemo(() => {
