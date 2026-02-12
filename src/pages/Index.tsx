@@ -9,9 +9,10 @@ import SEOTextSection from "@/components/home/SEOTextSection";
 import WhyUsSection from "@/components/home/WhyUsSection";
 import HowWeWorkSection from "@/components/home/HowWeWorkSection";
 import SEOHead from "@/components/SEOHead";
-import SchemaOrg, { sunmaxBusinessData } from "@/components/seo/SchemaOrg";
+import SchemaOrg, { buildBusinessData } from "@/components/seo/SchemaOrg";
 import { WARRANTY, TIMING } from "@/lib/constants";
 import { UNIFIED_POSITIONING, getPageSEO } from "@/lib/seo-config";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const homeFAQ = [
   {
@@ -34,6 +35,8 @@ const homeFAQ = [
 
 const Index = () => {
   const seoConfig = getPageSEO("/");
+  const { settings } = useSiteSettings();
+  const businessData = buildBusinessData(settings);
   
   return (
     <div className="min-h-screen bg-background">
@@ -51,7 +54,7 @@ const Index = () => {
         ]}
         canonicalUrl="https://sunmaxkzn.ru"
       />
-      <SchemaOrg type="LocalBusiness" data={sunmaxBusinessData} />
+      <SchemaOrg type="LocalBusiness" data={businessData} />
       <SchemaOrg type="FAQ" data={homeFAQ} />
       
       <Header />

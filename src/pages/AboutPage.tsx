@@ -3,8 +3,9 @@ import { Shield, Award, Users, Clock, MapPin, Phone, Mail, Target, Wrench, Star,
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import SchemaOrg, { sunmaxBusinessData } from "@/components/seo/SchemaOrg";
+import SchemaOrg, { buildBusinessData } from "@/components/seo/SchemaOrg";
 import { Button } from "@/components/ui/button";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const achievements = [
   { value: "8+", label: "лет опыта", icon: Clock },
@@ -44,6 +45,9 @@ const certifications = [
 ];
 
 const AboutPage = () => {
+  const { settings } = useSiteSettings();
+  const businessData = buildBusinessData(settings);
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -51,7 +55,7 @@ const AboutPage = () => {
         description="SUNMAXKZN — ведущая автостудия детейлинга и тюнинга в Казани. 8+ лет опыта, 2500+ обслуженных автомобилей, гарантия до 10 лет. Работаем с Porsche, BMW, Mercedes, Audi."
         keywords={["автостудия казань", "детейлинг центр", "тюнинг ателье", "sunmaxkzn"]}
       />
-      <SchemaOrg type="Organization" data={sunmaxBusinessData} />
+      <SchemaOrg type="Organization" data={businessData} />
       <SchemaOrg
         type="Breadcrumb"
         data={[
