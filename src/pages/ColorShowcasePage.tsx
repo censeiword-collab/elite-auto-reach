@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { filmColors } from "@/lib/filmColors";
-import { garageCars } from "@/lib/garageCars";
+import { filmColors } from "@/data/filmColors";
+import { garageCars } from "@/data/garageCars";
 
 const ColorShowcasePage = () => {
   const { colorId } = useParams<{ colorId: string }>();
