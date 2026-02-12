@@ -2,7 +2,7 @@ name: Deploy SUNMAX site
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch: {}
 
 jobs:
@@ -20,22 +20,22 @@ jobs:
           cache: "npm"
 
       - name: Install deps
-        run: npm install
+        run: npm install --no-audit --no-fund
 
       - name: Build
         run: npm run build
 
-      - name: Deploy to server (rsync over ssh)
+      - name: Upload dist to server (rsync over ssh)
         uses: burnett01/rsync-deployments@7.0.1
         with:
           switches: -avzr --delete
           path: dist/
-          remote_path: ${{ secrets.SUNMAX_PATH }}/
+          remote_path: /var/www/sunmax/
           remote_host: ${{ secrets.SUNMAX_HOST }}
           remote_user: ${{ secrets.SUNMAX_USER }}
           remote_key: ${{ secrets.SUNMAX_SSH_KEY }}
 
-      - name: Fix perms and reload nginx
+      - name: Fix permissions and reload nginx
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SUNMAX_HOST }}
