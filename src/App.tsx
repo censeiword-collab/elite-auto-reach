@@ -34,6 +34,7 @@ import AdminSettings from "./pages/admin/AdminSettings";
 import QAPage from "./pages/QAPage";
 import ChatPage from "./pages/ChatPage";
 import ServicesPage from "./pages/ServicesPage";
+import ColorShowcasePage from "./pages/ColorShowcasePage";
 
 const queryClient = new QueryClient();
 
@@ -80,6 +81,7 @@ const App = () => (
               {/* QA & Chat Pages */}
               <Route path="/qa" element={<QAPage />} />
               <Route path="/chat" element={<ChatPage />} />
+              <Route path="/colors/:colorId" element={<ColorShowcasePage />} />
               
               {/* Admin Routes */}
               <Route path="/admin/setup" element={<AdminSetup />} />

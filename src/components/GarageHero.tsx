@@ -1,14 +1,18 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, ChevronDown, Sun } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { garageCars, type GarageCar } from "@/lib/garageCars";
 import { filmColors, type FilmColor } from "@/lib/filmColors";
 
 const GarageHero = () => {
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [selectedCar, setSelectedCar] = useState<GarageCar>(garageCars[0]);
-  const [selectedColor, setSelectedColor] = useState<FilmColor>(filmColors[0]);
+
+  const initialCar = garageCars.find((c) => c.id === searchParams.get("carId")) || garageCars[0];
+  const initialColor = filmColors.find((c) => c.id === searchParams.get("colorId")) || filmColors[0];
+  const [selectedCar, setSelectedCar] = useState<GarageCar>(initialCar);
+  const [selectedColor, setSelectedColor] = useState<FilmColor>(initialColor);
   const [frameIndex, setFrameIndex] = useState(1);
   const [carDropdownOpen, setCarDropdownOpen] = useState(false);
   const [colorDropdownOpen, setColorDropdownOpen] = useState(false);
