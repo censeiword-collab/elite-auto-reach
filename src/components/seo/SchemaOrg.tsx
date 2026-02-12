@@ -199,7 +199,38 @@ const SchemaOrg = ({ type, data }: SchemaOrgProps) => {
 
 export default SchemaOrg;
 
-// Default business data for SUNMAXKZN
+// Build dynamic business data from site settings
+export function buildBusinessData(settings: {
+  brandName: string;
+  positioning: string;
+  address: string;
+  phone: string;
+  lat: number;
+  lon: number;
+  vk: string;
+  telegram: string;
+  instagram: string;
+}): LocalBusinessSchema {
+  return {
+    name: `${settings.brandName} — ${settings.positioning}`,
+    description: settings.positioning,
+    url: "https://sunmaxkzn.ru",
+    telephone: settings.phone,
+    address: {
+      streetAddress: settings.address,
+      addressLocality: "Казань",
+      addressRegion: "Республика Татарстан",
+      postalCode: "420000",
+      addressCountry: "RU",
+    },
+    geo: { latitude: settings.lat, longitude: settings.lon },
+    openingHours: ["Mo-Su 09:00-21:00"],
+    priceRange: "₽₽₽",
+    image: "https://sunmaxkzn.ru/og-image.jpg",
+  };
+}
+
+// Default business data for SUNMAXKZN (fallback)
 export const sunmaxBusinessData: LocalBusinessSchema = {
   name: "SUNMAXKZN — Премиальная автостудия детейлинга и тюнинга",
   description:

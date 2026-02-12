@@ -5,7 +5,8 @@ import { Camera, Clock, ChevronRight, Filter, X } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import SchemaOrg, { sunmaxBusinessData } from "@/components/seo/SchemaOrg";
+import SchemaOrg, { buildBusinessData } from "@/components/seo/SchemaOrg";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -25,6 +26,8 @@ const SERVICE_FILTERS = [
 const CasesPage = () => {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [selectedCase, setSelectedCase] = useState<any>(null);
+  const { settings } = useSiteSettings();
+  const businessData = buildBusinessData(settings);
 
   const { data: cases = [], isLoading } = useQuery({
     queryKey: ["public-cases", activeFilter],
@@ -56,7 +59,7 @@ const CasesPage = () => {
         description="Портфолио выполненных работ автостудии SUNMAXKZN в Казани. Фото до и после оклейки PPF, установки активного выхлопа, шумоизоляции и PDR на премиальных автомобилях."
         keywords={["кейсы детейлинг казань", "примеры работ ppf", "фото до после оклейка"]}
       />
-      <SchemaOrg type="LocalBusiness" data={sunmaxBusinessData} />
+      <SchemaOrg type="LocalBusiness" data={businessData} />
       <SchemaOrg
         type="Breadcrumb"
         data={[
