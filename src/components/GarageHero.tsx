@@ -1,9 +1,9 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, ChevronDown, Sun } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronDown, Sun, MessageCircle } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { garageCars, type GarageCar } from "@/lib/garageCars";
-import { filmColors, type FilmColor } from "@/lib/filmColors";
+import { garageCars, type GarageCar } from "@/data/garageCars";
+import { filmColors, type FilmColor } from "@/data/filmColors";
 
 const GarageHero = () => {
   const [searchParams] = useSearchParams();
@@ -37,6 +37,10 @@ const GarageHero = () => {
     setFrameIndex((prev) => (prev >= selectedCar.frames ? 1 : prev + 1));
   };
 
+  const whatsappUrl = `https://wa.me/79038687861?text=${encodeURIComponent(
+    `Здравствуйте! Хочу оклейку в цвете ${selectedColor.code} ${selectedColor.label}. Подскажите стоимость и ближайшую запись.`
+  )}`;
+
   return (
     <section className="relative min-h-[80vh] overflow-hidden">
       {/* Background */}
@@ -63,7 +67,6 @@ const GarageHero = () => {
             />
           </AnimatePresence>
 
-          {/* Frame navigation arrows */}
           <button
             onClick={prevFrame}
             className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:bg-black/70 transition-all backdrop-blur-sm"
@@ -79,7 +82,6 @@ const GarageHero = () => {
             <ChevronRight className="w-5 h-5" />
           </button>
 
-          {/* Frame indicator */}
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
             {Array.from({ length: selectedCar.frames }, (_, i) => (
               <div
@@ -203,13 +205,24 @@ const GarageHero = () => {
             )}
           </div>
 
-          {/* CTA Button */}
-          <button
-            onClick={() => navigate(`/colors/${selectedColor.id}`)}
-            className="w-full px-6 py-3 rounded-full border border-white/20 text-white text-sm font-semibold hover:bg-white/10 transition-colors"
-          >
-            Все авто / в этом цвете
-          </button>
+          {/* CTA Buttons */}
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={() => navigate(`/colors/${selectedColor.id}`)}
+              className="w-full px-6 py-3 rounded-full border border-white/20 text-white text-sm font-semibold hover:bg-white/10 transition-colors"
+            >
+              Все авто / в этом цвете
+            </button>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full px-6 py-2.5 rounded-full border border-emerald-500/30 text-emerald-400 text-xs font-semibold hover:bg-emerald-500/10 transition-colors flex items-center justify-center gap-2"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Запросить этот цвет
+            </a>
+          </div>
         </div>
       </div>
     </section>
