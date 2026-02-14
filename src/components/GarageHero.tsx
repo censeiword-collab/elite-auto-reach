@@ -6,6 +6,9 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { garageCars, type GarageCar } from "@/data/garageCars";
 import { filmColors, type FilmColor } from "@/data/filmColors";
 
+const ASSET_BASE = "/garage/cars";
+const BG_URL = "/garage/bg.jpg";
+
 export default function GarageHero() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -25,14 +28,19 @@ export default function GarageHero() {
   const sectionRef = useRef<HTMLElement>(null);
   const rafRef = useRef<number | null>(null);
 
-  /* ── helpers ── */
-  const prevFrame = useCallback(() => {
-    setFrameIndex((prev) => (prev <= 1 ? selectedCar.frames : prev - 1));
-  }, [selectedCar.frames]);
+  const frames = Math.max(1, selectedCar.frames || 1);
 
-  const nextFrame = useCallback(() => {
-    setFrameIndex((prev) => (prev >= selectedCar.frames ? 1 : prev + 1));
-  }, [selectedCar.frames]);
+  const clampFrame = useCallback(
+    (value: number) => {
+      if (value < 1) return frames;
+      if (value > frames) return 1;
+      return value;
+    },
+    [frames],
+  );
+
+  const prevFrame = useCallback(() => setFrameIndex((p) => clampFrame(p - 1)), [clampFrame]);
+  const nextFrame = useCallback(() => setFrameIndex((p) => clampFrame(p + 1)), [clampFrame]);
 
   const handleCarChange = useCallback((car: GarageCar) => {
     setSelectedCar(car);
@@ -49,7 +57,7 @@ export default function GarageHero() {
   }, []);
 
   const carImgSrc = useMemo(
-    () => `/garage/cars/${selectedCar.slug}/${frameIndex}.png`,
+    () => `${ASSET_BASE}/${selectedCar.slug}/${frameIndex}.png`,
     [selectedCar.slug, frameIndex],
   );
 
@@ -66,7 +74,6 @@ export default function GarageHero() {
     const mqlMobile = window.matchMedia("(max-width: 767px)");
     setPrefersReducedMotion(mqlMotion.matches);
     setIsMobile(mqlMobile.matches);
-
     const onMotion = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     const onMobile = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mqlMotion.addEventListener("change", onMotion);
@@ -120,11 +127,11 @@ export default function GarageHero() {
 
   /* ── preload frames ── */
   useEffect(() => {
-    for (let i = 1; i <= selectedCar.frames; i++) {
+    for (let i = 1; i <= frames; i++) {
       const img = new Image();
-      img.src = `/garage/cars/${selectedCar.slug}/${i}.png`;
+      img.src = `${ASSET_BASE}/${selectedCar.slug}/${i}.png`;
     }
-  }, [selectedCar.slug, selectedCar.frames]);
+  }, [selectedCar.slug, frames]);
 
   /* ── parallax ── */
   const handleMouseMove = useCallback(
@@ -133,7 +140,6 @@ export default function GarageHero() {
       const rect = sectionRef.current.getBoundingClientRect();
       const cx = (e.clientX - rect.left) / rect.width - 0.5;
       const cy = (e.clientY - rect.top) / rect.height - 0.5;
-
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(() => {
         if (bgRef.current) bgRef.current.style.transform = `translate(${cx * -2}px, ${cy * -2}px) scale(1.02)`;
@@ -157,6 +163,21 @@ export default function GarageHero() {
     [touchStartX, prevFrame, nextFrame],
   );
 
+  /* ── image fallback ── */
+  const handleImgError = useCallback(
+    (e: React.SyntheticEvent<HTMLImageElement>) => {
+      const el = e.currentTarget;
+      if (!el.dataset.fallbackApplied) {
+        el.dataset.fallbackApplied = "1";
+        el.src = `${ASSET_BASE}/${selectedCar.slug}/1.png`;
+        return;
+      }
+      el.src =
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='450'%3E%3Crect width='100%25' height='100%25' fill='%230b0b12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff88' font-family='Arial' font-size='20'%3ECar image missing%3C/text%3E%3C/svg%3E";
+    },
+    [selectedCar.slug],
+  );
+
   /* ══════════════════ JSX ══════════════════ */
   return (
     <section
@@ -164,13 +185,13 @@ export default function GarageHero() {
       onMouseMove={handleMouseMove}
       className="relative min-h-[80vh] overflow-hidden"
     >
-      {/* Layer 1 — bg image */}
+      {/* Layer 1 — bg */}
       <div
         ref={bgRef}
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.02]"
-        style={{ backgroundImage: "url(/garage/bg.jpg)", willChange: "transform" }}
+        style={{ backgroundImage: `url(${BG_URL})`, willChange: "transform" }}
       />
-      {/* Layer 2 — dark overlay */}
+      {/* Layer 2 — dark */}
       <div className="absolute inset-0 bg-black/60" />
       {/* Layer 3 — spotlights */}
       <div
@@ -225,6 +246,7 @@ export default function GarageHero() {
               key={`${selectedCar.slug}-${frameIndex}`}
               src={carImgSrc}
               alt={selectedCar.name}
+              onError={handleImgError}
               className="w-full max-w-[700px] h-auto object-contain relative z-10"
               style={{
                 mixBlendMode: "multiply",
@@ -270,7 +292,7 @@ export default function GarageHero() {
 
           {/* Dots */}
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
-            {Array.from({ length: selectedCar.frames }, (_, i) => (
+            {Array.from({ length: frames }, (_, i) => (
               <div
                 key={i}
                 className={`w-2 h-2 rounded-full transition-colors ${i + 1 === frameIndex ? "bg-white" : "bg-white/30"}`}
