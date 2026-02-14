@@ -32,7 +32,7 @@ const usps = [
 
 const HeroSection = () => {
   return (
-    <section className="hero-section min-h-screen flex items-center pt-0 relative overflow-hidden">
+    <section className="hero-section min-h-screen flex items-center pt-4 md:pt-0 relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-primary/3 rounded-full blur-[100px] pointer-events-none" />
