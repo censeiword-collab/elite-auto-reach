@@ -237,6 +237,19 @@ export default function GarageHero() {
             />
           </AnimatePresence>
 
+          {/* Color overlay */}
+          <div
+            className="absolute inset-0 z-[11] pointer-events-none"
+            style={{
+              background: selectedColor.hex,
+              mixBlendMode: "overlay",
+              opacity: 0.35,
+              transition: "background 0.3s ease",
+              maskImage: "radial-gradient(ellipse at center 45%, black 30%, transparent 70%)",
+              WebkitMaskImage: "radial-gradient(ellipse at center 45%, black 30%, transparent 70%)",
+            }}
+          />
+
           {/* Arrow left */}
           <button
             onClick={prevFrame}
