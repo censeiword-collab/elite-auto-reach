@@ -1,61 +1,31 @@
-import { useState, useCallback, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, ChevronDown, Sun, MessageCircle } from "lucide-react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, ChevronLeft, ChevronRight, MessageCircle, Sun } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+
 import { garageCars, type GarageCar } from "@/data/garageCars";
 import { filmColors, type FilmColor } from "@/data/filmColors";
 
-const GarageHero = () => {
-  const [searchParams] = useSearchParams();
+export default function GarageHero() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const initialCar = garageCars.find((c) => c.id === searchParams.get("carId")) || garageCars[0];
-  const initialColor = filmColors.find((c) => c.id === searchParams.get("colorId")) || filmColors[0];
-  const [selectedCar, setSelectedCar] = useState<GarageCar>(initialCar);
-  const [selectedColor, setSelectedColor] = useState<FilmColor>(initialColor);
+  const [selectedCar, setSelectedCar] = useState<GarageCar>(garageCars[0]);
+  const [selectedColor, setSelectedColor] = useState<FilmColor>(filmColors[0]);
   const [frameIndex, setFrameIndex] = useState(1);
   const [carDropdownOpen, setCarDropdownOpen] = useState(false);
   const [colorDropdownOpen, setColorDropdownOpen] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const bgRef = useRef<HTMLDivElement>(null);
   const carRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const rafRef = useRef<number | null>(null);
 
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Detect reduced motion & mobile
-  useEffect(() => {
-    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mql.matches);
-    const onChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
-    mql.addEventListener("change", onChange);
-
-    const mqlMobile = window.matchMedia("(max-width: 767px)");
-    setIsMobile(mqlMobile.matches);
-    const onMobile = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mqlMobile.addEventListener("change", onMobile);
-
-    return () => {
-      mql.removeEventListener("change", onChange);
-      mqlMobile.removeEventListener("change", onMobile);
-    };
-  }, []);
-
-  const handleCarChange = useCallback((car: GarageCar) => {
-    setSelectedCar(car);
-    setFrameIndex(1);
-    setCarDropdownOpen(false);
-  }, []);
-
-  const handleColorChange = useCallback((color: FilmColor) => {
-    setSelectedColor(color);
-    setFrameIndex(1);
-    setColorDropdownOpen(false);
-  }, []);
-
+  /* ── helpers ── */
   const prevFrame = useCallback(() => {
     setFrameIndex((prev) => (prev <= 1 ? selectedCar.frames : prev - 1));
   }, [selectedCar.frames]);
@@ -64,7 +34,65 @@ const GarageHero = () => {
     setFrameIndex((prev) => (prev >= selectedCar.frames ? 1 : prev + 1));
   }, [selectedCar.frames]);
 
-  // Keyboard
+  const handleCarChange = useCallback((car: GarageCar) => {
+    setSelectedCar(car);
+    setFrameIndex(1);
+    setCarDropdownOpen(false);
+    setColorDropdownOpen(false);
+  }, []);
+
+  const handleColorChange = useCallback((color: FilmColor) => {
+    setSelectedColor(color);
+    setFrameIndex(1);
+    setColorDropdownOpen(false);
+    setCarDropdownOpen(false);
+  }, []);
+
+  const carImgSrc = useMemo(
+    () => `/garage/cars/${selectedCar.slug}/${frameIndex}.png`,
+    [selectedCar.slug, frameIndex],
+  );
+
+  const isDisabled = selectedColor.rollsAvailable === 0;
+
+  const whatsappUrl = useMemo(() => {
+    const text = `Здравствуйте! Хочу оклейку в цвете ${selectedColor.code} ${selectedColor.label}. Подскажите стоимость и ближайшую запись.`;
+    return `https://wa.me/79038687861?text=${encodeURIComponent(text)}`;
+  }, [selectedColor.code, selectedColor.label]);
+
+  /* ── media queries ── */
+  useEffect(() => {
+    const mqlMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mqlMobile = window.matchMedia("(max-width: 767px)");
+    setPrefersReducedMotion(mqlMotion.matches);
+    setIsMobile(mqlMobile.matches);
+
+    const onMotion = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    const onMobile = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mqlMotion.addEventListener("change", onMotion);
+    mqlMobile.addEventListener("change", onMobile);
+    return () => {
+      mqlMotion.removeEventListener("change", onMotion);
+      mqlMobile.removeEventListener("change", onMobile);
+    };
+  }, []);
+
+  /* ── sync from query params ── */
+  useEffect(() => {
+    const carId = searchParams.get("carId");
+    const colorId = searchParams.get("colorId");
+    if (carId) {
+      const found = garageCars.find((c) => c.id === carId);
+      if (found) { setSelectedCar(found); setFrameIndex(1); }
+    }
+    if (colorId) {
+      const found = filmColors.find((c) => c.id === colorId);
+      if (found) { setSelectedColor(found); setFrameIndex(1); }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  /* ── keyboard ── */
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") prevFrame();
@@ -78,7 +106,7 @@ const GarageHero = () => {
     return () => window.removeEventListener("keydown", handler);
   }, [prevFrame, nextFrame]);
 
-  // Click outside to close dropdowns
+  /* ── click outside ── */
   useEffect(() => {
     const handler = (e: PointerEvent) => {
       if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
@@ -90,66 +118,61 @@ const GarageHero = () => {
     return () => document.removeEventListener("pointerdown", handler);
   }, []);
 
-  // Preload frames
+  /* ── preload frames ── */
   useEffect(() => {
     for (let i = 1; i <= selectedCar.frames; i++) {
       const img = new Image();
       img.src = `/garage/cars/${selectedCar.slug}/${i}.png`;
     }
-  }, [selectedCar]);
+  }, [selectedCar.slug, selectedCar.frames]);
 
-  // Parallax
+  /* ── parallax ── */
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
-      if (isMobile || prefersReducedMotion) return;
-      const rect = sectionRef.current?.getBoundingClientRect();
-      if (!rect) return;
+      if (isMobile || prefersReducedMotion || !sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
       const cx = (e.clientX - rect.left) / rect.width - 0.5;
       const cy = (e.clientY - rect.top) / rect.height - 0.5;
-      if (bgRef.current) {
-        bgRef.current.style.transform = `translate(${cx * -2}px, ${cy * -2}px)`;
-      }
-      if (carRef.current) {
-        carRef.current.style.transform = `translate(${cx * 6}px, ${cy * 4}px)`;
-      }
+
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        if (bgRef.current) bgRef.current.style.transform = `translate(${cx * -2}px, ${cy * -2}px) scale(1.02)`;
+        if (carRef.current) carRef.current.style.transform = `translate(${cx * 6}px, ${cy * 4}px)`;
+      });
     },
-    [isMobile, prefersReducedMotion]
+    [isMobile, prefersReducedMotion],
   );
 
-  // Swipe
-  const handleTouchStart = (e: React.TouchEvent) => setTouchStartX(e.touches[0].clientX);
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX === null) return;
-    const delta = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(delta) > 50) {
-      delta > 0 ? prevFrame() : nextFrame();
-    }
-    setTouchStartX(null);
-  };
+  useEffect(() => () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); }, []);
 
-  const carImgSrc = `/garage/cars/${selectedCar.slug}/${frameIndex}.png`;
+  /* ── swipe ── */
+  const handleTouchStart = useCallback((e: React.TouchEvent) => setTouchStartX(e.touches[0].clientX), []);
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      if (touchStartX === null) return;
+      const delta = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(delta) > 50) delta > 0 ? prevFrame() : nextFrame();
+      setTouchStartX(null);
+    },
+    [touchStartX, prevFrame, nextFrame],
+  );
 
-  const whatsappUrl = `https://wa.me/79038687861?text=${encodeURIComponent(
-    `Здравствуйте! Хочу оклейку в цвете ${selectedColor.code} ${selectedColor.label}. Подскажите стоимость и ближайшую запись.`
-  )}`;
-
-  const isDisabled = selectedColor.rollsAvailable === 0;
-
+  /* ══════════════════ JSX ══════════════════ */
   return (
     <section
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       className="relative min-h-[80vh] overflow-hidden"
     >
-      {/* Layer 1: Background image */}
+      {/* Layer 1 — bg image */}
       <div
         ref={bgRef}
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.02]"
         style={{ backgroundImage: "url(/garage/bg.jpg)", willChange: "transform" }}
       />
-      {/* Layer 2: Dark overlay */}
+      {/* Layer 2 — dark overlay */}
       <div className="absolute inset-0 bg-black/60" />
-      {/* Layer 3: Spotlights */}
+      {/* Layer 3 — spotlights */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -157,19 +180,18 @@ const GarageHero = () => {
             "radial-gradient(ellipse at 30% 0%, rgba(255,255,255,0.07) 0%, transparent 60%), radial-gradient(ellipse at 70% 0%, rgba(255,255,255,0.05) 0%, transparent 50%), radial-gradient(ellipse at 50% 10%, rgba(255,255,255,0.04) 0%, transparent 40%)",
         }}
       />
-      {/* Layer 4: Floor */}
+      {/* Layer 4 — floor */}
       <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/85 via-black/50 to-transparent pointer-events-none" />
-      {/* Layer 5: Vignette */}
+      {/* Layer 5 — vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.85) 100%)",
-        }}
+        style={{ background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.85) 100%)" }}
       />
 
-      {/* Content */}
+      {/* ── Content ── */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 min-h-[80vh] flex flex-col-reverse md:flex-row items-center gap-6 md:gap-0 py-8 pt-12">
-        {/* Car zone */}
+
+        {/* ── Car zone ── */}
         <div
           ref={carRef}
           className="flex-[7] relative flex items-center justify-center w-full"
@@ -223,6 +245,7 @@ const GarageHero = () => {
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
+
           {/* Arrow right */}
           <button
             onClick={nextFrame}
@@ -237,15 +260,13 @@ const GarageHero = () => {
             {Array.from({ length: selectedCar.frames }, (_, i) => (
               <div
                 key={i}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  i + 1 === frameIndex ? "bg-white" : "bg-white/30"
-                }`}
+                className={`w-2 h-2 rounded-full transition-colors ${i + 1 === frameIndex ? "bg-white" : "bg-white/30"}`}
               />
             ))}
           </div>
         </div>
 
-        {/* HUD Panel */}
+        {/* ── HUD Panel ── */}
         <div
           ref={panelRef}
           className="w-full md:w-[340px] lg:w-[380px] shrink-0 flex flex-col justify-center gap-6 p-6 md:p-8"
@@ -274,10 +295,7 @@ const GarageHero = () => {
               Автомобиль
             </label>
             <button
-              onClick={() => {
-                setCarDropdownOpen(!carDropdownOpen);
-                setColorDropdownOpen(false);
-              }}
+              onClick={() => { setCarDropdownOpen((v) => !v); setColorDropdownOpen(false); }}
               className="w-full flex items-center justify-between pb-2 border-b border-white/20 text-white cursor-pointer hover:border-white/40 transition-colors"
             >
               <span className="text-sm font-medium truncate">{selectedCar.name}</span>
@@ -308,10 +326,7 @@ const GarageHero = () => {
               Цвет плёнки
             </label>
             <button
-              onClick={() => {
-                setColorDropdownOpen(!colorDropdownOpen);
-                setCarDropdownOpen(false);
-              }}
+              onClick={() => { setColorDropdownOpen((v) => !v); setCarDropdownOpen(false); }}
               className="w-full flex items-center justify-between pb-2 border-b border-white/20 text-white cursor-pointer hover:border-white/40 transition-colors"
             >
               <span className="flex items-center gap-3">
@@ -332,7 +347,8 @@ const GarageHero = () => {
                   return (
                     <button
                       key={color.id}
-                      onClick={() => !unavailable && handleColorChange(color)}
+                      onClick={() => { if (!unavailable) handleColorChange(color); }}
+                      disabled={unavailable}
                       className={`w-full text-left px-4 py-3 text-sm flex items-center gap-3 transition-colors ${
                         unavailable
                           ? "text-white/30 cursor-not-allowed"
@@ -340,7 +356,6 @@ const GarageHero = () => {
                           ? "bg-white/10 text-white font-semibold"
                           : "text-white/70 hover:bg-white/[0.08] hover:text-white"
                       }`}
-                      disabled={unavailable}
                     >
                       <span
                         className="w-4 h-4 rounded-full border border-white/20 shrink-0"
@@ -371,12 +386,10 @@ const GarageHero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col gap-3">
             <button
-              onClick={() => !isDisabled && navigate(`/colors/${selectedColor.id}`)}
+              onClick={() => { if (!isDisabled) navigate(`/colors/${selectedColor.id}`); }}
               disabled={isDisabled}
               className={`w-full px-6 py-3 rounded-full border border-white/25 text-white text-sm font-semibold transition-colors ${
-                isDisabled
-                  ? "opacity-40 cursor-not-allowed"
-                  : "hover:bg-white/10"
+                isDisabled ? "opacity-40 cursor-not-allowed" : "hover:bg-white/10"
               }`}
             >
               Все авто / в этом цвете
@@ -395,6 +408,4 @@ const GarageHero = () => {
       </div>
     </section>
   );
-};
-
-export default GarageHero;
+}
