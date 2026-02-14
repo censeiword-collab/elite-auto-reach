@@ -107,7 +107,7 @@ const Header = () => {
           </nav>
 
           {/* Phone & CTA */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-6">
             <a
               href={getPhoneLink()}
               className="flex items-center gap-2 text-foreground hover:text-primary transition-colors group"
