@@ -178,7 +178,6 @@ export default function GarageHero() {
     [selectedCar.slug],
   );
 
-  /* ══════════════════ JSX ══════════════════ */
   return (
     <section
       ref={sectionRef}
