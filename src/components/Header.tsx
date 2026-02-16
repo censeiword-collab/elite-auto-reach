@@ -134,10 +134,10 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
+            className="lg:hidden p-3 rounded-lg bg-primary/15 border border-primary/30 text-foreground hover:bg-primary/25 hover:text-primary transition-colors"
             aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
       </div>
