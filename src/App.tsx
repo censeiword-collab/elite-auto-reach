@@ -35,6 +35,12 @@ import QAPage from "./pages/QAPage";
 import ChatPage from "./pages/ChatPage";
 import ServicesPage from "./pages/ServicesPage";
 import ColorShowcasePage from "./pages/ColorShowcasePage";
+import ActiveExhaustHubPage from "./pages/active-exhaust/ActiveExhaustHubPage";
+import ActiveExhaustInfoPage from "./pages/active-exhaust/ActiveExhaustInfoPage";
+import ActiveExhaustKazanPage from "./pages/active-exhaust/ActiveExhaustKazanPage";
+import ActiveExhaustAreaPage from "./pages/active-exhaust/ActiveExhaustAreaPage";
+import ActiveExhaustAreaBrandPage from "./pages/active-exhaust/ActiveExhaustAreaBrandPage";
+import ActiveExhaustSlugPage from "./pages/active-exhaust/ActiveExhaustSlugPage";
 
 const queryClient = new QueryClient();
 
@@ -82,6 +88,18 @@ const App = () => (
               <Route path="/qa" element={<QAPage />} />
               <Route path="/chat" element={<ChatPage />} />
               <Route path="/colors/:colorId" element={<ColorShowcasePage />} />
+              
+              {/* Active Exhaust SEO Section */}
+              <Route path="/aktivnyy-vykhlop" element={<ActiveExhaustHubPage />} />
+              <Route path="/aktivnyy-vykhlop/sound-test" element={<ActiveExhaustInfoPage />} />
+              <Route path="/aktivnyy-vykhlop/ustanovka" element={<ActiveExhaustInfoPage />} />
+              <Route path="/aktivnyy-vykhlop/tsena" element={<ActiveExhaustInfoPage />} />
+              <Route path="/aktivnyy-vykhlop/off-rezhim" element={<ActiveExhaustInfoPage />} />
+              <Route path="/aktivnyy-vykhlop/dizel-gibrid-elektro" element={<ActiveExhaustInfoPage />} />
+              <Route path="/aktivnyy-vykhlop/kazan" element={<ActiveExhaustKazanPage />} />
+              <Route path="/aktivnyy-vykhlop/kazan-:areaSlug" element={<ActiveExhaustAreaPage />} />
+              <Route path="/aktivnyy-vykhlop/kazan-:areaSlug/:brandSlug" element={<ActiveExhaustAreaBrandPage />} />
+              <Route path="/aktivnyy-vykhlop/:slug" element={<ActiveExhaustSlugPage />} />
               
               {/* Admin Routes */}
               <Route path="/admin/setup" element={<AdminSetup />} />
