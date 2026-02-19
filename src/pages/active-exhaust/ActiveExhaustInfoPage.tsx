@@ -9,6 +9,7 @@ import MobileStickyCTA from "@/components/MobileStickyCTA";
 import MarkdownLite from "@/components/MarkdownLite";
 import { getInfoPageBySlug } from "@/data/activeExhaustInfoPages";
 import { EXHAUST_BASE } from "@/data/activeExhaustUtils";
+import { localBusinessSchema, exhaustServiceSchema, infoBreadcrumbs } from "@/data/activeExhaustJsonLd";
 import NotFound from "@/pages/NotFound";
 
 const ActiveExhaustInfoPage = () => {
@@ -22,6 +23,7 @@ const ActiveExhaustInfoPage = () => {
         title={page.metaTitle}
         description={page.metaDescription}
         canonicalUrl={`https://sunmaxkzn.ru${EXHAUST_BASE}/${page.slug}`}
+        jsonLd={[localBusinessSchema(), exhaustServiceSchema(), infoBreadcrumbs(page.title, page.slug)]}
       />
       <Header />
       <main>

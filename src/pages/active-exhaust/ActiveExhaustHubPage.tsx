@@ -6,13 +6,13 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
-import SchemaOrg from "@/components/seo/SchemaOrg";
 import { Button } from "@/components/ui/button";
 import { EXHAUST_BRANDS } from "@/data/activeExhaustBrands";
 import { EXHAUST_INFO_PAGES } from "@/data/activeExhaustInfoPages";
 import { EXHAUST_AREAS } from "@/data/activeExhaustAreaPages";
 import { EXHAUST_BASE } from "@/data/activeExhaustUtils";
 import { CONTACT, BRAND } from "@/lib/constants";
+import { localBusinessSchema, exhaustServiceSchema, hubBreadcrumbs } from "@/data/activeExhaustJsonLd";
 
 const MAX_CARDS = 90;
 
@@ -34,16 +34,7 @@ const ActiveExhaustHubPage = () => {
         description="Установка активного электронного выхлопа в Казани. Управляемый звук двигателя для BMW, Mercedes, Audi, Toyota, Porsche. Гарантия до 2 лет. Запись онлайн."
         keywords={["активный выхлоп Казань", "электронный выхлоп Казань", "управляемый выхлоп", "клапанный выхлоп", "установка выхлопа Казань"]}
         canonicalUrl={`https://sunmaxkzn.ru${EXHAUST_BASE}`}
-      />
-      <SchemaOrg
-        type="Service"
-        data={{
-          name: "Активный электронный выхлоп",
-          description: "Установка активного электронного выхлопа с управляемым звуком в Казани",
-          provider: BRAND.name,
-          areaServed: "Казань",
-          price: "25000",
-        }}
+        jsonLd={[localBusinessSchema(), exhaustServiceSchema(), hubBreadcrumbs()]}
       />
 
       <Header />
