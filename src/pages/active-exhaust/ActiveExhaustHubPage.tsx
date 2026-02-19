@@ -1,20 +1,31 @@
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Volume2, ChevronRight, Phone, Calculator } from "lucide-react";
+import { Volume2, ChevronRight, Phone, Calculator, Search } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
 import SchemaOrg from "@/components/seo/SchemaOrg";
 import { Button } from "@/components/ui/button";
-import { EXHAUST_BRANDS, getPopularBrands } from "@/data/activeExhaustBrands";
+import { EXHAUST_BRANDS } from "@/data/activeExhaustBrands";
 import { EXHAUST_INFO_PAGES } from "@/data/activeExhaustInfoPages";
 import { EXHAUST_AREAS } from "@/data/activeExhaustAreaPages";
 import { EXHAUST_BASE } from "@/data/activeExhaustUtils";
 import { CONTACT, BRAND } from "@/lib/constants";
 
+const MAX_CARDS = 90;
+
 const ActiveExhaustHubPage = () => {
-  const popularBrands = getPopularBrands();
+  const [search, setSearch] = useState("");
+
+  const filteredBrands = useMemo(() => {
+    if (!search.trim()) return EXHAUST_BRANDS.slice(0, MAX_CARDS);
+    const q = search.toLowerCase();
+    return EXHAUST_BRANDS.filter(
+      (b) => b.name.toLowerCase().includes(q) || b.nameRu.toLowerCase().includes(q)
+    ).slice(0, MAX_CARDS);
+  }, [search]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -63,12 +74,24 @@ const ActiveExhaustHubPage = () => {
           </div>
         </section>
 
-        {/* Popular brands */}
+        {/* Brands with search */}
         <section className="section-container">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 text-center">Выберите марку автомобиля</h2>
+            <h2 className="text-2xl md:text-3xl font-heading font-bold mb-6 text-center">Выберите марку автомобиля</h2>
+            <div className="max-w-md mx-auto mb-8">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Найти марку..."
+                  className="w-full pl-10 pr-4 py-3 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
+                />
+              </div>
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {EXHAUST_BRANDS.map((brand) => (
+              {filteredBrands.map((brand) => (
                 <Link key={brand.slug} to={`${EXHAUST_BASE}/${brand.slug}`} className="group p-6 bg-card border border-border rounded-2xl hover:border-primary/50 transition-all text-center">
                   <Volume2 className="w-8 h-8 mx-auto mb-3 text-primary group-hover:scale-110 transition-transform" />
                   <span className="font-heading font-semibold block">{brand.name}</span>
@@ -76,6 +99,9 @@ const ActiveExhaustHubPage = () => {
                 </Link>
               ))}
             </div>
+            {filteredBrands.length === 0 && (
+              <p className="text-center text-muted-foreground mt-8">Ничего не найдено. Попробуйте другой запрос.</p>
+            )}
           </div>
         </section>
 
