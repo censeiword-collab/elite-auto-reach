@@ -12,9 +12,14 @@ import { EXHAUST_BASE } from "@/data/activeExhaustUtils";
 import { CONTACT } from "@/lib/constants";
 import NotFound from "@/pages/NotFound";
 
-const ActiveExhaustAreaPage = () => {
-  const { areaSlug } = useParams<{ areaSlug: string }>();
-  const area = areaSlug ? getAreaBySlug(areaSlug) : undefined;
+interface Props {
+  areaSlugOverride?: string;
+}
+
+const ActiveExhaustAreaPage = ({ areaSlugOverride }: Props = {}) => {
+  const { areaSlug: paramSlug } = useParams<{ areaSlug: string }>();
+  const slug = areaSlugOverride || paramSlug;
+  const area = slug ? getAreaBySlug(slug) : undefined;
   if (!area) return <NotFound />;
 
   return (

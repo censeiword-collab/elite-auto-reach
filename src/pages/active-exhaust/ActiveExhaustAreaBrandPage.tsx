@@ -9,23 +9,26 @@ import { Button } from "@/components/ui/button";
 import { getAreaBySlug } from "@/data/activeExhaustAreaPages";
 import { getBrandBySlug } from "@/data/activeExhaustBrands";
 import { getModelsByBrand } from "@/data/activeExhaustModels";
+import { getAreaBrand } from "@/data/activeExhaustAreaBrandPages";
 import { EXHAUST_BASE, formatPrice } from "@/data/activeExhaustUtils";
 import { CONTACT } from "@/lib/constants";
 import NotFound from "@/pages/NotFound";
 
 const ActiveExhaustAreaBrandPage = () => {
-  const { areaSlug, brandSlug } = useParams<{ areaSlug: string; brandSlug: string }>();
+  const { slug, brandSlug } = useParams<{ slug: string; brandSlug: string }>();
+  const areaSlug = slug?.startsWith("kazan-") ? slug.slice("kazan-".length) : undefined;
   const area = areaSlug ? getAreaBySlug(areaSlug) : undefined;
   const brand = brandSlug ? getBrandBySlug(brandSlug) : undefined;
   if (!area || !brand) return <NotFound />;
 
+  const areaBrand = getAreaBrand(area.slug, brand.slug);
   const models = getModelsByBrand(brand.slug);
 
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`Активный выхлоп на ${brand.name} — ${area.name} Казани | SUNMAXKZN`}
-        description={`Установка активного выхлопа на ${brand.name} для жителей ${area.name} Казани. Студия SUNMAXKZN — рядом с вами. Гарантия до 2 лет.`}
+        title={areaBrand?.metaTitle || `Активный выхлоп на ${brand.name} — ${area.name} Казани | SUNMAXKZN`}
+        description={areaBrand?.metaDescription || `Установка активного выхлопа на ${brand.name} для жителей ${area.name} Казани. Студия SUNMAXKZN — рядом с вами. Гарантия до 2 лет.`}
         canonicalUrl={`https://sunmaxkzn.ru${EXHAUST_BASE}/kazan-${area.slug}/${brand.slug}`}
       />
       <Header />

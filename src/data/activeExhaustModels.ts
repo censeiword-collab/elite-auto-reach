@@ -1,4 +1,4 @@
-// Active exhaust models data for SEO pages
+// Active exhaust models data for SEO pages — v2.5 full (164 models)
 
 export interface ExhaustModel {
   slug: string;
@@ -13,85 +13,282 @@ export interface ExhaustModel {
   features: string[];
 }
 
+const m = (slug: string, brandSlug: string, name: string, nameRu: string, engine: string, priceFrom: number, features: string[]): ExhaustModel => {
+  const brandNames: Record<string, string> = {
+    "bmw": "BMW", "mercedes-benz": "Mercedes-Benz", "audi": "Audi", "toyota": "Toyota", "lexus": "Lexus",
+    "porsche": "Porsche", "land-rover": "Land Rover", "volkswagen": "Volkswagen", "genesis": "Genesis",
+    "infiniti": "Infiniti", "kia": "Kia", "hyundai": "Hyundai", "nissan": "Nissan", "mitsubishi": "Mitsubishi",
+    "mazda": "Mazda", "subaru": "Subaru", "honda": "Honda", "volvo": "Volvo", "jaguar": "Jaguar",
+    "bentley": "Bentley", "cadillac": "Cadillac", "chevrolet": "Chevrolet", "dodge": "Dodge", "jeep": "Jeep",
+    "ford": "Ford", "mini": "MINI", "skoda": "Skoda", "chery": "Chery", "haval": "Haval", "geely": "Geely",
+    "changan": "Changan", "tank": "Tank", "li-auto": "Li Auto", "zeekr": "Zeekr", "exeed": "Exeed",
+    "omoda": "Omoda", "lamborghini": "Lamborghini", "maserati": "Maserati", "ferrari": "Ferrari",
+  };
+  const b = brandNames[brandSlug] || brandSlug;
+  return {
+    slug, brandSlug, name, nameRu, engine, priceFrom, features,
+    metaTitle: `Активный выхлоп на ${b} ${name} в Казани | SUNMAXKZN`,
+    metaDescription: `Установка активного выхлопа на ${b} ${name} в Казани. Двигатель ${engine}. Клапанная система, управление звуком. Гарантия до 2 лет.`,
+    h1: `Активный выхлоп на ${b} ${name} в Казани`,
+  };
+};
+
 export const EXHAUST_MODELS: ExhaustModel[] = [
-  // BMW
-  { slug: "x5", brandSlug: "bmw", name: "X5", nameRu: "X5", metaTitle: "Активный выхлоп на BMW X5 в Казани | SUNMAXKZN", metaDescription: "Установка активного выхлопа на BMW X5 в Казани. Клапанная система, управление со смартфона. Гарантия до 2 лет.", h1: "Активный выхлоп на BMW X5 в Казани", engine: "3.0 / 4.4", priceFrom: 45000, features: ["Клапанная система", "Управление со смартфона", "Режимы Comfort/Sport"] },
-  { slug: "x6", brandSlug: "bmw", name: "X6", nameRu: "X6", metaTitle: "Активный выхлоп на BMW X6 в Казани | SUNMAXKZN", metaDescription: "Установка активного выхлопа на BMW X6 в Казани. Спортивный звук, клапаны.", h1: "Активный выхлоп на BMW X6 в Казани", engine: "3.0 / 4.4", priceFrom: 45000, features: ["Клапанная система", "Спортивный выхлоп", "Пульт управления"] },
-  { slug: "m5", brandSlug: "bmw", name: "M5", nameRu: "M5", metaTitle: "Активный выхлоп на BMW M5 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на BMW M5 в Казани. Раскройте потенциал звука V8.", h1: "Активный выхлоп на BMW M5 в Казани", engine: "4.4 V8", priceFrom: 55000, features: ["Полный обход клапанов", "Усиление звука V8", "Титановые насадки"] },
-  { slug: "3-series", brandSlug: "bmw", name: "3 Series", nameRu: "3 серии", metaTitle: "Активный выхлоп на BMW 3 Series в Казани | SUNMAXKZN", metaDescription: "Установка активного выхлопа на BMW 3 серии в Казани.", h1: "Активный выхлоп на BMW 3 серии в Казани", engine: "2.0 / 3.0", priceFrom: 35000, features: ["Клапанная система", "Спортивный звук", "Быстрая установка"] },
-  { slug: "5-series", brandSlug: "bmw", name: "5 Series", nameRu: "5 серии", metaTitle: "Активный выхлоп на BMW 5 Series в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на BMW 5 серии в Казани. Управляемый звук.", h1: "Активный выхлоп на BMW 5 серии в Казани", engine: "2.0 / 3.0 / 4.4", priceFrom: 40000, features: ["Клапанная система", "Управление звуком", "Comfort/Sport режимы"] },
-  { slug: "7-series", brandSlug: "bmw", name: "7 Series", nameRu: "7 серии", metaTitle: "Активный выхлоп на BMW 7 Series в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на BMW 7 серии в Казани.", h1: "Активный выхлоп на BMW 7 серии в Казани", engine: "3.0 / 4.4", priceFrom: 50000, features: ["Премиальный звук", "Бесшумный режим", "Управление со смартфона"] },
-  { slug: "x3", brandSlug: "bmw", name: "X3", nameRu: "X3", metaTitle: "Активный выхлоп на BMW X3 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на BMW X3 в Казани.", h1: "Активный выхлоп на BMW X3 в Казани", engine: "2.0 / 3.0", priceFrom: 35000, features: ["Клапанная система", "Управление звуком"] },
-  { slug: "x7", brandSlug: "bmw", name: "X7", nameRu: "X7", metaTitle: "Активный выхлоп на BMW X7 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на BMW X7 в Казани.", h1: "Активный выхлоп на BMW X7 в Казани", engine: "3.0 / 4.4", priceFrom: 50000, features: ["Премиум клапаны", "Тихий/Спорт режим"] },
+  // BMW (14)
+  m("x5", "bmw", "X5", "X5", "3.0 / 4.4", 45000, ["Клапанная система", "Управление со смартфона", "Режимы Comfort/Sport"]),
+  m("x6", "bmw", "X6", "X6", "3.0 / 4.4", 45000, ["Клапанная система", "Спортивный выхлоп", "Пульт управления"]),
+  m("m5", "bmw", "M5", "M5", "4.4 V8", 55000, ["Полный обход клапанов", "Усиление звука V8", "Титановые насадки"]),
+  m("3-series", "bmw", "3 Series", "3 серии", "2.0 / 3.0", 35000, ["Клапанная система", "Спортивный звук", "Быстрая установка"]),
+  m("5-series", "bmw", "5 Series", "5 серии", "2.0 / 3.0 / 4.4", 40000, ["Клапанная система", "Управление звуком", "Comfort/Sport режимы"]),
+  m("7-series", "bmw", "7 Series", "7 серии", "3.0 / 4.4", 50000, ["Премиальный звук", "Бесшумный режим", "Управление со смартфона"]),
+  m("x3", "bmw", "X3", "X3", "2.0 / 3.0", 35000, ["Клапанная система", "Управление звуком"]),
+  m("x7", "bmw", "X7", "X7", "3.0 / 4.4", 50000, ["Премиум клапаны", "Тихий/Спорт режим"]),
+  m("x4", "bmw", "X4", "X4", "2.0 / 3.0", 40000, ["Клапанная система", "Спортивный звук"]),
+  m("4-series", "bmw", "4 Series", "4 серии", "2.0 / 3.0", 38000, ["Клапанная система", "Управление звуком"]),
+  m("m3", "bmw", "M3", "M3", "3.0 R6 Twin-Turbo", 55000, ["Полный обход клапанов", "Звук R6 TT", "Титановые насадки"]),
+  m("m4", "bmw", "M4", "M4", "3.0 R6 Twin-Turbo", 55000, ["Полный обход клапанов", "Спортивный звук R6"]),
+  m("x1", "bmw", "X1", "X1", "1.5 / 2.0", 30000, ["Клапанная система", "Управление звуком"]),
+  m("ix", "bmw", "iX", "iX", "Электро", 40000, ["Звуковой симулятор", "Управление из приложения"]),
 
-  // Mercedes
-  { slug: "gle", brandSlug: "mercedes", name: "GLE", nameRu: "GLE", metaTitle: "Активный выхлоп на Mercedes GLE в Казани | SUNMAXKZN", metaDescription: "Установка активного выхлопа на Mercedes GLE в Казани. Спортивный звук, клапаны, управление.", h1: "Активный выхлоп на Mercedes GLE в Казани", engine: "2.0 / 3.0 / 4.0", priceFrom: 45000, features: ["AMG-звук", "Электронные клапаны", "App-управление"] },
-  { slug: "gle-coupe", brandSlug: "mercedes", name: "GLE Coupe", nameRu: "GLE Купе", metaTitle: "Активный выхлоп на Mercedes GLE Coupe в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Mercedes GLE Coupe в Казани.", h1: "Активный выхлоп на Mercedes GLE Coupe в Казани", engine: "3.0 / 4.0", priceFrom: 50000, features: ["AMG-стиль звука", "Клапанная система"] },
-  { slug: "g-class", brandSlug: "mercedes", name: "G-Class", nameRu: "G-Класс", metaTitle: "Активный выхлоп на Mercedes G-Class в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Гелендваген в Казани. Мощный звук V8, клапаны.", h1: "Активный выхлоп на Mercedes G-Class в Казани", engine: "4.0 V8", priceFrom: 65000, features: ["Звук V8 AMG", "Полный обход", "Титановые насадки"] },
-  { slug: "e-class", brandSlug: "mercedes", name: "E-Class", nameRu: "E-Класс", metaTitle: "Активный выхлоп на Mercedes E-Class в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Mercedes E-Class в Казани.", h1: "Активный выхлоп на Mercedes E-Class в Казани", engine: "2.0 / 3.0", priceFrom: 40000, features: ["Спортивный звук", "Клапаны", "Управление"] },
-  { slug: "s-class", brandSlug: "mercedes", name: "S-Class", nameRu: "S-Класс", metaTitle: "Активный выхлоп на Mercedes S-Class в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Mercedes S-Class в Казани.", h1: "Активный выхлоп на Mercedes S-Class в Казани", engine: "3.0 / 4.0", priceFrom: 55000, features: ["Премиальный звук", "Бесшумный режим"] },
-  { slug: "c-class", brandSlug: "mercedes", name: "C-Class", nameRu: "C-Класс", metaTitle: "Активный выхлоп на Mercedes C-Class в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Mercedes C-Class в Казани.", h1: "Активный выхлоп на Mercedes C-Class в Казани", engine: "1.5 / 2.0", priceFrom: 35000, features: ["Спортивный звук", "Клапаны"] },
-  { slug: "glc", brandSlug: "mercedes", name: "GLC", nameRu: "GLC", metaTitle: "Активный выхлоп на Mercedes GLC в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Mercedes GLC в Казани.", h1: "Активный выхлоп на Mercedes GLC в Казани", engine: "2.0 / 3.0", priceFrom: 40000, features: ["AMG-звук", "Клапанная система"] },
-  { slug: "gls", brandSlug: "mercedes", name: "GLS", nameRu: "GLS", metaTitle: "Активный выхлоп на Mercedes GLS в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Mercedes GLS в Казани.", h1: "Активный выхлоп на Mercedes GLS в Казани", engine: "3.0 / 4.0", priceFrom: 55000, features: ["Премиум клапаны", "Управление звуком"] },
+  // Mercedes-Benz (13)
+  m("gle", "mercedes-benz", "GLE", "GLE", "2.0 / 3.0 / 4.0", 45000, ["AMG-звук", "Электронные клапаны", "App-управление"]),
+  m("gle-coupe", "mercedes-benz", "GLE Coupe", "GLE Купе", "3.0 / 4.0", 50000, ["AMG-стиль звука", "Клапанная система"]),
+  m("g-class", "mercedes-benz", "G-Class", "G-Класс", "4.0 V8", 65000, ["Звук V8 AMG", "Полный обход", "Титановые насадки"]),
+  m("e-class", "mercedes-benz", "E-Class", "E-Класс", "2.0 / 3.0", 40000, ["Спортивный звук", "Клапаны", "Управление"]),
+  m("s-class", "mercedes-benz", "S-Class", "S-Класс", "3.0 / 4.0", 55000, ["Премиальный звук", "Бесшумный режим"]),
+  m("c-class", "mercedes-benz", "C-Class", "C-Класс", "1.5 / 2.0", 35000, ["Спортивный звук", "Клапаны"]),
+  m("glc", "mercedes-benz", "GLC", "GLC", "2.0 / 3.0", 40000, ["AMG-звук", "Клапанная система"]),
+  m("gls", "mercedes-benz", "GLS", "GLS", "3.0 / 4.0", 55000, ["Премиум клапаны", "Управление звуком"]),
+  m("cla", "mercedes-benz", "CLA", "CLA", "1.3 / 2.0", 33000, ["Спортивный звук", "Клапаны"]),
+  m("a-class", "mercedes-benz", "A-Class", "A-Класс", "1.3 / 2.0", 30000, ["Спортивный звук", "Компактные клапаны"]),
+  m("glb", "mercedes-benz", "GLB", "GLB", "1.3 / 2.0", 33000, ["Клапанная система", "Управление"]),
+  m("eqe", "mercedes-benz", "EQE", "EQE", "Электро", 45000, ["Звуковой симулятор", "Управление из приложения"]),
+  m("amg-gt", "mercedes-benz", "AMG GT", "AMG GT", "4.0 V8", 70000, ["Полный обход клапанов", "Звук V8 AMG", "Титан"]),
 
-  // Audi
-  { slug: "q7", brandSlug: "audi", name: "Q7", nameRu: "Q7", metaTitle: "Активный выхлоп на Audi Q7 в Казани | SUNMAXKZN", metaDescription: "Установка активного выхлопа на Audi Q7 в Казани. Управляемый звук.", h1: "Активный выхлоп на Audi Q7 в Казани", engine: "3.0 / 4.0", priceFrom: 45000, features: ["S-Line звук", "Клапаны", "Управление"] },
-  { slug: "q8", brandSlug: "audi", name: "Q8", nameRu: "Q8", metaTitle: "Активный выхлоп на Audi Q8 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Audi Q8 в Казани.", h1: "Активный выхлоп на Audi Q8 в Казани", engine: "3.0 / 4.0", priceFrom: 50000, features: ["RS-звук", "Электронные клапаны"] },
-  { slug: "a6", brandSlug: "audi", name: "A6", nameRu: "A6", metaTitle: "Активный выхлоп на Audi A6 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Audi A6 в Казани.", h1: "Активный выхлоп на Audi A6 в Казани", engine: "2.0 / 3.0", priceFrom: 40000, features: ["S-Line звук", "Управление"] },
-  { slug: "a7", brandSlug: "audi", name: "A7", nameRu: "A7", metaTitle: "Активный выхлоп на Audi A7 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Audi A7 в Казани.", h1: "Активный выхлоп на Audi A7 в Казани", engine: "2.0 / 3.0", priceFrom: 45000, features: ["Спортивный звук", "Клапаны"] },
-  { slug: "a8", brandSlug: "audi", name: "A8", nameRu: "A8", metaTitle: "Активный выхлоп на Audi A8 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Audi A8 в Казани.", h1: "Активный выхлоп на Audi A8 в Казани", engine: "3.0 / 4.0", priceFrom: 50000, features: ["Премиальный звук", "Бесшумный режим"] },
-  { slug: "q5", brandSlug: "audi", name: "Q5", nameRu: "Q5", metaTitle: "Активный выхлоп на Audi Q5 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Audi Q5 в Казани.", h1: "Активный выхлоп на Audi Q5 в Казани", engine: "2.0 / 3.0", priceFrom: 40000, features: ["Клапанная система", "Управление звуком"] },
-  { slug: "rs6", brandSlug: "audi", name: "RS6", nameRu: "RS6", metaTitle: "Активный выхлоп на Audi RS6 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Audi RS6 в Казани. Максимальный звук V8.", h1: "Активный выхлоп на Audi RS6 в Казани", engine: "4.0 V8", priceFrom: 65000, features: ["Полный обход клапанов", "Звук V8", "Титановые насадки"] },
-  { slug: "rs7", brandSlug: "audi", name: "RS7", nameRu: "RS7", metaTitle: "Активный выхлоп на Audi RS7 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Audi RS7 в Казани.", h1: "Активный выхлоп на Audi RS7 в Казани", engine: "4.0 V8", priceFrom: 65000, features: ["Полный обход", "Звук V8"] },
+  // Audi (13)
+  m("q7", "audi", "Q7", "Q7", "3.0 / 4.0", 45000, ["S-Line звук", "Клапаны", "Управление"]),
+  m("q8", "audi", "Q8", "Q8", "3.0 / 4.0", 50000, ["RS-звук", "Электронные клапаны"]),
+  m("a6", "audi", "A6", "A6", "2.0 / 3.0", 40000, ["S-Line звук", "Управление"]),
+  m("a7", "audi", "A7", "A7", "2.0 / 3.0", 45000, ["Спортивный звук", "Клапаны"]),
+  m("a8", "audi", "A8", "A8", "3.0 / 4.0", 50000, ["Премиальный звук", "Бесшумный режим"]),
+  m("q5", "audi", "Q5", "Q5", "2.0 / 3.0", 40000, ["Клапанная система", "Управление звуком"]),
+  m("rs6", "audi", "RS6", "RS6", "4.0 V8", 65000, ["Полный обход клапанов", "Звук V8", "Титановые насадки"]),
+  m("rs7", "audi", "RS7", "RS7", "4.0 V8", 65000, ["Полный обход", "Звук V8"]),
+  m("a4", "audi", "A4", "A4", "2.0", 35000, ["Клапанная система", "Спортивный звук"]),
+  m("a5", "audi", "A5", "A5", "2.0 / 3.0", 38000, ["Клапанная система", "Спортивный звук"]),
+  m("q3", "audi", "Q3", "Q3", "1.4 / 2.0", 33000, ["Клапанная система", "Управление"]),
+  m("e-tron-gt", "audi", "e-tron GT", "e-tron GT", "Электро", 50000, ["Звуковой симулятор", "Управление из приложения"]),
+  m("rs-q8", "audi", "RS Q8", "RS Q8", "4.0 V8", 65000, ["Полный обход клапанов", "Звук V8 TT"]),
 
-  // Toyota
-  { slug: "land-cruiser-300", brandSlug: "toyota", name: "Land Cruiser 300", nameRu: "Ленд Крузер 300", metaTitle: "Активный выхлоп на Toyota Land Cruiser 300 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Тойота Ленд Крузер 300 в Казани. Мощный звук V6.", h1: "Активный выхлоп на Toyota Land Cruiser 300 в Казани", engine: "3.5 V6", priceFrom: 55000, features: ["Звук V6 Twin-Turbo", "Клапанная система", "Пульт/App"] },
-  { slug: "land-cruiser-200", brandSlug: "toyota", name: "Land Cruiser 200", nameRu: "Ленд Крузер 200", metaTitle: "Активный выхлоп на Toyota Land Cruiser 200 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Тойота Ленд Крузер 200 в Казани.", h1: "Активный выхлоп на Toyota Land Cruiser 200 в Казани", engine: "4.6 V8 / 4.5D", priceFrom: 50000, features: ["Звук V8", "Клапаны", "Управление"] },
-  { slug: "camry", brandSlug: "toyota", name: "Camry", nameRu: "Камри", metaTitle: "Активный выхлоп на Toyota Camry в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Тойота Камри в Казани.", h1: "Активный выхлоп на Toyota Camry в Казани", engine: "2.5 / 3.5", priceFrom: 30000, features: ["Спортивный звук", "Клапаны"] },
-  { slug: "rav4", brandSlug: "toyota", name: "RAV4", nameRu: "РАВ4", metaTitle: "Активный выхлоп на Toyota RAV4 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Тойота РАВ4 в Казани.", h1: "Активный выхлоп на Toyota RAV4 в Казани", engine: "2.0 / 2.5", priceFrom: 30000, features: ["Спортивный звук", "Управление"] },
-  { slug: "highlander", brandSlug: "toyota", name: "Highlander", nameRu: "Хайлендер", metaTitle: "Активный выхлоп на Toyota Highlander в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Тойота Хайлендер в Казани.", h1: "Активный выхлоп на Toyota Highlander в Казани", engine: "2.5 / 3.5", priceFrom: 35000, features: ["Клапанная система", "Звук V6"] },
+  // Toyota (8)
+  m("land-cruiser-300", "toyota", "Land Cruiser 300", "Ленд Крузер 300", "3.5 V6", 55000, ["Звук V6 Twin-Turbo", "Клапанная система", "Пульт/App"]),
+  m("land-cruiser-200", "toyota", "Land Cruiser 200", "Ленд Крузер 200", "4.6 V8 / 4.5D", 50000, ["Звук V8", "Клапаны", "Управление"]),
+  m("camry", "toyota", "Camry", "Камри", "2.5 / 3.5", 30000, ["Спортивный звук", "Клапаны"]),
+  m("rav4", "toyota", "RAV4", "РАВ4", "2.0 / 2.5", 30000, ["Спортивный звук", "Управление"]),
+  m("highlander", "toyota", "Highlander", "Хайлендер", "2.5 / 3.5", 35000, ["Клапанная система", "Звук V6"]),
+  m("land-cruiser-prado", "toyota", "Land Cruiser Prado", "Прадо", "2.7 / 4.0", 40000, ["Клапанная система", "Управление звуком"]),
+  m("supra", "toyota", "Supra", "Супра", "2.0 / 3.0", 50000, ["Спортивный звук R6", "Клапаны"]),
+  m("fortuner", "toyota", "Fortuner", "Фортунер", "2.7 / 2.8D", 35000, ["Клапанная система", "Управление"]),
 
-  // Lexus
-  { slug: "lx600", brandSlug: "lexus", name: "LX 600", nameRu: "LX 600", metaTitle: "Активный выхлоп на Lexus LX 600 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Lexus LX 600 в Казани. Мощный звук V6 Twin-Turbo.", h1: "Активный выхлоп на Lexus LX 600 в Казани", engine: "3.5 V6 TT", priceFrom: 60000, features: ["Звук V6 Twin-Turbo", "Премиум клапаны"] },
-  { slug: "rx", brandSlug: "lexus", name: "RX", nameRu: "RX", metaTitle: "Активный выхлоп на Lexus RX в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Lexus RX в Казани.", h1: "Активный выхлоп на Lexus RX в Казани", engine: "2.4T / 3.5", priceFrom: 40000, features: ["Спортивный звук", "Клапаны"] },
-  { slug: "gx", brandSlug: "lexus", name: "GX", nameRu: "GX", metaTitle: "Активный выхлоп на Lexus GX в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Lexus GX в Казани.", h1: "Активный выхлоп на Lexus GX в Казани", engine: "3.5 V6", priceFrom: 50000, features: ["Клапанная система", "Звук V6"] },
-  { slug: "lc", brandSlug: "lexus", name: "LC", nameRu: "LC", metaTitle: "Активный выхлоп на Lexus LC в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Lexus LC в Казани. Звук V8.", h1: "Активный выхлоп на Lexus LC в Казани", engine: "5.0 V8", priceFrom: 65000, features: ["Звук V8 атмо", "Титановые насадки"] },
-  { slug: "es", brandSlug: "lexus", name: "ES", nameRu: "ES", metaTitle: "Активный выхлоп на Lexus ES в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Lexus ES в Казани.", h1: "Активный выхлоп на Lexus ES в Казани", engine: "2.5 / 3.5", priceFrom: 35000, features: ["Спортивный звук", "Управление"] },
+  // Lexus (8)
+  m("lx600", "lexus", "LX 600", "LX 600", "3.5 V6 TT", 60000, ["Звук V6 Twin-Turbo", "Премиум клапаны"]),
+  m("rx", "lexus", "RX", "RX", "2.4T / 3.5", 40000, ["Спортивный звук", "Клапаны"]),
+  m("gx", "lexus", "GX", "GX", "3.5 V6", 50000, ["Клапанная система", "Звук V6"]),
+  m("lc", "lexus", "LC", "LC", "5.0 V8", 65000, ["Звук V8 атмо", "Титановые насадки"]),
+  m("es", "lexus", "ES", "ES", "2.5 / 3.5", 35000, ["Спортивный звук", "Управление"]),
+  m("nx", "lexus", "NX", "NX", "2.4T / 2.5", 38000, ["Клапанная система", "Управление"]),
+  m("is", "lexus", "IS", "IS", "2.0T / 3.5", 40000, ["Спортивный звук", "Клапаны"]),
+  m("ls", "lexus", "LS", "LS", "3.5 V6 TT", 55000, ["Премиальный звук", "Бесшумный режим"]),
 
-  // Porsche
-  { slug: "cayenne", brandSlug: "porsche", name: "Cayenne", nameRu: "Кайен", metaTitle: "Активный выхлоп на Porsche Cayenne в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Porsche Cayenne в Казани. Спортивный звук, клапаны.", h1: "Активный выхлоп на Porsche Cayenne в Казани", engine: "3.0 / 4.0", priceFrom: 55000, features: ["Спортивный звук", "Клапаны PSE"] },
-  { slug: "macan", brandSlug: "porsche", name: "Macan", nameRu: "Макан", metaTitle: "Активный выхлоп на Porsche Macan в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Porsche Macan в Казани.", h1: "Активный выхлоп на Porsche Macan в Казани", engine: "2.0 / 2.9", priceFrom: 45000, features: ["Спортивный звук", "Клапаны"] },
-  { slug: "panamera", brandSlug: "porsche", name: "Panamera", nameRu: "Панамера", metaTitle: "Активный выхлоп на Porsche Panamera в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Porsche Panamera в Казани.", h1: "Активный выхлоп на Porsche Panamera в Казани", engine: "2.9 / 4.0", priceFrom: 55000, features: ["PSE звук", "Клапанная система"] },
-  { slug: "911", brandSlug: "porsche", name: "911", nameRu: "911", metaTitle: "Активный выхлоп на Porsche 911 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Porsche 911 в Казани. Оппозитный звук.", h1: "Активный выхлоп на Porsche 911 в Казани", engine: "3.0 / 3.8", priceFrom: 65000, features: ["Звук оппозита", "PSE обход", "Титановые насадки"] },
+  // Porsche (6)
+  m("cayenne", "porsche", "Cayenne", "Кайен", "3.0 / 4.0", 55000, ["Спортивный звук", "Клапаны PSE"]),
+  m("macan", "porsche", "Macan", "Макан", "2.0 / 2.9", 45000, ["Спортивный звук", "Клапаны"]),
+  m("panamera", "porsche", "Panamera", "Панамера", "2.9 / 4.0", 55000, ["PSE звук", "Клапанная система"]),
+  m("911", "porsche", "911", "911", "3.0 / 3.8", 65000, ["Звук оппозита", "PSE обход", "Титановые насадки"]),
+  m("taycan", "porsche", "Taycan", "Тайкан", "Электро", 50000, ["Звуковой симулятор", "Управление"]),
+  m("cayenne-coupe", "porsche", "Cayenne Coupe", "Кайен Купе", "3.0 / 4.0", 58000, ["Спортивный звук", "Клапаны PSE"]),
 
-  // Land Rover
-  { slug: "range-rover", brandSlug: "land-rover", name: "Range Rover", nameRu: "Рендж Ровер", metaTitle: "Активный выхлоп на Range Rover в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Range Rover в Казани. Звук V8, клапаны.", h1: "Активный выхлоп на Range Rover в Казани", engine: "3.0 / 4.4 V8", priceFrom: 55000, features: ["Звук V8", "Электронные клапаны", "App"] },
-  { slug: "range-rover-sport", brandSlug: "land-rover", name: "Range Rover Sport", nameRu: "Рендж Ровер Спорт", metaTitle: "Активный выхлоп на Range Rover Sport в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Range Rover Sport в Казани.", h1: "Активный выхлоп на Range Rover Sport в Казани", engine: "3.0 / 4.4", priceFrom: 50000, features: ["Спортивный звук", "Клапаны"] },
-  { slug: "defender", brandSlug: "land-rover", name: "Defender", nameRu: "Дефендер", metaTitle: "Активный выхлоп на Land Rover Defender в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Defender в Казани.", h1: "Активный выхлоп на Land Rover Defender в Казани", engine: "3.0 / 5.0", priceFrom: 50000, features: ["Мощный звук", "Клапаны"] },
-  { slug: "discovery", brandSlug: "land-rover", name: "Discovery", nameRu: "Дискавери", metaTitle: "Активный выхлоп на Land Rover Discovery в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Discovery в Казани.", h1: "Активный выхлоп на Land Rover Discovery в Казани", engine: "3.0", priceFrom: 45000, features: ["Клапанная система", "Управление"] },
+  // Land Rover (6)
+  m("range-rover", "land-rover", "Range Rover", "Рендж Ровер", "3.0 / 4.4 V8", 55000, ["Звук V8", "Электронные клапаны", "App"]),
+  m("range-rover-sport", "land-rover", "Range Rover Sport", "Рендж Ровер Спорт", "3.0 / 4.4", 50000, ["Спортивный звук", "Клапаны"]),
+  m("defender", "land-rover", "Defender", "Дефендер", "3.0 / 5.0", 50000, ["Мощный звук", "Клапаны"]),
+  m("discovery", "land-rover", "Discovery", "Дискавери", "3.0", 45000, ["Клапанная система", "Управление"]),
+  m("range-rover-velar", "land-rover", "Range Rover Velar", "Велар", "2.0 / 3.0", 45000, ["Спортивный звук", "Клапаны"]),
+  m("discovery-sport", "land-rover", "Discovery Sport", "Дискавери Спорт", "2.0", 38000, ["Клапанная система", "Управление"]),
 
-  // Volkswagen
-  { slug: "touareg", brandSlug: "volkswagen", name: "Touareg", nameRu: "Туарег", metaTitle: "Активный выхлоп на Volkswagen Touareg в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на VW Touareg в Казани.", h1: "Активный выхлоп на Volkswagen Touareg в Казани", engine: "3.0", priceFrom: 40000, features: ["Спортивный звук", "Клапаны"] },
-  { slug: "tiguan", brandSlug: "volkswagen", name: "Tiguan", nameRu: "Тигуан", metaTitle: "Активный выхлоп на Volkswagen Tiguan в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на VW Tiguan в Казани.", h1: "Активный выхлоп на Volkswagen Tiguan в Казани", engine: "1.4 / 2.0", priceFrom: 30000, features: ["Спортивный звук"] },
-  { slug: "golf-r", brandSlug: "volkswagen", name: "Golf R", nameRu: "Гольф R", metaTitle: "Активный выхлоп на Volkswagen Golf R в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на VW Golf R в Казани.", h1: "Активный выхлоп на Volkswagen Golf R в Казани", engine: "2.0 TSI", priceFrom: 40000, features: ["Спортивный звук", "Клапаны", "Бурлэ"] },
+  // Volkswagen (5)
+  m("touareg", "volkswagen", "Touareg", "Туарег", "3.0 / 4.0", 45000, ["Спортивный звук", "Клапаны"]),
+  m("tiguan", "volkswagen", "Tiguan", "Тигуан", "1.4 / 2.0", 30000, ["Клапанная система", "Управление"]),
+  m("golf-r", "volkswagen", "Golf R", "Гольф R", "2.0 TSI", 40000, ["Спортивный звук", "Клапаны"]),
+  m("arteon", "volkswagen", "Arteon", "Артеон", "2.0 TSI", 38000, ["Клапанная система", "Управление"]),
+  m("passat", "volkswagen", "Passat", "Пассат", "1.4 / 2.0", 33000, ["Клапанная система", "Спортивный звук"]),
 
-  // Kia
-  { slug: "k5", brandSlug: "kia", name: "K5", nameRu: "K5", metaTitle: "Активный выхлоп на Kia K5 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Kia K5 в Казани.", h1: "Активный выхлоп на Kia K5 в Казани", engine: "2.5", priceFrom: 25000, features: ["Спортивный звук", "Клапаны"] },
-  { slug: "sportage", brandSlug: "kia", name: "Sportage", nameRu: "Спортейдж", metaTitle: "Активный выхлоп на Kia Sportage в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Kia Sportage в Казани.", h1: "Активный выхлоп на Kia Sportage в Казани", engine: "2.0 / 2.5", priceFrom: 25000, features: ["Спортивный звук"] },
-  { slug: "sorento", brandSlug: "kia", name: "Sorento", nameRu: "Соренто", metaTitle: "Активный выхлоп на Kia Sorento в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Kia Sorento в Казани.", h1: "Активный выхлоп на Kia Sorento в Казани", engine: "2.5 / 3.5", priceFrom: 30000, features: ["Клапанная система"] },
+  // Genesis (5)
+  m("g70", "genesis", "G70", "G70", "2.0T / 3.3T", 40000, ["Спортивный звук", "Клапаны"]),
+  m("g80", "genesis", "G80", "G80", "2.5T / 3.5T", 45000, ["Премиальный звук", "Клапаны"]),
+  m("gv80", "genesis", "GV80", "GV80", "2.5T / 3.5T", 48000, ["Спортивный звук", "Управление"]),
+  m("gv70", "genesis", "GV70", "GV70", "2.5T / 3.5T", 42000, ["Клапанная система", "Управление"]),
+  m("g90", "genesis", "G90", "G90", "3.5T V6", 55000, ["Премиальный звук", "Бесшумный режим"]),
 
-  // Genesis
-  { slug: "g70", brandSlug: "genesis", name: "G70", nameRu: "G70", metaTitle: "Активный выхлоп на Genesis G70 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Genesis G70 в Казани.", h1: "Активный выхлоп на Genesis G70 в Казани", engine: "2.0T / 3.3T", priceFrom: 35000, features: ["Спортивный звук", "Клапаны"] },
-  { slug: "g80", brandSlug: "genesis", name: "G80", nameRu: "G80", metaTitle: "Активный выхлоп на Genesis G80 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Genesis G80 в Казани.", h1: "Активный выхлоп на Genesis G80 в Казани", engine: "2.5T / 3.5T", priceFrom: 40000, features: ["Премиальный звук", "Управление"] },
-  { slug: "gv80", brandSlug: "genesis", name: "GV80", nameRu: "GV80", metaTitle: "Активный выхлоп на Genesis GV80 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Genesis GV80 в Казани.", h1: "Активный выхлоп на Genesis GV80 в Казани", engine: "2.5T / 3.5T", priceFrom: 45000, features: ["Клапанная система", "Звук V6"] },
-  { slug: "gv70", brandSlug: "genesis", name: "GV70", nameRu: "GV70", metaTitle: "Активный выхлоп на Genesis GV70 в Казани | SUNMAXKZN", metaDescription: "Активный выхлоп на Genesis GV70 в Казани.", h1: "Активный выхлоп на Genesis GV70 в Казани", engine: "2.0T / 2.5T", priceFrom: 35000, features: ["Спортивный звук"] },
+  // Infiniti (5)
+  m("qx80", "infiniti", "QX80", "QX80", "5.6 V8", 55000, ["Звук V8", "Клапанная система", "Пульт/App"]),
+  m("qx60", "infiniti", "QX60", "QX60", "3.5 V6", 40000, ["Звук V6", "Клапаны"]),
+  m("q50", "infiniti", "Q50", "Q50", "2.0T / 3.0T", 38000, ["Спортивный звук", "Клапаны"]),
+  m("qx50", "infiniti", "QX50", "QX50", "2.0 VC-Turbo", 35000, ["Клапанная система", "Управление"]),
+  m("qx55", "infiniti", "QX55", "QX55", "2.0 VC-Turbo", 38000, ["Спортивный звук", "Клапаны"]),
+
+  // Kia (5)
+  m("k5", "kia", "K5", "K5", "2.0 / 2.5", 30000, ["Спортивный звук", "Клапаны"]),
+  m("sportage", "kia", "Sportage", "Спортейдж", "2.0 / 2.5", 30000, ["Клапанная система", "Управление"]),
+  m("sorento", "kia", "Sorento", "Соренто", "2.5 / 3.5", 35000, ["Клапанная система", "Звук V6"]),
+  m("stinger", "kia", "Stinger", "Стингер", "2.0T / 3.3T", 40000, ["Спортивный звук", "Клапаны"]),
+  m("mohave", "kia", "Mohave", "Мохаве", "3.0D V6", 45000, ["Дизельный звук", "Клапаны"]),
+
+  // Hyundai (5)
+  m("tucson", "hyundai", "Tucson", "Туссан", "2.0 / 2.5", 30000, ["Клапанная система", "Управление"]),
+  m("santa-fe", "hyundai", "Santa Fe", "Санта Фе", "2.5 / 3.5", 35000, ["Клапанная система", "Звук V6"]),
+  m("sonata", "hyundai", "Sonata", "Соната", "2.0 / 2.5", 30000, ["Спортивный звук", "Клапаны"]),
+  m("palisade", "hyundai", "Palisade", "Палисад", "3.5 V6", 40000, ["Звук V6", "Клапаны"]),
+  m("solaris", "hyundai", "Solaris", "Солярис", "1.4 / 1.6", 25000, ["Клапанная система", "Спортивный звук"]),
+
+  // Nissan (5)
+  m("patrol", "nissan", "Patrol", "Патрол", "5.6 V8", 55000, ["Звук V8", "Клапанная система"]),
+  m("x-trail", "nissan", "X-Trail", "Х-Трейл", "2.0 / 2.5", 30000, ["Клапанная система", "Управление"]),
+  m("qashqai", "nissan", "Qashqai", "Кашкай", "1.3T / 2.0", 28000, ["Клапанная система", "Спортивный звук"]),
+  m("murano", "nissan", "Murano", "Мурано", "3.5 V6", 38000, ["Звук V6", "Клапаны"]),
+  m("pathfinder", "nissan", "Pathfinder", "Патфайндер", "3.5 V6", 40000, ["Звук V6", "Управление"]),
+
+  // Mitsubishi (3)
+  m("outlander", "mitsubishi", "Outlander", "Аутлендер", "2.0 / 2.5 / 3.0", 30000, ["Клапанная система", "Управление"]),
+  m("pajero", "mitsubishi", "Pajero", "Паджеро", "3.0 / 3.8 V6", 40000, ["Звук V6", "Клапаны"]),
+  m("eclipse-cross", "mitsubishi", "Eclipse Cross", "Эклипс Кросс", "1.5T / 2.4", 28000, ["Клапанная система", "Спортивный звук"]),
+
+  // Mazda (3)
+  m("cx-5", "mazda", "CX-5", "CX-5", "2.0 / 2.5", 30000, ["Клапанная система", "Управление"]),
+  m("cx-9", "mazda", "CX-9", "CX-9", "2.5 Turbo", 38000, ["Спортивный звук", "Клапаны"]),
+  m("mazda-6", "mazda", "Mazda 6", "Мазда 6", "2.0 / 2.5", 30000, ["Клапанная система", "Спортивный звук"]),
+
+  // Subaru (3)
+  m("forester", "subaru", "Forester", "Форестер", "2.0 / 2.5", 30000, ["Звук оппозита", "Клапаны"]),
+  m("outback", "subaru", "Outback", "Аутбэк", "2.5", 33000, ["Звук оппозита", "Управление"]),
+  m("wrx", "subaru", "WRX", "WRX", "2.4 Turbo", 40000, ["Спортивный звук", "Полный обход клапанов"]),
+
+  // Honda (3)
+  m("cr-v", "honda", "CR-V", "CR-V", "1.5T / 2.0", 30000, ["Клапанная система", "Управление"]),
+  m("civic", "honda", "Civic", "Сивик", "1.5T / 2.0", 28000, ["Спортивный звук", "Клапаны"]),
+  m("accord", "honda", "Accord", "Аккорд", "1.5T / 2.0", 30000, ["Клапанная система", "Спортивный звук"]),
+
+  // Volvo (4)
+  m("xc90", "volvo", "XC90", "XC90", "2.0 T5 / T6 / T8", 45000, ["Клапанная система", "Управление"]),
+  m("xc60", "volvo", "XC60", "XC60", "2.0 T5 / T6", 40000, ["Спортивный звук", "Клапаны"]),
+  m("s90", "volvo", "S90", "S90", "2.0 T5 / T6", 42000, ["Клапанная система", "Управление"]),
+  m("xc40", "volvo", "XC40", "XC40", "1.5 / 2.0", 33000, ["Клапанная система", "Спортивный звук"]),
+
+  // Jaguar (3)
+  m("f-pace", "jaguar", "F-Pace", "F-Pace", "2.0 / 3.0 / 5.0", 45000, ["Спортивный звук", "Клапаны"]),
+  m("f-type", "jaguar", "F-Type", "F-Type", "2.0 / 3.0 / 5.0 V8", 60000, ["Звук V8", "Клапанная система", "Титан"]),
+  m("xe", "jaguar", "XE", "XE", "2.0", 35000, ["Клапанная система", "Спортивный звук"]),
+
+  // Bentley (3)
+  m("bentayga", "bentley", "Bentayga", "Бентайга", "4.0 V8 / 6.0 W12", 75000, ["Звук W12/V8", "Премиум клапаны"]),
+  m("continental-gt", "bentley", "Continental GT", "Континенталь GT", "4.0 V8 / 6.0 W12", 80000, ["Звук W12", "Клапанная система"]),
+  m("flying-spur", "bentley", "Flying Spur", "Флаинг Спур", "4.0 V8 / 6.0 W12", 75000, ["Премиальный звук", "Клапаны"]),
+
+  // Cadillac (3)
+  m("escalade", "cadillac", "Escalade", "Эскалейд", "6.2 V8", 60000, ["Звук V8", "Клапанная система"]),
+  m("ct5", "cadillac", "CT5", "CT5", "2.0T / 3.0T", 40000, ["Спортивный звук", "Клапаны"]),
+  m("xt6", "cadillac", "XT6", "XT6", "2.0T / 3.6 V6", 42000, ["Звук V6", "Управление"]),
+
+  // Chevrolet (3)
+  m("tahoe", "chevrolet", "Tahoe", "Тахо", "5.3 / 6.2 V8", 55000, ["Звук V8", "Клапанная система"]),
+  m("camaro", "chevrolet", "Camaro", "Камаро", "2.0T / 6.2 V8", 50000, ["Звук V8", "Полный обход", "Спортивный звук"]),
+  m("traverse", "chevrolet", "Traverse", "Траверс", "3.6 V6", 40000, ["Звук V6", "Клапаны"]),
+
+  // Dodge (3)
+  m("durango", "dodge", "Durango", "Дуранго", "3.6 V6 / 5.7 V8 / 6.4 V8", 50000, ["Звук HEMI", "Клапаны"]),
+  m("challenger", "dodge", "Challenger", "Челленджер", "5.7 / 6.2 / 6.4 HEMI", 55000, ["Звук HEMI V8", "Полный обход"]),
+  m("charger", "dodge", "Charger", "Чарджер", "5.7 / 6.4 HEMI", 55000, ["Звук HEMI V8", "Клапаны"]),
+
+  // Jeep (3)
+  m("grand-cherokee", "jeep", "Grand Cherokee", "Гранд Чероки", "3.0D / 3.6 / 5.7 V8", 45000, ["Звук V8/V6", "Клапаны"]),
+  m("wrangler", "jeep", "Wrangler", "Рэнглер", "2.0T / 3.6 V6", 42000, ["Внедорожный звук", "Клапаны"]),
+  m("compass", "jeep", "Compass", "Компас", "1.3T / 2.4", 30000, ["Клапанная система", "Управление"]),
+
+  // Ford (3)
+  m("mustang", "ford", "Mustang", "Мустанг", "2.3 EcoBoost / 5.0 V8", 50000, ["Звук V8", "Клапаны", "Полный обход"]),
+  m("explorer", "ford", "Explorer", "Эксплорер", "2.3 EcoBoost / 3.0T", 40000, ["Спортивный звук", "Клапаны"]),
+  m("bronco", "ford", "Bronco", "Бронко", "2.3 / 2.7 V6", 42000, ["Внедорожный звук", "Клапаны"]),
+
+  // MINI (3)
+  m("cooper-s", "mini", "Cooper S", "Купер S", "2.0 Turbo", 33000, ["Спортивный звук", "Хлопки", "Клапаны"]),
+  m("countryman", "mini", "Countryman", "Кантримен", "1.5 / 2.0", 30000, ["Клапанная система", "Управление"]),
+  m("clubman", "mini", "Clubman", "Клабмен", "1.5 / 2.0", 30000, ["Клапанная система", "Спортивный звук"]),
+
+  // Skoda (3)
+  m("kodiaq", "skoda", "Kodiaq", "Кодиак", "1.4 / 2.0 TSI", 30000, ["Клапанная система", "Управление"]),
+  m("superb", "skoda", "Superb", "Суперб", "1.4 / 2.0 TSI", 33000, ["Клапанная система", "Спортивный звук"]),
+  m("octavia-rs", "skoda", "Octavia RS", "Октавия RS", "2.0 TSI", 35000, ["Спортивный звук", "Хлопки", "Клапаны"]),
+
+  // Chery (3)
+  m("tiggo-8-pro", "chery", "Tiggo 8 Pro", "Тигго 8 Про", "2.0T", 30000, ["Клапанная система", "Управление"]),
+  m("tiggo-7-pro", "chery", "Tiggo 7 Pro", "Тигго 7 Про", "1.5T", 28000, ["Клапанная система", "Спортивный звук"]),
+  m("arrizo-8", "chery", "Arrizo 8", "Арризо 8", "1.6T", 28000, ["Клапанная система", "Управление"]),
+
+  // Haval (4)
+  m("jolion", "haval", "Jolion", "Джолион", "1.5T", 25000, ["Клапанная система", "Управление"]),
+  m("f7", "haval", "F7", "F7", "1.5T / 2.0T", 28000, ["Клапанная система", "Спортивный звук"]),
+  m("h9", "haval", "H9", "H9", "2.0T", 35000, ["Клапанная система", "Управление"]),
+  m("dargo", "haval", "Dargo", "Дарго", "2.0T", 30000, ["Клапанная система", "Спортивный звук"]),
+
+  // Geely (3)
+  m("monjaro", "geely", "Monjaro", "Монжаро", "2.0T", 30000, ["Клапанная система", "Управление"]),
+  m("atlas", "geely", "Atlas", "Атлас", "1.5T / 1.8T", 25000, ["Клапанная система", "Спортивный звук"]),
+  m("coolray", "geely", "Coolray", "Кулрей", "1.5T", 25000, ["Клапанная система", "Управление"]),
+
+  // Changan (3)
+  m("uni-k", "changan", "UNI-K", "UNI-K", "2.0T", 30000, ["Клапанная система", "Управление"]),
+  m("cs75-plus", "changan", "CS75 Plus", "CS75 Плюс", "1.5T", 25000, ["Клапанная система", "Спортивный звук"]),
+  m("uni-v", "changan", "UNI-V", "UNI-V", "1.5T", 28000, ["Спортивный звук", "Клапаны"]),
+
+  // Tank (2)
+  m("tank-500", "tank", "Tank 500", "Танк 500", "3.0T V6", 45000, ["Звук V6", "Клапанная система"]),
+  m("tank-300", "tank", "Tank 300", "Танк 300", "2.0T", 33000, ["Клапанная система", "Управление"]),
+
+  // Li Auto (2)
+  m("l9", "li-auto", "L9", "L9", "1.5T (гибрид)", 35000, ["Звуковой симулятор", "Управление"]),
+  m("l7", "li-auto", "L7", "L7", "1.5T (гибрид)", 33000, ["Звуковой симулятор", "Управление"]),
+
+  // Zeekr (2)
+  m("zeekr-001", "zeekr", "001", "001", "Электро", 35000, ["Звуковой симулятор", "Управление из приложения"]),
+  m("zeekr-009", "zeekr", "009", "009", "Электро", 38000, ["Звуковой симулятор", "Управление"]),
+
+  // Exeed (3)
+  m("exeed-vx", "exeed", "VX", "VX", "2.0T", 33000, ["Клапанная система", "Управление"]),
+  m("exeed-txl", "exeed", "TXL", "TXL", "1.6T", 28000, ["Клапанная система", "Спортивный звук"]),
+  m("exeed-lx", "exeed", "LX", "LX", "1.5T", 25000, ["Клапанная система", "Управление"]),
+
+  // Omoda (2)
+  m("omoda-c5", "omoda", "C5", "C5", "1.5T / 1.6T", 25000, ["Клапанная система", "Управление"]),
+  m("omoda-s5", "omoda", "S5", "S5", "1.5T", 25000, ["Клапанная система", "Спортивный звук"]),
+
+  // Lamborghini (2)
+  m("urus", "lamborghini", "Urus", "Урус", "4.0 V8 TT", 80000, ["Звук V8 TT", "Полный обход", "Титан"]),
+  m("huracan", "lamborghini", "Huracan", "Уракан", "5.2 V10", 90000, ["Звук V10", "Клапанная система", "Титан"]),
+
+  // Maserati (2)
+  m("levante", "maserati", "Levante", "Леванте", "3.0 V6 / 3.8 V8", 60000, ["Итальянский звук", "Клапаны"]),
+  m("ghibli", "maserati", "Ghibli", "Гибли", "2.0T / 3.0 V6", 50000, ["Спортивный звук", "Клапаны"]),
+
+  // Ferrari (2)
+  m("roma", "ferrari", "Roma", "Рома", "3.9 V8 TT", 85000, ["Звук V8 Ferrari", "Клапанная система"]),
+  m("f8-tributo", "ferrari", "F8 Tributo", "F8 Трибуто", "3.9 V8 TT", 90000, ["Звук V8 TT", "Полный обход", "Титан"]),
 ];
 
-export const getModelBySlug = (modelSlug: string, brandSlug: string): ExhaustModel | undefined =>
-  EXHAUST_MODELS.find((m) => m.slug === modelSlug && m.brandSlug === brandSlug);
-
-export const getModelsByBrand = (brandSlug: string): ExhaustModel[] =>
-  EXHAUST_MODELS.filter((m) => m.brandSlug === brandSlug);
+export const getModelBySlug = (slug: string, brandSlug: string): ExhaustModel | undefined =>
+  EXHAUST_MODELS.find((m) => m.slug === slug && m.brandSlug === brandSlug);
 
 export const getModelByAnySlug = (slug: string): ExhaustModel | undefined =>
   EXHAUST_MODELS.find((m) => m.slug === slug);
+
+export const getModelsByBrand = (brandSlug: string): ExhaustModel[] =>
+  EXHAUST_MODELS.filter((m) => m.brandSlug === brandSlug);

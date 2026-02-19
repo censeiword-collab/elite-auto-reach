@@ -1,23 +1,41 @@
 // Utility functions for the active exhaust SEO section
 
-import { getBrandBySlug } from "./activeExhaustBrands";
+import { getBrandBySlug, EXHAUST_BRANDS } from "./activeExhaustBrands";
 import { getModelByAnySlug, getModelBySlug, getModelsByBrand } from "./activeExhaustModels";
+import { EXHAUST_AREAS } from "./activeExhaustAreaPages";
 
 /**
- * Resolves a slug to either a brand page or a model page.
- * Returns { type: "brand", brandSlug } or { type: "model", brandSlug, modelSlug }.
+ * Resolves a slug to either a brand page, model page, or area page.
+ * Handles simple slugs ("bmw", "x5"), compound slugs ("bmw-x5"), and area slugs ("kazan-sovetskiy").
  */
 export function resolveExhaustSlug(slug: string): 
   | { type: "brand"; brandSlug: string }
   | { type: "model"; brandSlug: string; modelSlug: string }
+  | { type: "area"; areaSlug: string }
   | null {
-  // Check if it's a brand slug
+  // 1. Check if it's a kazan-area slug (e.g. "kazan-sovetskiy")
+  if (slug.startsWith("kazan-")) {
+    const areaSlug = slug.slice("kazan-".length);
+    const area = EXHAUST_AREAS.find((a) => a.slug === areaSlug);
+    if (area) return { type: "area", areaSlug };
+  }
+
+  // 2. Direct brand match
   const brand = getBrandBySlug(slug);
   if (brand) return { type: "brand", brandSlug: slug };
 
-  // Check if it's a model slug (search across all brands)
+  // 3. Direct model match
   const model = getModelByAnySlug(slug);
   if (model) return { type: "model", brandSlug: model.brandSlug, modelSlug: model.slug };
+
+  // 4. Try compound slug: "brand-model" (e.g. "bmw-x5" → brand "bmw" + model "x5")
+  for (const b of EXHAUST_BRANDS) {
+    if (slug.startsWith(b.slug + "-")) {
+      const modelPart = slug.slice(b.slug.length + 1);
+      const m = getModelBySlug(modelPart, b.slug);
+      if (m) return { type: "model", brandSlug: b.slug, modelSlug: m.slug };
+    }
+  }
 
   return null;
 }
