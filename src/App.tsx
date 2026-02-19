@@ -98,6 +98,7 @@ const App = () => (
               <Route path="/aktivnyy-vykhlop/dizel-gibrid-elektro" element={<ActiveExhaustInfoPage />} />
               <Route path="/aktivnyy-vykhlop/kazan" element={<ActiveExhaustKazanPage />} />
               <Route path="/aktivnyy-vykhlop/:slug/:brandSlug" element={<ActiveExhaustAreaBrandPage />} />
+              {/* Бренд, модель или район на одном уровне */}
               <Route path="/aktivnyy-vykhlop/:slug" element={<ActiveExhaustSlugPage />} />
               
               {/* Admin Routes */}
