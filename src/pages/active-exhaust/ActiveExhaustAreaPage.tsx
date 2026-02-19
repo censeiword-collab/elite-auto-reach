@@ -7,7 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
 import { Button } from "@/components/ui/button";
 import { getAreaBySlug } from "@/data/activeExhaustAreaPages";
-import { EXHAUST_BRANDS } from "@/data/activeExhaustBrands";
+import { getPopularBrands } from "@/data/activeExhaustBrands";
 import { EXHAUST_BASE } from "@/data/activeExhaustUtils";
 import { CONTACT } from "@/lib/constants";
 import NotFound from "@/pages/NotFound";
@@ -21,6 +21,8 @@ const ActiveExhaustAreaPage = ({ areaSlugOverride }: Props = {}) => {
   const slug = areaSlugOverride || paramSlug;
   const area = slug ? getAreaBySlug(slug) : undefined;
   if (!area) return <NotFound />;
+
+  const topBrands = getPopularBrands();
 
   return (
     <div className="min-h-screen bg-background">
@@ -58,18 +60,28 @@ const ActiveExhaustAreaPage = ({ areaSlugOverride }: Props = {}) => {
           </div>
         </section>
 
-        {/* Brands in this area */}
+        {/* Top brands in this area */}
         <section className="section-container">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 text-center">Выберите марку</h2>
+            <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8 text-center">Популярные марки</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {EXHAUST_BRANDS.map((brand) => (
+              {topBrands.map((brand) => (
                 <Link key={brand.slug} to={`${EXHAUST_BASE}/kazan-${area.slug}/${brand.slug}`} className="group p-5 bg-card border border-border rounded-2xl hover:border-primary/50 transition-all text-center">
                   <Volume2 className="w-6 h-6 mx-auto mb-2 text-primary" />
                   <span className="font-heading font-semibold">{brand.name}</span>
                 </Link>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Back to Kazan */}
+        <section className="section-container bg-secondary/20">
+          <div className="container mx-auto px-4 text-center">
+            <Link to={`${EXHAUST_BASE}/kazan`} className="inline-flex items-center gap-2 px-6 py-3 bg-card border border-border rounded-xl hover:border-primary/50 transition-all font-heading font-semibold">
+              <MapPin className="w-4 h-4 text-primary" />
+              Все районы Казани
+            </Link>
           </div>
         </section>
       </main>

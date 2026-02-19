@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronRight, MapPin, Phone, Check } from "lucide-react";
+import { ChevronRight, MapPin, Phone } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -14,6 +14,8 @@ import { EXHAUST_BASE, formatPrice } from "@/data/activeExhaustUtils";
 import { CONTACT } from "@/lib/constants";
 import NotFound from "@/pages/NotFound";
 
+const MAX_MODELS = 24;
+
 const ActiveExhaustAreaBrandPage = () => {
   const { slug, brandSlug } = useParams<{ slug: string; brandSlug: string }>();
   const areaSlug = slug?.startsWith("kazan-") ? slug.slice("kazan-".length) : undefined;
@@ -22,7 +24,9 @@ const ActiveExhaustAreaBrandPage = () => {
   if (!area || !brand) return <NotFound />;
 
   const areaBrand = getAreaBrand(area.slug, brand.slug);
-  const models = getModelsByBrand(brand.slug);
+  const allModels = getModelsByBrand(brand.slug);
+  const models = allModels.slice(0, MAX_MODELS);
+  const hasMore = allModels.length > MAX_MODELS;
 
   return (
     <div className="min-h-screen bg-background">
@@ -70,6 +74,30 @@ const ActiveExhaustAreaBrandPage = () => {
                 </Link>
               ))}
             </div>
+            {hasMore && (
+              <div className="text-center mt-8">
+                <Button asChild variant="outline">
+                  <Link to={`${EXHAUST_BASE}/${brand.slug}`}>
+                    Полный список моделей {brand.name}
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </Link>
+                </Button>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Back links */}
+        <section className="section-container bg-secondary/20">
+          <div className="container mx-auto px-4 flex flex-wrap justify-center gap-4">
+            <Link to={`${EXHAUST_BASE}/kazan-${area.slug}`} className="inline-flex items-center gap-2 px-6 py-3 bg-card border border-border rounded-xl hover:border-primary/50 transition-all font-heading font-semibold text-sm">
+              <MapPin className="w-4 h-4 text-primary" />
+              {area.name}
+            </Link>
+            <Link to={`${EXHAUST_BASE}/kazan`} className="inline-flex items-center gap-2 px-6 py-3 bg-card border border-border rounded-xl hover:border-primary/50 transition-all font-heading font-semibold text-sm">
+              <MapPin className="w-4 h-4 text-primary" />
+              Все районы Казани
+            </Link>
           </div>
         </section>
       </main>
