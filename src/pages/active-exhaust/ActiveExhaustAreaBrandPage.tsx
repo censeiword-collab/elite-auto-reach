@@ -12,6 +12,7 @@ import { getModelsByBrand } from "@/data/activeExhaustModels";
 import { getAreaBrand } from "@/data/activeExhaustAreaBrandPages";
 import { EXHAUST_BASE, formatPrice } from "@/data/activeExhaustUtils";
 import { CONTACT } from "@/lib/constants";
+import { localBusinessSchema, exhaustServiceSchema, areaBrandBreadcrumbs } from "@/data/activeExhaustJsonLd";
 import NotFound from "@/pages/NotFound";
 
 const MAX_MODELS = 24;
@@ -34,6 +35,7 @@ const ActiveExhaustAreaBrandPage = () => {
         title={areaBrand?.metaTitle || `Активный выхлоп на ${brand.name} — ${area.name} Казани | SUNMAXKZN`}
         description={areaBrand?.metaDescription || `Установка активного выхлопа на ${brand.name} для жителей ${area.name} Казани. Студия SUNMAXKZN — рядом с вами. Гарантия до 2 лет.`}
         canonicalUrl={`https://sunmaxkzn.ru${EXHAUST_BASE}/kazan-${area.slug}/${brand.slug}`}
+        jsonLd={[localBusinessSchema(), exhaustServiceSchema(), areaBrandBreadcrumbs(area.name, area.slug, brand.name, brand.slug)]}
       />
       <Header />
       <main>

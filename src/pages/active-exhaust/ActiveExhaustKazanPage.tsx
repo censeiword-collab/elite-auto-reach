@@ -10,6 +10,7 @@ import { EXHAUST_BRANDS } from "@/data/activeExhaustBrands";
 import { EXHAUST_AREAS } from "@/data/activeExhaustAreaPages";
 import { EXHAUST_BASE } from "@/data/activeExhaustUtils";
 import { CONTACT } from "@/lib/constants";
+import { localBusinessSchema, exhaustServiceSchema, kazanBreadcrumbs } from "@/data/activeExhaustJsonLd";
 
 const ActiveExhaustKazanPage = () => {
   return (
@@ -19,6 +20,7 @@ const ActiveExhaustKazanPage = () => {
         description="Установка активного электронного выхлопа в любом районе Казани. Студия SUNMAXKZN — удобное расположение. Все марки авто. Гарантия до 2 лет."
         keywords={["активный выхлоп Казань", "установка выхлопа Казань", "клапанный выхлоп Казань"]}
         canonicalUrl={`https://sunmaxkzn.ru${EXHAUST_BASE}/kazan`}
+        jsonLd={[localBusinessSchema(), exhaustServiceSchema(), kazanBreadcrumbs()]}
       />
       <Header />
       <main>

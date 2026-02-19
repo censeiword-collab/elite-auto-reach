@@ -12,6 +12,7 @@ import { getModelsByBrand } from "@/data/activeExhaustModels";
 import { EXHAUST_INFO_PAGES } from "@/data/activeExhaustInfoPages";
 import { EXHAUST_BASE, formatPrice } from "@/data/activeExhaustUtils";
 import { CONTACT } from "@/lib/constants";
+import { localBusinessSchema, exhaustServiceSchema, brandBreadcrumbs } from "@/data/activeExhaustJsonLd";
 import NotFound from "@/pages/NotFound";
 
 const STEP = 18;
@@ -42,6 +43,7 @@ const ActiveExhaustBrandPage = ({ brandSlug }: { brandSlug: string }) => {
         description={brand.metaDescription}
         keywords={[`активный выхлоп ${brand.name} Казань`, `выхлоп ${brand.nameRu} Казань`]}
         canonicalUrl={`https://sunmaxkzn.ru${EXHAUST_BASE}/${brand.slug}`}
+        jsonLd={[localBusinessSchema(), exhaustServiceSchema(), brandBreadcrumbs(brand.name, brand.slug)]}
       />
       <Header />
       <main>

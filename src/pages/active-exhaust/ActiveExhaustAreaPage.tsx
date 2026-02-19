@@ -10,6 +10,7 @@ import { getAreaBySlug } from "@/data/activeExhaustAreaPages";
 import { getPopularBrands } from "@/data/activeExhaustBrands";
 import { EXHAUST_BASE } from "@/data/activeExhaustUtils";
 import { CONTACT } from "@/lib/constants";
+import { localBusinessSchema, exhaustServiceSchema, areaBreadcrumbs } from "@/data/activeExhaustJsonLd";
 import NotFound from "@/pages/NotFound";
 
 interface Props {
@@ -30,6 +31,7 @@ const ActiveExhaustAreaPage = ({ areaSlugOverride }: Props = {}) => {
         title={area.metaTitle}
         description={area.metaDescription}
         canonicalUrl={`https://sunmaxkzn.ru${EXHAUST_BASE}/kazan-${area.slug}`}
+        jsonLd={[localBusinessSchema(), exhaustServiceSchema(), areaBreadcrumbs(area.name, area.slug)]}
       />
       <Header />
       <main>

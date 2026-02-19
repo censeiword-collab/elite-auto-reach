@@ -14,6 +14,7 @@ import { EXHAUST_INFO_PAGES } from "@/data/activeExhaustInfoPages";
 import { getMarkdown } from "@/data/activeExhaustMarkdown";
 import { getExhaustImages } from "@/data/activeExhaustImages";
 import { CONTACT } from "@/lib/constants";
+import { localBusinessSchema, exhaustServiceSchema, modelBreadcrumbs, faqSchema, modelDefaultFaq } from "@/data/activeExhaustJsonLd";
 import NotFound from "@/pages/NotFound";
 
 const ActiveExhaustModelPage = ({ brandSlug, modelSlug }: { brandSlug: string; modelSlug: string }) => {
@@ -23,6 +24,7 @@ const ActiveExhaustModelPage = ({ brandSlug, modelSlug }: { brandSlug: string; m
 
   const mdContent = getMarkdown(`model-${model.slug}`);
   const images = getExhaustImages(model.slug);
+  const faqItems = modelDefaultFaq(brand.name, model.name);
 
   return (
     <div className="min-h-screen bg-background">
@@ -31,6 +33,12 @@ const ActiveExhaustModelPage = ({ brandSlug, modelSlug }: { brandSlug: string; m
         description={model.metaDescription}
         keywords={[`активный выхлоп ${brand.name} ${model.name} Казань`]}
         canonicalUrl={`https://sunmaxkzn.ru${EXHAUST_BASE}/${model.slug}`}
+        jsonLd={[
+          localBusinessSchema(),
+          exhaustServiceSchema(),
+          modelBreadcrumbs(brand.name, brand.slug, model.name, model.slug),
+          faqSchema(faqItems),
+        ]}
       />
       <Header />
       <main>
