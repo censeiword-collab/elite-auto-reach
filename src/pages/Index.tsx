@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -14,6 +15,9 @@ import SchemaOrg, { buildBusinessData } from "@/components/seo/SchemaOrg";
 import { WARRANTY, TIMING } from "@/lib/constants";
 import { UNIFIED_POSITIONING, getPageSEO } from "@/lib/seo-config";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
+import LeadWizard from "@/components/LeadWizard";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Calculator } from "lucide-react";
 
 const homeFAQ = [
   {
@@ -38,6 +42,7 @@ const Index = () => {
   const seoConfig = getPageSEO("/");
   const { settings } = useSiteSettings();
   const businessData = buildBusinessData(settings);
+  const [wizardOpen, setWizardOpen] = useState(false);
   
   return (
     <div className="min-h-screen bg-background">
@@ -53,7 +58,7 @@ const Index = () => {
           "удаление вмятин pdr",
           "сигнализация pandora",
         ]}
-        canonicalUrl="https://sunmaxkzn.ru"
+        canonicalUrl="https://sunmax-kzn.ru"
       />
       <SchemaOrg type="LocalBusiness" data={businessData} />
       <SchemaOrg type="FAQ" data={homeFAQ} />
@@ -71,6 +76,23 @@ const Index = () => {
         <SEOTextSection />
       </main>
       <Footer />
+
+      {/* Fixed CTA button */}
+      <button
+        onClick={() => setWizardOpen(true)}
+        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm"
+      >
+        <Calculator className="w-5 h-5" />
+        Рассчитать стоимость
+      </button>
+
+      {/* Wizard modal */}
+      <Dialog open={wizardOpen} onOpenChange={setWizardOpen}>
+        <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
+          <DialogTitle className="sr-only">Квиз-калькулятор</DialogTitle>
+          <LeadWizard onClose={() => setWizardOpen(false)} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
