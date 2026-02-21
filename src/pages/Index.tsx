@@ -80,7 +80,7 @@ const Index = () => {
       {/* Fixed CTA button */}
       <button
         onClick={() => setWizardOpen(true)}
-        className="fixed z-40 flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 sm:px-5 rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))]"
+        className="fixed z-40 flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 md:px-5 md:py-4 md:text-base rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] md:bottom-24 lg:bottom-28"
       >
         <Calculator className="w-5 h-5" />
         <span className="hidden sm:inline">Рассчитать стоимость</span>
