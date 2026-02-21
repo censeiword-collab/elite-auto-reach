@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -15,9 +14,6 @@ import SchemaOrg, { buildBusinessData } from "@/components/seo/SchemaOrg";
 import { WARRANTY, TIMING } from "@/lib/constants";
 import { UNIFIED_POSITIONING, getPageSEO } from "@/lib/seo-config";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
-import LeadWizard from "@/components/LeadWizard";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Calculator } from "lucide-react";
 
 const homeFAQ = [
   {
@@ -42,8 +38,6 @@ const Index = () => {
   const seoConfig = getPageSEO("/");
   const { settings } = useSiteSettings();
   const businessData = buildBusinessData(settings);
-  const [wizardOpen, setWizardOpen] = useState(false);
-  const handleOpenLeadWizard = () => setWizardOpen(true);
   
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -64,7 +58,7 @@ const Index = () => {
       <SchemaOrg type="LocalBusiness" data={businessData} />
       <SchemaOrg type="FAQ" data={homeFAQ} />
       
-      <Header onOpenLeadWizard={handleOpenLeadWizard} />
+      <Header />
       <main>
         
         <HeroSection />
@@ -77,24 +71,6 @@ const Index = () => {
         <SEOTextSection />
       </main>
       <Footer />
-
-      {/* Fixed CTA button */}
-      <button
-        onClick={handleOpenLeadWizard}
-        className="fixed z-40 flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 md:px-5 md:py-4 md:text-base rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] md:bottom-24 lg:bottom-28"
-      >
-        <Calculator className="w-5 h-5" />
-        <span className="hidden sm:inline">Рассчитать стоимость</span>
-        <span className="sm:hidden">Расчёт</span>
-      </button>
-
-      {/* Wizard modal */}
-      <Dialog open={wizardOpen} onOpenChange={setWizardOpen}>
-        <DialogContent className="sm:max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto pb-[calc(1rem+env(safe-area-inset-bottom))]">
-          <DialogTitle className="sr-only">Квиз-калькулятор</DialogTitle>
-          <LeadWizard onClose={() => setWizardOpen(false)} />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
