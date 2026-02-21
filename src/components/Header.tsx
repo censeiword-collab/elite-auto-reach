@@ -7,7 +7,11 @@ import { CONTACT, NAVIGATION, getWhatsAppLink, getPhoneLink } from "@/lib/consta
 const navLinks = NAVIGATION.header;
 const servicesDropdown = NAVIGATION.servicesDropdown;
 
-const Header = () => {
+interface HeaderProps {
+  onOpenLeadWizard?: () => void;
+}
+
+const Header = ({ onOpenLeadWizard }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
@@ -126,8 +130,8 @@ const Header = () => {
                 Рассчитать
               </a>
             </Button>
-            <Button asChild className="btn-glow font-semibold">
-              <a href="/contacts">Записаться</a>
+            <Button className="btn-glow font-semibold" onClick={onOpenLeadWizard}>
+              Оставить заявку
             </Button>
           </div>
 
@@ -216,8 +220,8 @@ const Header = () => {
                       Расчёт
                     </a>
                   </Button>
-                  <Button asChild className="btn-glow font-semibold">
-                    <a href="/contacts" onClick={() => setIsOpen(false)}>Записаться</a>
+                  <Button className="btn-glow font-semibold" onClick={() => { setIsOpen(false); onOpenLeadWizard?.(); }}>
+                    Оставить заявку
                   </Button>
                 </div>
               </div>

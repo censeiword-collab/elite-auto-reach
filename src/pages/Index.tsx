@@ -43,6 +43,7 @@ const Index = () => {
   const { settings } = useSiteSettings();
   const businessData = buildBusinessData(settings);
   const [wizardOpen, setWizardOpen] = useState(false);
+  const handleOpenLeadWizard = () => setWizardOpen(true);
   
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -63,7 +64,7 @@ const Index = () => {
       <SchemaOrg type="LocalBusiness" data={businessData} />
       <SchemaOrg type="FAQ" data={homeFAQ} />
       
-      <Header />
+      <Header onOpenLeadWizard={handleOpenLeadWizard} />
       <main>
         
         <HeroSection />
@@ -79,7 +80,7 @@ const Index = () => {
 
       {/* Fixed CTA button */}
       <button
-        onClick={() => setWizardOpen(true)}
+        onClick={handleOpenLeadWizard}
         className="fixed z-40 flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 md:px-5 md:py-4 md:text-base rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] md:bottom-24 lg:bottom-28"
       >
         <Calculator className="w-5 h-5" />
