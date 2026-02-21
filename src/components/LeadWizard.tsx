@@ -382,7 +382,7 @@ const LeadWizard = ({ onClose }: LeadWizardProps) => {
   const progress = ((step + 1) / STEPS.length) * 100;
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 min-w-0">
       {/* Progress */}
       <div className="space-y-2">
         <div className="flex justify-between text-xs text-muted-foreground">
@@ -402,10 +402,10 @@ const LeadWizard = ({ onClose }: LeadWizardProps) => {
       </h3>
 
       {/* Content */}
-      <div className="min-h-[200px]">{renderStep()}</div>
+      <div className="min-h-[200px] min-w-0">{renderStep()}</div>
 
-      {/* Nav */}
-      <div className="flex justify-between gap-3 pt-2">
+      {/* Nav — sticky on mobile */}
+      <div className="sticky bottom-0 bg-background border-t pt-3 pb-[calc(0.5rem+env(safe-area-inset-bottom))] flex justify-between gap-3">
         <Button
           variant="ghost"
           onClick={() => setStep((s) => s - 1)}
@@ -417,7 +417,7 @@ const LeadWizard = ({ onClose }: LeadWizardProps) => {
         <Button
           onClick={handleNext}
           disabled={!canNext() || status === "loading"}
-          className="min-w-[140px]"
+          className="min-w-[120px] sm:min-w-[140px]"
         >
           {status === "loading" ? (
             <Loader2 className="w-4 h-4 animate-spin" />

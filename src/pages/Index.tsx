@@ -45,7 +45,7 @@ const Index = () => {
   const [wizardOpen, setWizardOpen] = useState(false);
   
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <SEOHead
         title={seoConfig?.title || UNIFIED_POSITIONING.title}
         description={`Профессиональный детейлинг и тюнинг автомобилей премиум-класса в Казани. Оклейка PPF, активный выхлоп, шумоизоляция, PDR, сигнализации Pandora. Гарантия ${WARRANTY.max.display}.`}
@@ -80,15 +80,16 @@ const Index = () => {
       {/* Fixed CTA button */}
       <button
         onClick={() => setWizardOpen(true)}
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm"
+        className="fixed z-40 flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 sm:px-5 rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))]"
       >
         <Calculator className="w-5 h-5" />
-        Рассчитать стоимость
+        <span className="hidden sm:inline">Рассчитать стоимость</span>
+        <span className="sm:hidden">Расчёт</span>
       </button>
 
       {/* Wizard modal */}
       <Dialog open={wizardOpen} onOpenChange={setWizardOpen}>
-        <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto pb-[calc(1rem+env(safe-area-inset-bottom))]">
           <DialogTitle className="sr-only">Квиз-калькулятор</DialogTitle>
           <LeadWizard onClose={() => setWizardOpen(false)} />
         </DialogContent>
