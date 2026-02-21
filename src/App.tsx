@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,6 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { QAProvider } from "@/contexts/QAContext";
 import AIChatWidget from "@/components/ai/AIChatWidget";
+import { Calculator } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import LeadWizard from "@/components/LeadWizard";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ServicePage from "./pages/ServicePage";
@@ -30,7 +34,7 @@ import AdminLeads from "./pages/admin/AdminLeads";
 import AdminCases from "./pages/admin/AdminCases";
 import AdminCalculator from "./pages/admin/AdminCalculator";
 import AdminSettings from "./pages/admin/AdminSettings";
- import AdminCars from "./pages/admin/AdminCars";
+import AdminCars from "./pages/admin/AdminCars";
 import QAPage from "./pages/QAPage";
 import ChatPage from "./pages/ChatPage";
 import ServicesPage from "./pages/ServicesPage";
@@ -44,7 +48,11 @@ import ActiveExhaustSlugPage from "./pages/active-exhaust/ActiveExhaustSlugPage"
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  const [wizardOpen, setWizardOpen] = useState(false);
+  const handleOpenLeadWizard = () => setWizardOpen(true);
+
+  return (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <QAProvider>
@@ -120,11 +128,30 @@ const App = () => (
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
+
+            {/* Global floating CTA button */}
+            <button
+              onClick={handleOpenLeadWizard}
+              className="fixed z-[9999] pointer-events-auto flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 md:px-5 md:py-4 md:text-base rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] md:bottom-24 lg:bottom-28"
+            >
+              <Calculator className="w-5 h-5" />
+              <span className="md:hidden">Оставить заявку</span>
+              <span className="hidden md:inline">Рассчитать стоимость</span>
+            </button>
+
+            {/* Global wizard modal */}
+            <Dialog open={wizardOpen} onOpenChange={setWizardOpen}>
+              <DialogContent className="sm:max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto pb-[calc(1rem+env(safe-area-inset-bottom))]">
+                <DialogTitle className="sr-only">Квиз-калькулятор</DialogTitle>
+                <LeadWizard onClose={() => setWizardOpen(false)} />
+              </DialogContent>
+            </Dialog>
           </BrowserRouter>
         </TooltipProvider>
       </QAProvider>
     </AuthProvider>
   </QueryClientProvider>
-);
+  );
+};
 
 export default App;
