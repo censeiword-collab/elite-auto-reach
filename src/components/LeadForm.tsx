@@ -87,6 +87,7 @@ const LeadForm = ({
 
     try {
       const utmParams = getUtmParams();
+      const urlParams = new URLSearchParams(window.location.search);
       const leadPayload = {
         name: formData.name.trim(),
         phone: formData.phone.trim(),
@@ -96,9 +97,14 @@ const LeadForm = ({
         message: formData.message?.trim() || null,
         service_slug: serviceSlug || null,
         source_page: sourcePage || window.location.pathname,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
         utm_source: utmParams.utm_source,
         utm_medium: utmParams.utm_medium,
         utm_campaign: utmParams.utm_campaign,
+        utm_content: urlParams.get("utm_content"),
+        utm_term: urlParams.get("utm_term"),
+        yclid: urlParams.get("yclid"),
       };
 
       // QA Mode: intercept submission
@@ -118,7 +124,7 @@ const LeadForm = ({
         return;
       }
 
-      const { error } = await supabase.from("leads").insert(leadPayload);
+      const { error } = await supabase.functions.invoke("lead-submit", { body: leadPayload });
 
       if (error) throw error;
 
