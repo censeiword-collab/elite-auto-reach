@@ -303,11 +303,11 @@ const AdminPortfolio = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label>Дзен-категория</Label>
-                <Select value={form.dzen_category} onValueChange={(v) => setField("dzen_category", v)}>
+                <Select value={form.dzen_category || "none"} onValueChange={(v) => setField("dzen_category", v === "none" ? "" : v)}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="native-draft">native-draft</SelectItem>
-                    <SelectItem value="">без категории</SelectItem>
+                    <SelectItem value="none">без категории</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
