@@ -26,7 +26,7 @@ const MobileStickyCTA = () => {
     <div className="fixed bottom-0 left-0 right-0 z-50 p-3 bg-background/95 backdrop-blur-lg border-t border-border shadow-lg">
       <div className="flex gap-2">
         <Button asChild className="flex-1 btn-glow" size="lg">
-          <a href="/calculator">
+          <a href="/zayavka">
             <Calculator className="w-4 h-4 mr-2" />
             Рассчитать
           </a>

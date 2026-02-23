@@ -102,8 +102,8 @@ const CTASection = () => {
                   className="text-sm text-muted-foreground mt-6"
                 >
                   Или перейдите на{" "}
-                  <a href="/calculator" className="text-primary hover:underline">
-                    страницу калькулятора
+                  <a href="/zayavka" className="text-primary hover:underline">
+                    страницу заявки
                   </a>
                 </motion.p>
               </div>
