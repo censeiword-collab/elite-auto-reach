@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { QAProvider } from "@/contexts/QAContext";
 import AIChatWidget from "@/components/ai/AIChatWidget";
@@ -45,8 +45,27 @@ import ActiveExhaustKazanPage from "./pages/active-exhaust/ActiveExhaustKazanPag
 import ActiveExhaustAreaPage from "./pages/active-exhaust/ActiveExhaustAreaPage";
 import ActiveExhaustAreaBrandPage from "./pages/active-exhaust/ActiveExhaustAreaBrandPage";
 import ActiveExhaustSlugPage from "./pages/active-exhaust/ActiveExhaustSlugPage";
+import ZayavkaPage from "./pages/ZayavkaPage";
 
 const queryClient = new QueryClient();
+
+const HIDE_FLOATING_CTA_PATHS = ["/zayavka", "/quiz"];
+
+function FloatingCTA({ onOpen }: { onOpen: () => void }) {
+  const { pathname } = useLocation();
+  if (HIDE_FLOATING_CTA_PATHS.includes(pathname)) return null;
+
+  return (
+    <button
+      onClick={onOpen}
+      className="fixed z-[9999] pointer-events-auto flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 md:px-5 md:py-4 md:text-base rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] md:bottom-24 lg:bottom-28"
+    >
+      <Calculator className="w-5 h-5" />
+      <span className="md:hidden">Оставить заявку</span>
+      <span className="hidden md:inline">Рассчитать стоимость</span>
+    </button>
+  );
+}
 
 const App = () => {
   const [wizardOpen, setWizardOpen] = useState(false);
@@ -79,6 +98,10 @@ const App = () => {
               <Route path="/deteyling-kazan" element={<ServicePage />} />
               <Route path="/snyatie-plenki-kazan" element={<ServicePage />} />
               
+              {/* Lead / Quiz landing */}
+              <Route path="/zayavka" element={<ZayavkaPage />} />
+              <Route path="/quiz" element={<Navigate to="/zayavka" replace />} />
+
               {/* Additional Pages */}
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/price" element={<PricePage />} />
@@ -91,7 +114,6 @@ const App = () => {
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/faq" element={<FAQPage />} />
               
-              {/* QA Page */}
               {/* QA & Chat Pages */}
               <Route path="/qa" element={<QAPage />} />
               <Route path="/chat" element={<ChatPage />} />
@@ -106,7 +128,6 @@ const App = () => {
               <Route path="/aktivnyy-vykhlop/dizel-gibrid-elektro" element={<ActiveExhaustInfoPage />} />
               <Route path="/aktivnyy-vykhlop/kazan" element={<ActiveExhaustKazanPage />} />
               <Route path="/aktivnyy-vykhlop/:slug/:brandSlug" element={<ActiveExhaustAreaBrandPage />} />
-              {/* Бренд, модель или район на одном уровне */}
               <Route path="/aktivnyy-vykhlop/:slug" element={<ActiveExhaustSlugPage />} />
               
               {/* Admin Routes */}
@@ -129,15 +150,8 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
 
-            {/* Global floating CTA button */}
-            <button
-              onClick={handleOpenLeadWizard}
-              className="fixed z-[9999] pointer-events-auto flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 md:px-5 md:py-4 md:text-base rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] md:bottom-24 lg:bottom-28"
-            >
-              <Calculator className="w-5 h-5" />
-              <span className="md:hidden">Оставить заявку</span>
-              <span className="hidden md:inline">Рассчитать стоимость</span>
-            </button>
+            {/* Global floating CTA button — hidden on /zayavka */}
+            <FloatingCTA onOpen={handleOpenLeadWizard} />
 
             {/* Global wizard modal */}
             <Dialog open={wizardOpen} onOpenChange={setWizardOpen}>
