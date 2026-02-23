@@ -105,14 +105,35 @@ interface LeadWizardProps {
 
 const LeadWizard = ({ onClose }: LeadWizardProps) => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(0);
-  const [data, setData] = useState<WizardData>(INITIAL);
+
+  // Pre-fill from query params
+  const initFromQuery = (): { data: WizardData; step: number } => {
+    const p = new URLSearchParams(window.location.search);
+    const serviceMap: Record<string, string> = {
+      risk: "Зоны риска",
+      full: "Полный кузов",
+      parts: "Отдельные элементы",
+    };
+    const svc = serviceMap[p.get("service") || ""] || "";
+    return {
+      data: { ...INITIAL, service: svc },
+      step: svc ? 1 : 0,
+    };
+  };
+
+  const init = initFromQuery();
+  const [step, setStep] = useState(init.step);
+  const [data, setData] = useState<WizardData>(init.data);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "skipped">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const openedAt = useRef(Date.now());
 
   useEffect(() => {
     ymGoal("lead_wizard_open");
+    const p = new URLSearchParams(window.location.search);
+    if (p.get("step") === "form") {
+      setTimeout(() => document.getElementById("form")?.scrollIntoView({ behavior: "smooth" }), 400);
+    }
   }, []);
 
   const upd = useCallback(
