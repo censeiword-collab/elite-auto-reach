@@ -32,7 +32,7 @@ const ServiceTrust = ({ warranty = "до 10 лет", className = "" }: ServiceTr
     {
       icon: <Package className="w-6 h-6" />,
       title: "Премиальные материалы",
-      description: "XPEL, SunTek, Hexis, 3M — только оригинал"
+      description: "SUNMAX — прозрачные, матовые (сатин) и цветной полиуретан"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
@@ -42,7 +42,7 @@ const ServiceTrust = ({ warranty = "до 10 лет", className = "" }: ServiceTr
     {
       icon: <Award className="w-6 h-6" />,
       title: "Сертифицированные мастера",
-      description: "Обучение у производителей плёнок"
+      description: "Обучение и сертификация от производителя"
     }
   ];
 
