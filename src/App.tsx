@@ -43,6 +43,9 @@ import ActiveExhaustAreaPage from "./pages/active-exhaust/ActiveExhaustAreaPage"
 import ActiveExhaustAreaBrandPage from "./pages/active-exhaust/ActiveExhaustAreaBrandPage";
 import ActiveExhaustSlugPage from "./pages/active-exhaust/ActiveExhaustSlugPage";
 import ZayavkaPage from "./pages/ZayavkaPage";
+import PortfolioListPage from "./pages/PortfolioListPage";
+import PortfolioPostPage from "./pages/PortfolioPostPage";
+import AdminPortfolio from "./pages/admin/AdminPortfolio";
 
 const queryClient = new QueryClient();
 
@@ -113,6 +116,10 @@ const App = () => {
               <Route path="/chat" element={<ChatPage />} />
               <Route path="/colors/:colorId" element={<ColorShowcasePage />} />
               
+              {/* Portfolio */}
+              <Route path="/portfolio" element={<PortfolioListPage />} />
+              <Route path="/portfolio/:slug" element={<PortfolioPostPage />} />
+              
               {/* Active Exhaust SEO Section */}
               <Route path="/aktivnyy-vykhlop" element={<ActiveExhaustHubPage />} />
               <Route path="/aktivnyy-vykhlop/sound-test" element={<ActiveExhaustInfoPage />} />
@@ -139,6 +146,7 @@ const App = () => {
               <Route path="/admin/calculator" element={<AdminCalculator />} />
               <Route path="/admin/settings" element={<AdminSettings />} />
                <Route path="/admin/cars" element={<AdminCars />} />
+              <Route path="/admin/portfolio" element={<AdminPortfolio />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

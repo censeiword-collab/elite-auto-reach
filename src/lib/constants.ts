@@ -610,6 +610,7 @@ export const NAVIGATION = {
     { href: "/", label: "Главная", hasDropdown: false },
     { href: "/services", label: "Услуги", hasDropdown: true },
     { href: "/cases", label: "Портфолио", hasDropdown: false },
+    { href: "/portfolio", label: "Статьи", hasDropdown: false },
     { href: "/price", label: "Цены", hasDropdown: false },
     { href: "/faq", label: "FAQ", hasDropdown: false },
     { href: "/blog", label: "Блог", hasDropdown: false },
