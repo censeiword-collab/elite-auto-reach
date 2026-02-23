@@ -2,7 +2,7 @@
  import { ArrowRight } from "lucide-react";
  import { HOW_WE_WORK } from "@/lib/constants";
  
- const HowWeWorkSection = () => {
+ const HowWeWorkSection = ({ settings }: { settings?: Record<string, unknown> }) => {
    return (
      <section className="section-container relative" id="how-we-work">
        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-[120px] pointer-events-none" />

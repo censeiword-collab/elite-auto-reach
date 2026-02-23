@@ -11,7 +11,7 @@
    Camera,
  };
  
- const WhyUsSection = () => {
+ const WhyUsSection = ({ settings }: { settings?: Record<string, unknown> }) => {
    return (
      <section className="section-container relative" id="why-sunmaxkzn">
        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-primary/3 rounded-full blur-[150px] pointer-events-none -translate-y-1/2" />

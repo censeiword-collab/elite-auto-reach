@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { BRAND, CONTACT, WORKING_HOURS, WARRANTY } from "@/lib/constants";
 
-const SEOTextSection = () => {
+const SEOTextSection = ({ settings }: { settings?: Record<string, unknown> }) => {
   return (
     <section className="section-container border-t border-border">
       <motion.div

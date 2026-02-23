@@ -41,7 +41,7 @@ const reviews = [
   },
 ];
 
-const ReviewsSection = () => {
+const ReviewsSection = ({ settings }: { settings?: Record<string, unknown> }) => {
   return (
     <section className="section-container">
       <div className="text-center mb-16">

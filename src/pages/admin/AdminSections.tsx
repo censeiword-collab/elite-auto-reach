@@ -5,9 +5,10 @@ import { supabase } from "@/integrations/supabase/client";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { GripVertical, Eye, EyeOff, Settings } from "lucide-react";
+import { GripVertical, Eye, EyeOff, Settings, Plus } from "lucide-react";
+import { HOME_FALLBACK_ORDER } from "@/lib/sectionRegistry";
 
 interface PageSection {
   id: string;
@@ -86,6 +87,39 @@ const AdminSections = () => {
     updateOrderMutation.mutate(updates);
   };
 
+  const DEFAULT_SECTIONS = [
+    { section_key: "hero", title: "Hero", sort_order: 10 },
+    { section_key: "services", title: "Services", sort_order: 20 },
+    { section_key: "cases", title: "Cases", sort_order: 30 },
+    { section_key: "why_us", title: "Why us", sort_order: 40 },
+    { section_key: "how_we_work", title: "How we work", sort_order: 50 },
+    { section_key: "reviews", title: "Reviews", sort_order: 60 },
+    { section_key: "cta", title: "CTA", sort_order: 70 },
+    { section_key: "seo_text", title: "SEO text", sort_order: 80 },
+  ];
+
+  const createDefaultsMutation = useMutation({
+    mutationFn: async () => {
+      const rows = DEFAULT_SECTIONS.map((s) => ({
+        page_slug: "home",
+        section_key: s.section_key,
+        title: s.title,
+        sort_order: s.sort_order,
+        is_visible: true,
+        settings: {},
+      }));
+      const { error } = await supabase.from("page_sections").insert(rows);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["page-sections"] });
+      toast({ title: "Created" });
+    },
+    onError: (error) => {
+      toast({ title: "Ошибка", description: error.message, variant: "destructive" });
+    },
+  });
+
   if (isLoading) {
     return (
       <AdminLayout>
@@ -105,6 +139,13 @@ const AdminSections = () => {
             Управление порядком и видимостью секций
           </p>
         </div>
+
+        {(!sections || sections.length === 0) && (
+          <Button onClick={() => createDefaultsMutation.mutate()} disabled={createDefaultsMutation.isPending}>
+            <Plus className="w-4 h-4 mr-2" />
+            Create default Home sections
+          </Button>
+        )}
 
         <div className="space-y-3">
           {sections?.map((section, index) => (

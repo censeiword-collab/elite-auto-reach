@@ -1,20 +1,12 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
-import HeroSection from "@/components/home/HeroSection";
-import ServicesSection from "@/components/home/ServicesSection";
-import CasesSection from "@/components/home/CasesSection";
-import ReviewsSection from "@/components/home/ReviewsSection";
-import CTASection from "@/components/home/CTASection";
-import SEOTextSection from "@/components/home/SEOTextSection";
-import WhyUsSection from "@/components/home/WhyUsSection";
-import HowWeWorkSection from "@/components/home/HowWeWorkSection";
 import SEOHead from "@/components/SEOHead";
 import SchemaOrg, { buildBusinessData } from "@/components/seo/SchemaOrg";
 import { WARRANTY, TIMING } from "@/lib/constants";
 import { UNIFIED_POSITIONING, getPageSEO } from "@/lib/seo-config";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
-
+import { usePageSections } from "@/hooks/usePageSections";
+import { SECTION_REGISTRY, HOME_FALLBACK_ORDER } from "@/lib/sectionRegistry";
 const homeFAQ = [
   {
     question: "Сколько стоит оклейка автомобиля защитной плёнкой PPF в Казани?",
@@ -38,7 +30,27 @@ const Index = () => {
   const seoConfig = getPageSEO("/");
   const { settings } = useSiteSettings();
   const businessData = buildBusinessData(settings);
-  
+  const { sections, error } = usePageSections("home");
+
+  const renderSections = () => {
+    if (sections && sections.length > 0 && !error) {
+      return [...sections]
+        .filter((s) => s.is_visible)
+        .sort((a, b) => a.sort_order - b.sort_order)
+        .map((s) => {
+          const Component = SECTION_REGISTRY[s.section_key];
+          if (!Component) return null;
+          return <Component key={s.id} settings={(s.settings as Record<string, unknown>) ?? {}} />;
+        });
+    }
+    // Fallback: static order
+    return HOME_FALLBACK_ORDER.map((key) => {
+      const Component = SECTION_REGISTRY[key];
+      if (!Component) return null;
+      return <Component key={key} />;
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <SEOHead
@@ -59,17 +71,7 @@ const Index = () => {
       <SchemaOrg type="FAQ" data={homeFAQ} />
       
       <Header />
-      <main>
-        
-        <HeroSection />
-        <ServicesSection />
-        <CasesSection />
-        <WhyUsSection />
-        <HowWeWorkSection />
-        <ReviewsSection />
-        <CTASection />
-        <SEOTextSection />
-      </main>
+      <main>{renderSections()}</main>
       <Footer />
     </div>
   );
