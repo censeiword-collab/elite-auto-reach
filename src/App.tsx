@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,8 +7,6 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { QAProvider } from "@/contexts/QAContext";
 import AIChatWidget from "@/components/ai/AIChatWidget";
 import { Calculator } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import LeadWizard from "@/components/LeadWizard";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ServicePage from "./pages/ServicePage";
@@ -51,7 +48,7 @@ const queryClient = new QueryClient();
 
 const HIDE_FLOATING_CTA_PATHS = ["/zayavka", "/quiz"];
 
-function FloatingCTA({ onOpen }: { onOpen: () => void }) {
+function FloatingCTA() {
   const { pathname } = useLocation();
   if (HIDE_FLOATING_CTA_PATHS.includes(pathname)) return null;
 
@@ -68,9 +65,6 @@ function FloatingCTA({ onOpen }: { onOpen: () => void }) {
 }
 
 const App = () => {
-  const [wizardOpen, setWizardOpen] = useState(false);
-  const handleOpenLeadWizard = () => setWizardOpen(true);
-
   return (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
@@ -151,15 +145,7 @@ const App = () => {
             </Routes>
 
             {/* Global floating CTA button — hidden on /zayavka */}
-            <FloatingCTA onOpen={handleOpenLeadWizard} />
-
-            {/* Global wizard modal */}
-            <Dialog open={wizardOpen} onOpenChange={setWizardOpen}>
-              <DialogContent className="sm:max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto pb-[calc(1rem+env(safe-area-inset-bottom))]">
-                <DialogTitle className="sr-only">Квиз-калькулятор</DialogTitle>
-                <LeadWizard onClose={() => setWizardOpen(false)} />
-              </DialogContent>
-            </Dialog>
+            <FloatingCTA />
           </BrowserRouter>
         </TooltipProvider>
       </QAProvider>
