@@ -95,7 +95,7 @@ const ZayavkaPage = () => {
       <SEOHead
         title="Оставить заявку — расчёт стоимости | SUNMAXKZN Казань"
         description="Оставьте заявку на оклейку и защиту автомобиля. Рассчитаем стоимость и перезвоним за 15 минут. Гарантия до 10 лет."
-        canonicalUrl="https://sunmaxkzn.ru/zayavka"
+        canonicalUrl="https://sunmax-kzn.ru/zayavka"
       />
       <Header />
 

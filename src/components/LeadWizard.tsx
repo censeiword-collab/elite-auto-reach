@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -103,6 +104,7 @@ interface LeadWizardProps {
 }
 
 const LeadWizard = ({ onClose }: LeadWizardProps) => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<WizardData>(INITIAL);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "skipped">("idle");
@@ -188,13 +190,29 @@ const LeadWizard = ({ onClose }: LeadWizardProps) => {
   };
 
   /* ─── terminal screens ─── */
+  const resetWizard = () => {
+    setData(INITIAL);
+    setStep(0);
+    setStatus("idle");
+    setTimeout(() => {
+      document.getElementById("form")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
   if (status === "success") {
     return (
       <div className="flex flex-col items-center text-center gap-6 py-8 px-4">
         <CheckCircle2 className="w-16 h-16 text-primary" />
         <h3 className="text-2xl font-heading font-bold">Заявка отправлена!</h3>
         <p className="text-muted-foreground max-w-sm">Мы свяжемся с вами в ближайшее время</p>
-        <Button onClick={onClose} variant="outline">Закрыть</Button>
+        {onClose ? (
+          <Button onClick={onClose} variant="outline">Закрыть</Button>
+        ) : (
+          <div className="flex gap-3">
+            <Button onClick={() => navigate("/")} variant="outline">На главную</Button>
+            <Button onClick={resetWizard}>Отправить ещё заявку</Button>
+          </div>
+        )}
       </div>
     );
   }
@@ -215,7 +233,14 @@ const LeadWizard = ({ onClose }: LeadWizardProps) => {
             <Button variant="outline"><Phone className="w-4 h-4 mr-2" />{CONTACT.phone.display}</Button>
           </a>
         </div>
-        <Button onClick={onClose} variant="ghost" size="sm">Закрыть</Button>
+        {onClose ? (
+          <Button onClick={onClose} variant="ghost" size="sm">Закрыть</Button>
+        ) : (
+          <div className="flex gap-3">
+            <Button onClick={() => navigate("/")} variant="outline">На главную</Button>
+            <Button onClick={resetWizard}>Отправить ещё заявку</Button>
+          </div>
+        )}
       </div>
     );
   }
