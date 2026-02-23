@@ -125,13 +125,13 @@ const Header = ({ onOpenLeadWizard }: HeaderProps) => {
               </div>
             </a>
             <Button asChild variant="outline" className="font-semibold" size="sm">
-              <a href="/calculator">
+              <a href="/zayavka">
                 <Calculator className="w-4 h-4 mr-2" />
                 Рассчитать
               </a>
             </Button>
-            <Button className="btn-glow font-semibold" onClick={onOpenLeadWizard}>
-              Оставить заявку
+            <Button asChild className="btn-glow font-semibold">
+              <a href="/zayavka">Оставить заявку</a>
             </Button>
           </div>
 
@@ -215,13 +215,15 @@ const Header = ({ onOpenLeadWizard }: HeaderProps) => {
                 </a>
                 <div className="grid grid-cols-2 gap-2 mt-3">
                   <Button asChild variant="outline" className="font-semibold">
-                    <a href="/calculator" onClick={() => setIsOpen(false)}>
+                    <a href="/zayavka" onClick={() => setIsOpen(false)}>
                       <Calculator className="w-4 h-4 mr-2" />
                       Расчёт
                     </a>
                   </Button>
-                  <Button className="btn-glow font-semibold" onClick={() => { setIsOpen(false); onOpenLeadWizard?.(); }}>
-                    Оставить заявку
+                  <Button asChild className="btn-glow font-semibold">
+                    <a href="/zayavka" onClick={() => setIsOpen(false)}>
+                      Оставить заявку
+                    </a>
                   </Button>
                 </div>
               </div>

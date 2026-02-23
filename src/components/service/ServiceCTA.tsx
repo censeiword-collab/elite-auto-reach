@@ -39,7 +39,7 @@ const ServiceCTA = ({ serviceTitle, IconComponent }: ServiceCTAProps) => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="btn-glow">
-              <a href="/calculator">
+              <a href="/zayavka">
                 Рассчитать стоимость
                 <ChevronRight className="w-5 h-5 ml-2" />
               </a>

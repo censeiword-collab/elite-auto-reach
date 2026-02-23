@@ -56,14 +56,14 @@ function FloatingCTA({ onOpen }: { onOpen: () => void }) {
   if (HIDE_FLOATING_CTA_PATHS.includes(pathname)) return null;
 
   return (
-    <button
-      onClick={onOpen}
+    <a
+      href="/zayavka"
       className="fixed z-[9999] pointer-events-auto flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 md:px-5 md:py-4 md:text-base rounded-full shadow-lg hover:bg-primary/90 transition-colors font-medium text-sm bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] md:bottom-24 lg:bottom-28"
     >
       <Calculator className="w-5 h-5" />
       <span className="md:hidden">Оставить заявку</span>
       <span className="hidden md:inline">Рассчитать стоимость</span>
-    </button>
+    </a>
   );
 }
 
