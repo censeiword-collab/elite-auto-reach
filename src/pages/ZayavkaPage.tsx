@@ -2,6 +2,7 @@ import { useEffect, useRef, lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import PPFProcessGallery from "@/components/PPFProcessGallery";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CONTACT, getWhatsAppLink, getPhoneLink, WORKING_HOURS } from "@/lib/constants";
 import {
@@ -16,7 +17,7 @@ import {
   Car,
   Wrench,
   CheckCircle2,
-  ChevronDown,
+  Camera,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +26,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 const LeadWizard = lazy(() => import("@/components/LeadWizard"));
 
@@ -79,7 +85,6 @@ const ZayavkaPage = () => {
     if (typeof w.ym === "function") w.ym(COUNTER_ID, "reachGoal", "lead_page_open");
   }, []);
 
-  // Auto-scroll to #form if hash present
   useEffect(() => {
     if (window.location.hash === "#form") {
       setTimeout(() => formRef.current?.scrollIntoView({ behavior: "smooth" }), 400);
@@ -99,9 +104,9 @@ const ZayavkaPage = () => {
       />
       <Header />
 
-      <main className="max-w-3xl mx-auto px-4 pt-24 pb-16 space-y-16">
+      <main className="max-w-6xl mx-auto px-4 pt-24 pb-16 space-y-16">
         {/* Hero */}
-        <section className="text-center space-y-6">
+        <section className="text-center space-y-6 max-w-3xl mx-auto">
           <h1 className="text-2xl md:text-4xl font-heading font-bold leading-tight">
             Оставьте заявку — рассчитаем стоимость и перезвоним за 15 минут
           </h1>
@@ -115,7 +120,7 @@ const ZayavkaPage = () => {
         </section>
 
         {/* Benefits */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
           {BENEFITS.map((b) => (
             <div
               key={b.title}
@@ -130,17 +135,52 @@ const ZayavkaPage = () => {
           ))}
         </section>
 
-        {/* Inline quiz */}
+        {/* Gallery + Quiz — two-column on desktop */}
         <section ref={formRef} id="form" className="scroll-mt-20">
-          <div className="rounded-2xl border border-border bg-card p-4 sm:p-6 min-w-0">
-            <Suspense fallback={<WizardSkeleton />}>
-              <LeadWizard />
-            </Suspense>
+          {/* Desktop layout */}
+          <div className="hidden md:grid md:grid-cols-[1fr_minmax(0,420px)] gap-8 items-start">
+            {/* Gallery — sticky */}
+            <div className="sticky top-24 space-y-4">
+              <h2 className="text-lg font-heading font-bold flex items-center gap-2">
+                <Camera className="w-5 h-5 text-primary" />
+                Процесс оклейки PPF
+              </h2>
+              <PPFProcessGallery />
+            </div>
+            {/* Wizard */}
+            <div className="rounded-2xl border border-border bg-card p-4 sm:p-6 min-w-0">
+              <Suspense fallback={<WizardSkeleton />}>
+                <LeadWizard />
+              </Suspense>
+            </div>
+          </div>
+
+          {/* Mobile layout */}
+          <div className="md:hidden space-y-4">
+            {/* Collapsible gallery */}
+            <Collapsible>
+              <CollapsibleTrigger asChild>
+                <Button variant="outline" className="w-full gap-2 justify-center">
+                  <Camera className="w-4 h-4" />
+                  Показать процесс оклейки
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="pt-4 space-y-3">
+                <h2 className="text-base font-heading font-bold">Процесс оклейки PPF</h2>
+                <PPFProcessGallery />
+              </CollapsibleContent>
+            </Collapsible>
+            {/* Wizard */}
+            <div className="rounded-2xl border border-border bg-card p-4 min-w-0">
+              <Suspense fallback={<WizardSkeleton />}>
+                <LeadWizard />
+              </Suspense>
+            </div>
           </div>
         </section>
 
         {/* How we work */}
-        <section className="space-y-6">
+        <section className="space-y-6 max-w-3xl mx-auto">
           <h2 className="text-xl md:text-2xl font-heading font-bold text-center">
             Как мы работаем
           </h2>
@@ -160,7 +200,7 @@ const ZayavkaPage = () => {
         </section>
 
         {/* FAQ */}
-        <section className="space-y-6">
+        <section className="space-y-6 max-w-3xl mx-auto">
           <h2 className="text-xl md:text-2xl font-heading font-bold text-center">
             Частые вопросы
           </h2>
@@ -179,7 +219,7 @@ const ZayavkaPage = () => {
         </section>
 
         {/* Contacts */}
-        <section className="text-center space-y-4 pb-8">
+        <section className="text-center space-y-4 pb-8 max-w-3xl mx-auto">
           <h2 className="text-xl font-heading font-bold">Свяжитесь с нами</h2>
           <p className="text-muted-foreground text-sm">{WORKING_HOURS.display}</p>
           <div className="flex flex-wrap justify-center gap-3">
