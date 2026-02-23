@@ -515,7 +515,7 @@ const defaultSettings: SiteSettings = {
                  <CardHeader>
                    <CardTitle>Whitelist брендов материалов</CardTitle>
                    <CardDescription>
-                     Бренды из этого списка можно упоминать на сайте (XPEL, SunTek, 3M и т.д.)
+                     Бренды из этого списка можно упоминать на сайте (SUNMAX и т.д.)
                    </CardDescription>
                  </CardHeader>
                  <CardContent className="space-y-4">
@@ -523,7 +523,7 @@ const defaultSettings: SiteSettings = {
                      <Input
                        value={newBrand}
                        onChange={(e) => setNewBrand(e.target.value)}
-                       placeholder="Название бренда (например, XPEL)"
+                       placeholder="Название бренда (например, SUNMAX)"
                        onKeyDown={(e) => {
                          if (e.key === "Enter" && newBrand.trim()) {
                            e.preventDefault();

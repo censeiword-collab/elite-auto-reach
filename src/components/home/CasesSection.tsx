@@ -6,7 +6,7 @@ const cases = [
   {
     id: 1,
     title: "Porsche 911 — Полная оклейка PPF",
-    description: "Защита всего кузова плёнкой XPEL Ultimate Plus",
+    description: "Защита всего кузова прозрачным полиуретаном SUNMAX",
     beforeImage: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop",
     afterImage: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop",
     service: "PPF",

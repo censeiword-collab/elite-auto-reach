@@ -29,7 +29,7 @@ const safetyData = {
     items: [
       { icon: <ShieldCheck className="w-5 h-5" />, text: "Легко снимается без повреждения ЛКП" },
       { icon: <Car className="w-5 h-5" />, text: "Сохраняет заводской цвет под плёнкой" },
-      { icon: <Sparkles className="w-5 h-5" />, text: "Качественные материалы 3M, Avery, Hexis" },
+      { icon: <Sparkles className="w-5 h-5" />, text: "Полиуретановые плёнки SUNMAX — прозрачные, матовые, цветные" },
       { icon: <ThermometerSun className="w-5 h-5" />, text: "Защита от мелких царапин и сколов" }
     ]
   },

@@ -15,7 +15,7 @@ const BlogPage = () => {
       id: "1",
       slug: "kak-vybrat-ppf-plenku",
       title: "Как выбрать PPF плёнку для премиум авто",
-      excerpt: "Разбираемся в отличиях между XPEL, SunTek и Hexis. Какую плёнку выбрать для вашего автомобиля и на что обратить внимание.",
+      excerpt: "Разбираемся в типах полиуретановых плёнок SUNMAX: прозрачные, матовые (сатин) и цветной полиуретан. На что обратить внимание при выборе.",
       featured_image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop",
       category: "PPF",
       reading_time_minutes: 7,
