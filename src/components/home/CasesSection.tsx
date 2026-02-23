@@ -37,7 +37,7 @@ const cases = [
   },
 ];
 
-const CasesSection = () => {
+const CasesSection = ({ settings }: { settings?: Record<string, unknown> }) => {
   return (
     <section className="section-container bg-secondary/20">
       <div className="text-center mb-16">

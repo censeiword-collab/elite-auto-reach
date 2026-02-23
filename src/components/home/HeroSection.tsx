@@ -30,7 +30,7 @@ const usps = [
 }];
 
 
-const HeroSection = () => {
+const HeroSection = ({ settings }: { settings?: Record<string, unknown> }) => {
   return (
     <section className="hero-section min-h-screen flex items-center pt-4 md:pt-0 relative overflow-hidden">
       {/* Decorative elements */}

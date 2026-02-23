@@ -38,7 +38,7 @@ const getServiceIcon = (slug: string) => {
 // Show top 6 services on homepage
 const topServices = SERVICES_SEO_CONFIG.slice(0, 6);
 
-const ServicesSection = () => {
+const ServicesSection = ({ settings }: { settings?: Record<string, unknown> }) => {
   return (
     <section className="section-container relative" id="services">
       {/* Decorative background */}

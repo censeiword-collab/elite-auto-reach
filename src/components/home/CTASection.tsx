@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import PriceCalculator from "@/components/calculator/PriceCalculator";
 import { CONTACT, getWhatsAppLink, getPhoneLink } from "@/lib/constants";
 
-const CTASection = () => {
+const CTASection = ({ settings }: { settings?: Record<string, unknown> }) => {
   const [showCalculator, setShowCalculator] = useState(false);
 
   return (
