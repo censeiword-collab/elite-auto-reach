@@ -522,6 +522,66 @@ export type Database = {
         }
         Relationships: []
       }
+      portfolio_posts: {
+        Row: {
+          author: string | null
+          content_html: string
+          cover_image_url: string | null
+          description: string | null
+          dzen_category: string | null
+          dzen_comments: string | null
+          dzen_format: string | null
+          dzen_index: string | null
+          gallery_images: string[] | null
+          guid: string
+          id: string
+          is_active: boolean | null
+          published_at: string
+          slug: string
+          sort_order: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string | null
+          content_html?: string
+          cover_image_url?: string | null
+          description?: string | null
+          dzen_category?: string | null
+          dzen_comments?: string | null
+          dzen_format?: string | null
+          dzen_index?: string | null
+          gallery_images?: string[] | null
+          guid: string
+          id?: string
+          is_active?: boolean | null
+          published_at?: string
+          slug: string
+          sort_order?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string | null
+          content_html?: string
+          cover_image_url?: string | null
+          description?: string | null
+          dzen_category?: string | null
+          dzen_comments?: string | null
+          dzen_format?: string | null
+          dzen_index?: string | null
+          gallery_images?: string[] | null
+          guid?: string
+          id?: string
+          is_active?: boolean | null
+          published_at?: string
+          slug?: string
+          sort_order?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
