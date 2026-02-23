@@ -21,6 +21,9 @@ Allow: /
 Disallow: /admin/
 Disallow: /qa/
 
+# Feeds
+Allow: /feed/
+
 # Sitemap
 Sitemap: https://sunmaxkzn.ru/sitemap.xml
 

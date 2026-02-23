@@ -11,3 +11,6 @@ verify_jwt = true
 
 [functions.lead-submit]
 verify_jwt = false
+
+[functions.dzen_rss]
+verify_jwt = false
