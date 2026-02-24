@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-route
 import { AuthProvider } from "@/contexts/AuthContext";
 import { QAProvider } from "@/contexts/QAContext";
 import AIChatWidget from "@/components/ai/AIChatWidget";
+import RequireAdmin from "@/components/admin/RequireAdmin";
 import { Calculator } from "lucide-react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -67,6 +68,17 @@ function FloatingCTA() {
   );
 }
 
+function PublicWidgets() {
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/admin")) return null;
+  return (
+    <>
+      <AIChatWidget />
+      <FloatingCTA />
+    </>
+  );
+}
+
 const App = () => {
   return (
   <QueryClientProvider client={queryClient}>
@@ -76,18 +88,15 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <AIChatWidget />
             <Routes>
               <Route path="/" element={<Index />} />
               
-              {/* Service Pages - Existing */}
+              {/* Service Pages */}
               <Route path="/okleyka-avto-poliuretanovoy-plenkoy-kazan" element={<ServicePage />} />
               <Route path="/aktivnyy-vyhlop-kazan" element={<ServicePage />} />
               <Route path="/shumoizolyaciya-avto-kazan" element={<ServicePage />} />
               <Route path="/udalenie-vmyatin-bez-pokraski-kazan" element={<ServicePage />} />
               <Route path="/ustanovka-signalizacii-pandora-kazan" element={<ServicePage />} />
-              
-              {/* Service Pages - New */}
               <Route path="/tonirovka-avto-kazan" element={<ServicePage />} />
               <Route path="/okleyka-vinilom-kazan" element={<ServicePage />} />
               <Route path="/antihrom-kazan" element={<ServicePage />} />
@@ -131,29 +140,32 @@ const App = () => {
               <Route path="/aktivnyy-vykhlop/:slug/:brandSlug" element={<ActiveExhaustAreaBrandPage />} />
               <Route path="/aktivnyy-vykhlop/:slug" element={<ActiveExhaustSlugPage />} />
               
-              {/* Admin Routes */}
+              {/* Admin — unguarded */}
               <Route path="/admin/setup" element={<AdminSetup />} />
               <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin/services" element={<AdminServices />} />
-              <Route path="/admin/blog" element={<AdminBlog />} />
-              <Route path="/admin/sections" element={<AdminSections />} />
-              <Route path="/admin/seo" element={<AdminSEO />} />
-              <Route path="/admin/seo/og" element={<AdminSEO />} />
-              <Route path="/admin/menu" element={<AdminMenu />} />
-              <Route path="/admin/leads" element={<AdminLeads />} />
-              <Route path="/admin/cases" element={<AdminCases />} />
-              <Route path="/admin/calculator" element={<AdminCalculator />} />
-              <Route path="/admin/settings" element={<AdminSettings />} />
-               <Route path="/admin/cars" element={<AdminCars />} />
-              <Route path="/admin/portfolio" element={<AdminPortfolio />} />
+
+              {/* Admin — guarded */}
+              <Route element={<RequireAdmin />}>
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin/services" element={<AdminServices />} />
+                <Route path="/admin/blog" element={<AdminBlog />} />
+                <Route path="/admin/sections" element={<AdminSections />} />
+                <Route path="/admin/seo" element={<AdminSEO />} />
+                <Route path="/admin/seo/og" element={<AdminSEO />} />
+                <Route path="/admin/menu" element={<AdminMenu />} />
+                <Route path="/admin/leads" element={<AdminLeads />} />
+                <Route path="/admin/cases" element={<AdminCases />} />
+                <Route path="/admin/calculator" element={<AdminCalculator />} />
+                <Route path="/admin/settings" element={<AdminSettings />} />
+                <Route path="/admin/cars" element={<AdminCars />} />
+                <Route path="/admin/portfolio" element={<AdminPortfolio />} />
+              </Route>
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
 
-            {/* Global floating CTA button — hidden on /zayavka */}
-            <FloatingCTA />
+            <PublicWidgets />
           </BrowserRouter>
         </TooltipProvider>
       </QAProvider>
