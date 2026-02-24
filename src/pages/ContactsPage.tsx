@@ -167,7 +167,9 @@ const ContactsPage = () => {
         return;
       }
 
-      const { error } = await supabase.from("leads").insert(leadPayload);
+      const { error } = await supabase.functions.invoke("lead-submit", {
+        body: leadPayload,
+      });
 
       if (error) throw error;
 
