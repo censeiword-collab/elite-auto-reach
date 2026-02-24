@@ -7,14 +7,17 @@ const ALLOWED_TAGS = new Set([
 ]);
 
 const ALLOWED_ATTRS: Record<string, Set<string>> = {
-  a: new Set(["href"]),
+  a: new Set(["href", "title"]),
   img: new Set(["src", "alt", "width", "height"]),
   source: new Set(["src", "type"]),
   video: new Set(["controls", "autoplay", "muted", "loop", "poster"]),
+  h2: new Set(["id"]),
+  h3: new Set(["id"]),
+  h4: new Set(["id"]),
 };
 
 /**
- * Lightweight HTML sanitizer.
+ * Lightweight HTML sanitizer (browser-side).
  * Removes <script>, <style>, <iframe> and on* attributes.
  * Only allows whitelisted tags and attributes.
  */
