@@ -1,0 +1,1 @@
+CREATE POLICY "Admins can manage cases" ON public.cases FOR ALL USING (has_role(auth.uid(), 'admin'::app_role)) WITH CHECK (has_role(auth.uid(), 'admin'::app_role));
