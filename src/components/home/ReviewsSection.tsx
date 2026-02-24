@@ -1,45 +1,6 @@
 import { motion } from "framer-motion";
-import { Star, Quote, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const reviews = [
-  {
-    id: 1,
-    name: "Александр К.",
-    car: "Porsche Cayenne",
-    rating: 5,
-    text: "Оклеили весь кузов плёнкой SUNMAX. Качество работы на высшем уровне! Никаких пузырей, стыки идеальные. Рекомендую всем владельцам премиальных авто.",
-    service: "PPF",
-    date: "2 недели назад",
-  },
-  {
-    id: 2,
-    name: "Михаил В.",
-    car: "BMW M5 F90",
-    rating: 5,
-    text: "Установили активный выхлоп с заслонками. Теперь могу управлять звуком с телефона — в городе тихо, на трассе как настоящий М5! Мастера знают своё дело.",
-    service: "Активный выхлоп",
-    date: "1 месяц назад",
-  },
-  {
-    id: 3,
-    name: "Дмитрий С.",
-    car: "Mercedes GLE",
-    rating: 5,
-    text: "Сделали полную шумоизоляцию. Разница колоссальная — теперь в салоне тишина как в S-классе. Материалы премиум, работа аккуратная.",
-    service: "Шумоизоляция",
-    date: "3 недели назад",
-  },
-  {
-    id: 4,
-    name: "Андрей П.",
-    car: "Audi Q8",
-    rating: 5,
-    text: "После града была куча вмятин. Ребята убрали все без покраски за день! Кузов как новый, заводское ЛКП сохранено. Спасибо огромное!",
-    service: "PDR",
-    date: "1 неделю назад",
-  },
-];
 
 const ReviewsSection = ({ settings }: { settings?: Record<string, unknown> }) => {
   return (
@@ -101,55 +62,22 @@ const ReviewsSection = ({ settings }: { settings?: Record<string, unknown> }) =>
         ))}
       </motion.div>
 
-      {/* Reviews Grid */}
-      <div className="grid md:grid-cols-2 gap-6">
-        {reviews.map((review, index) => (
-          <motion.div
-            key={review.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="card-gradient rounded-2xl p-6"
-          >
-            {/* Header */}
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                  <span className="text-lg font-bold text-primary">
-                    {review.name.charAt(0)}
-                  </span>
-                </div>
-                <div>
-                  <h4 className="font-heading font-bold">{review.name}</h4>
-                  <p className="text-sm text-muted-foreground">{review.car}</p>
-                </div>
-              </div>
-              <Quote className="w-8 h-8 text-primary/30" />
-            </div>
-
-            {/* Rating */}
-            <div className="flex items-center gap-1 mb-4">
-              {[...Array(review.rating)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-              ))}
-            </div>
-
-            {/* Text */}
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              {review.text}
-            </p>
-
-            {/* Footer */}
-            <div className="flex items-center justify-between pt-4 border-t border-border">
-              <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">
-                {review.service}
-              </span>
-              <span className="text-xs text-muted-foreground">{review.date}</span>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+      {/* Yandex Maps Reviews Widget */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="rounded-2xl overflow-hidden border border-border bg-secondary/20 h-[380px] sm:h-[520px] lg:h-[680px]"
+      >
+        <iframe
+          className="w-full h-full border-0 block"
+          src="https://yandex.ru/maps-reviews-widget/97524296927"
+          title="Отзывы SUNMAX на Яндекс Картах"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -157,10 +85,16 @@ const ReviewsSection = ({ settings }: { settings?: Record<string, unknown> }) =>
         viewport={{ once: true }}
         className="text-center mt-12"
       >
-        <Button size="lg" variant="outline" className="text-lg px-8">
-          Все отзывы
-          <ChevronRight className="w-5 h-5 ml-2" />
-        </Button>
+        <a
+          href="https://yandex.ru/maps/org/97524296927"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button size="lg" variant="outline" className="text-lg px-8">
+            Все отзывы на Яндекс Картах
+            <ChevronRight className="w-5 h-5 ml-2" />
+          </Button>
+        </a>
       </motion.div>
     </section>
   );
