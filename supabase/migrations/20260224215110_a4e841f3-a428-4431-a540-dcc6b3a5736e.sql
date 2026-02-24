@@ -1,0 +1,1 @@
+ALTER TABLE public.portfolio_posts ADD COLUMN IF NOT EXISTS content_blocks jsonb NULL;

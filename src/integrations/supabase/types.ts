@@ -525,6 +525,7 @@ export type Database = {
       portfolio_posts: {
         Row: {
           author: string | null
+          content_blocks: Json | null
           content_html: string
           cover_image_url: string | null
           description: string | null
@@ -544,6 +545,7 @@ export type Database = {
         }
         Insert: {
           author?: string | null
+          content_blocks?: Json | null
           content_html?: string
           cover_image_url?: string | null
           description?: string | null
@@ -563,6 +565,7 @@ export type Database = {
         }
         Update: {
           author?: string | null
+          content_blocks?: Json | null
           content_html?: string
           cover_image_url?: string | null
           description?: string | null
