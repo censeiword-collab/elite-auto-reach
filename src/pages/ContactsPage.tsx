@@ -111,12 +111,6 @@ const ContactsPage = () => {
     return items;
   }, [contactData]);
 
-  // Генерируем URL для Яндекс.Карты на основе координат
-  const mapIframeSrc = useMemo(() => {
-    const lat = contactData.lat;
-    const lon = contactData.lon;
-    return `https://yandex.ru/map-widget/v1/?ll=${lon}%2C${lat}&z=16&pt=${lon}%2C${lat}%2Cpm2rdm`;
-  }, [contactData.lat, contactData.lon]);
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -312,15 +306,18 @@ const ContactsPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <Card className="overflow-hidden h-full min-h-[400px]">
+                <Card className="overflow-hidden h-full min-h-[400px] relative">
+                  <a href="https://yandex.ru/maps/org/sunmax_kzn/97524296927/?utm_medium=mapframe&utm_source=maps" target="_blank" rel="noopener noreferrer" className="text-muted-foreground text-xs absolute top-0 left-0 z-10">Sunmax-Kzn</a>
+                  <a href="https://yandex.ru/maps/43/kazan/category/car_wrapping/184074231588/?utm_medium=mapframe&utm_source=maps" target="_blank" rel="noopener noreferrer" className="text-muted-foreground text-xs absolute top-[14px] left-0 z-10">Оклейка машин в Казани</a>
+                  <a href="https://yandex.ru/maps/43/kazan/category/tuning_studio/184105250/?utm_medium=mapframe&utm_source=maps" target="_blank" rel="noopener noreferrer" className="text-muted-foreground text-xs absolute top-[28px] left-0 z-10">Студия тюнинга в Казани</a>
                   <iframe
-                    src={mapIframeSrc}
+                    src="https://yandex.ru/map-widget/v1/org/sunmax_kzn/97524296927/reviews/?ll=49.127740%2C55.817396&utm_medium=s&utm_source=maps-reviews-widget&z=16"
                     width="100%"
                     height="100%"
-                    frameBorder="0"
+                    frameBorder="1"
                     allowFullScreen
-                    className="min-h-[400px]"
-                    title="Карта проезда"
+                    className="min-h-[400px] relative"
+                    title="Карта проезда — Sunmax-Kzn"
                   />
                 </Card>
               </motion.div>
