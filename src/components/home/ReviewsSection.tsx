@@ -68,40 +68,25 @@ const ReviewsSection = ({ settings }: { settings?: Record<string, unknown> }) =>
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="relative mx-auto w-full max-w-[560px] overflow-hidden"
+        style={{ height: 800 }}
       >
-        <a
-          href="https://yandex.ru/maps/org/sunmax_kzn/97524296927/?utm_medium=mapframe&utm_source=maps"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute top-0 left-0 text-xs text-muted-foreground z-10"
-        >
-          Sunmax-Kzn
-        </a>
-        <a
-          href="https://yandex.ru/maps/43/kazan/category/car_wrapping/184074231588/?utm_medium=mapframe&utm_source=maps"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute top-[14px] left-0 text-xs text-muted-foreground z-10"
-        >
-          Оклейка машин в Казани
-        </a>
-        <a
-          href="https://yandex.ru/maps/43/kazan/category/tuning_studio/184105250/?utm_medium=mapframe&utm_source=maps"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute top-[28px] left-0 text-xs text-muted-foreground z-10"
-        >
-          Студия тюнинга в Казани
-        </a>
         <iframe
-          className="relative w-full border-0"
-          src="https://yandex.ru/map-widget/v1/org/sunmax_kzn/97524296927/reviews/?ll=49.127740%2C55.817396&utm_medium=s&utm_source=maps-reviews-widget&z=16"
-          width="560"
-          height="400"
+          className="w-full h-full border border-border rounded-lg box-border"
+          src="https://yandex.ru/maps-reviews-widget/97524296927?comments"
           title="Отзывы SUNMAX на Яндекс Картах"
           loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
           allowFullScreen
         />
+        <a
+          href="https://yandex.ru/maps/org/sunmax_kzn/97524296927/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-2 left-0 w-full text-center text-[10px] text-muted-foreground truncate px-4 box-border"
+          style={{ fontFamily: "YS Text, sans-serif", maxHeight: 14 }}
+        >
+          Sunmax-Kzn на карте Казани — Яндекс Карты
+        </a>
       </motion.div>
 
       <motion.div
