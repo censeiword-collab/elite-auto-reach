@@ -1,18 +1,19 @@
 
 
-# Замена виджета отзывов на карту Яндекс с отзывами
+# Замена карты в контактах на виджет Яндекс Карт
 
 ## Что изменится
 
-В файле `src/components/home/ReviewsSection.tsx` заменим текущий iframe-виджет отзывов на новый виджет карты Яндекс с отзывами организации.
+На странице **Контакты** (`src/pages/ContactsPage.tsx`) заменим текущий iframe с простой картой на виджет Яндекс Карт с отзывами организации.
 
 ## Технические детали
 
-**Файл:** `src/components/home/ReviewsSection.tsx`
+**Файл:** `src/pages/ContactsPage.tsx`
 
-Заменим блок с текущим iframe (строки 64-92) на новый виджет:
-- Новый iframe src: `https://yandex.ru/map-widget/v1/org/sunmax_kzn/97524296927/reviews/?ll=49.127740%2C55.817396&utm_medium=s&utm_source=maps-reviews-widget&z=16`
+**Строки 315-325** -- заменим блок `<Card>` с текущим iframe на новый виджет:
+
 - Три ссылки-атрибуции сверху (Sunmax-Kzn, Оклейка машин в Казани, Студия тюнинга в Казани)
-- Размеры: max-width 560px, height 400px, адаптивная ширина 100%
-- Удалим старую ссылку-атрибуцию внизу
+- Новый iframe src: `https://yandex.ru/map-widget/v1/org/sunmax_kzn/97524296927/reviews/?ll=49.127740%2C55.817396&utm_medium=s&utm_source=maps-reviews-widget&z=16`
+- Размеры: ширина 100%, высота 100% (min-height 400px сохраняется)
+- Удалим неиспользуемую переменную `mapIframeSrc` (строки 115-119)
 
