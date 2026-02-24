@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Pencil, Plus, Trash2, Star, Image as ImageIcon } from "lucide-react";
+import { slugifyRuEn } from "@/lib/slugifyRuEn";
 
 interface Case {
   id: string;
@@ -46,16 +47,6 @@ interface Case {
   is_active: boolean;
   is_featured: boolean;
   sort_order: number;
-}
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_]+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-+|-+$/g, "");
 }
 
 const EMPTY_FORM = {
@@ -117,14 +108,14 @@ const AdminCases = () => {
     mutationFn: async () => {
       const payload = {
         title: form.title,
-        slug: form.slug || slugify(form.title),
+        slug: form.slug || slugifyRuEn(form.title),
         description: form.description || null,
         car_brand: form.car_brand || null,
         car_model: form.car_model || null,
         work_duration: form.work_duration || null,
         result_text: form.result_text || null,
-        before_images: parseImages(form.before_images_text) as unknown as null,
-        after_images: parseImages(form.after_images_text) as unknown as null,
+        before_images: (b => b.length ? b : null)(parseImages(form.before_images_text)) as unknown as null,
+        after_images: (a => a.length ? a : null)(parseImages(form.after_images_text)) as unknown as null,
         is_active: form.is_active,
         is_featured: form.is_featured,
         sort_order: form.sort_order,
@@ -173,9 +164,10 @@ const AdminCases = () => {
   });
 
   const openCreate = () => {
+    const maxSort = cases?.reduce((m, c) => Math.max(m, c.sort_order ?? 0), 0) ?? 0;
     setMode("create");
     setEditingId(null);
-    setForm(EMPTY_FORM);
+    setForm({ ...EMPTY_FORM, sort_order: maxSort + 10 });
     setIsModalOpen(true);
   };
 
@@ -208,7 +200,7 @@ const AdminCases = () => {
     setForm((prev) => {
       const next = { ...prev, [key]: value };
       if (key === "title" && mode === "create") {
-        next.slug = slugify(value as string);
+        next.slug = slugifyRuEn(value as string);
       }
       return next;
     });
@@ -364,7 +356,7 @@ const AdminCases = () => {
       </div>
 
       {/* Create / Edit modal */}
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+      <Dialog open={isModalOpen} onOpenChange={(open) => { setIsModalOpen(open); if (!open) closeModal(); }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{mode === "create" ? "Новый кейс" : "Редактировать кейс"}</DialogTitle>
