@@ -67,16 +67,26 @@ const ReviewsSection = ({ settings }: { settings?: Record<string, unknown> }) =>
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="rounded-2xl overflow-hidden border border-border bg-secondary/20 h-[380px] sm:h-[520px] lg:h-[680px]"
+        className="relative mx-auto w-full max-w-[560px] overflow-hidden"
+        style={{ height: 800 }}
       >
         <iframe
-          className="w-full h-full border-0 block"
-          src="https://yandex.ru/maps-reviews-widget/97524296927"
+          className="w-full h-full border border-border rounded-lg box-border"
+          src="https://yandex.ru/maps-reviews-widget/97524296927?comments"
           title="Отзывы SUNMAX на Яндекс Картах"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           allowFullScreen
         />
+        <a
+          href="https://yandex.ru/maps/org/sunmax_kzn/97524296927/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-2 left-0 w-full text-center text-[10px] text-muted-foreground truncate px-4 box-border"
+          style={{ fontFamily: "YS Text, sans-serif", maxHeight: 14 }}
+        >
+          Sunmax-Kzn на карте Казани — Яндекс Карты
+        </a>
       </motion.div>
 
       <motion.div
