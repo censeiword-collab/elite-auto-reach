@@ -51,7 +51,7 @@ const menuItems = [
       { title: "Главная страница", url: "/admin", icon: LayoutDashboard },
       { title: "Услуги", url: "/admin/services", icon: FileText },
       { title: "Блог", url: "/admin/blog", icon: FileText },
-      
+      { title: "Портфолио", url: "/admin/portfolio", icon: Image },
       { title: "Кейсы", url: "/admin/cases", icon: Image },
     ],
   },
