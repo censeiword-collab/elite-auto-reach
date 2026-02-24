@@ -397,7 +397,7 @@ const AdminPortfolio = () => {
                         onClick={() => {
                           setBlocks((prev) =>
                             prev.map((x, i) =>
-                              i === idx ? ({ ...x, images: [...(x.images || []), { src: "", caption: "" }] } as any) : x,
+                              i === idx ? ({ ...x, images: [...((x as any).images || []), { src: "", caption: "" }] } as any) : x,
                             ),
                           );
                         }}
@@ -417,7 +417,7 @@ const AdminPortfolio = () => {
                               setBlocks((prev) =>
                                 prev.map((x, i) => {
                                   if (i !== idx) return x;
-                                  const images = [...(x.images || [])];
+                                   const images = [...((x as any).images || [])];
                                   images[imgIdx] = { ...images[imgIdx], src };
                                   return { ...x, images } as any;
                                 }),
@@ -435,7 +435,7 @@ const AdminPortfolio = () => {
                               setBlocks((prev) =>
                                 prev.map((x, i) => {
                                   if (i !== idx) return x;
-                                  const images = [...(x.images || [])];
+                                   const images = [...((x as any).images || [])];
                                   images[imgIdx] = { ...images[imgIdx], caption };
                                   return { ...x, images } as any;
                                 }),
@@ -453,7 +453,7 @@ const AdminPortfolio = () => {
                               setBlocks((prev) =>
                                 prev.map((x, i) => {
                                   if (i !== idx) return x;
-                                  const images = [...(x.images || [])];
+                                   const images = [...((x as any).images || [])];
                                   const j = imgIdx - 1;
                                   if (j < 0) return x;
                                   [images[imgIdx], images[j]] = [images[j], images[imgIdx]];
@@ -472,7 +472,7 @@ const AdminPortfolio = () => {
                               setBlocks((prev) =>
                                 prev.map((x, i) => {
                                   if (i !== idx) return x;
-                                  const images = [...(x.images || [])];
+                                  const images = [...((x as any).images || [])];
                                   const j = imgIdx + 1;
                                   if (j >= images.length) return x;
                                   [images[imgIdx], images[j]] = [images[j], images[imgIdx]];
@@ -491,7 +491,7 @@ const AdminPortfolio = () => {
                               setBlocks((prev) =>
                                 prev.map((x, i) => {
                                   if (i !== idx) return x;
-                                  const images = (x.images || []).filter((_, k) => k !== imgIdx);
+                                  const images = ((x as any).images || []).filter((_: any, k: number) => k !== imgIdx);
                                   return { ...x, images } as any;
                                 }),
                               );
