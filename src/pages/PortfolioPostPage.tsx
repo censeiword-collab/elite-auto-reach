@@ -10,6 +10,81 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
+import { sanitizeHtml } from "@/lib/sanitizeHtml";
+import type { PortfolioBlock } from "@/lib/portfolioBlocks";
+import { isPortfolioBlocks } from "@/lib/portfolioBlocks";
+
+function BlockRenderer({ blocks }: { blocks: PortfolioBlock[] }) {
+  return (
+    <div className="space-y-6">
+      {blocks.map((b, i) => {
+        if (b.type === "heading") {
+          const Tag = (`h${b.level}` as any);
+          return <Tag key={i} className="font-bold">{b.text}</Tag>;
+        }
+        if (b.type === "paragraph") {
+          const html = sanitizeHtml(b.html || "");
+          return (
+            <div
+              key={i}
+              className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-primary prose-img:rounded-xl"
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          );
+        }
+        if (b.type === "list") {
+          const items = Array.isArray(b.items) ? b.items : [];
+          if (b.ordered) {
+            return (
+              <ol key={i} className="list-decimal pl-6 space-y-1">
+                {items.map((x, idx) => <li key={idx}>{x}</li>)}
+              </ol>
+            );
+          }
+          return (
+            <ul key={i} className="list-disc pl-6 space-y-1">
+              {items.map((x, idx) => <li key={idx}>{x}</li>)}
+            </ul>
+          );
+        }
+        if (b.type === "quote") {
+          return (
+            <blockquote key={i} className="border-l-4 pl-4 italic text-muted-foreground">
+              {b.text}
+            </blockquote>
+          );
+        }
+        if (b.type === "image") {
+          if (!b.src) return null;
+          return (
+            <figure key={i} className="space-y-2">
+              <img src={b.src} alt="" className="w-full rounded-2xl object-cover max-h-[520px]" />
+              {b.caption ? <figcaption className="text-sm text-muted-foreground">{b.caption}</figcaption> : null}
+            </figure>
+          );
+        }
+        if (b.type === "gallery") {
+          const imgs = Array.isArray(b.images) ? b.images.filter((x) => x?.src) : [];
+          if (imgs.length === 0) return null;
+          return (
+            <div key={i} className="space-y-3">
+              <h3 className="font-semibold text-lg">Галерея</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {imgs.map((img, idx) => (
+                  <figure key={idx} className="space-y-1">
+                    <img src={img.src} alt="" className="w-full rounded-lg object-cover aspect-square" />
+                    {img.caption ? <figcaption className="text-xs text-muted-foreground">{img.caption}</figcaption> : null}
+                  </figure>
+                ))}
+              </div>
+            </div>
+          );
+        }
+        return null;
+      })}
+    </div>
+  );
+}
 
 const PortfolioPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -24,7 +99,7 @@ const PortfolioPostPage = () => {
         .eq("is_active", true)
         .maybeSingle();
       if (error) throw error;
-      return data;
+      return data as any;
     },
     enabled: !!slug,
   });
@@ -61,7 +136,7 @@ const PortfolioPostPage = () => {
     );
   }
 
-  const galleryImages = Array.isArray(post.gallery_images) ? post.gallery_images : [];
+  const blocks = isPortfolioBlocks(post.content_blocks) ? (post.content_blocks as PortfolioBlock[]) : null;
 
   return (
     <div className="min-h-screen bg-background">
@@ -93,10 +168,12 @@ const PortfolioPostPage = () => {
                     {post.author}
                   </span>
                 )}
-                <span className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  {format(new Date(post.published_at), "d MMMM yyyy", { locale: ru })}
-                </span>
+                {post.published_at && (
+                  <span className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
+                    {format(new Date(post.published_at), "d MMMM yyyy", { locale: ru })}
+                  </span>
+                )}
               </div>
             </motion.div>
           </div>
@@ -109,20 +186,13 @@ const PortfolioPostPage = () => {
         )}
 
         <article className="py-8 container mx-auto px-4 max-w-4xl">
-          <div
-            className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-primary prose-img:rounded-xl"
-            dangerouslySetInnerHTML={{ __html: post.content_html || "" }}
-          />
-
-          {galleryImages.length > 0 && (
-            <div className="mt-12">
-              <h3 className="font-semibold text-lg mb-4">Галерея</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {galleryImages.map((img, i) => (
-                  <img key={i} src={img} alt={`${post.title} ${i + 1}`} className="w-full rounded-lg object-cover aspect-square" />
-                ))}
-              </div>
-            </div>
+          {blocks && blocks.length > 0 ? (
+            <BlockRenderer blocks={blocks} />
+          ) : (
+            <div
+              className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-primary prose-img:rounded-xl"
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content_html || "") }}
+            />
           )}
 
           <div className="mt-12">
