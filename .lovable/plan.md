@@ -1,19 +1,17 @@
 
 
-# Замена карты в контактах на виджет Яндекс Карт
+# Fix Favicon: Replace heart icon with S logo
 
-## Что изменится
+## Problem
+The favicon files (`favicon-32x32.png`, `favicon-16x16.png`, `apple-touch-icon.png`) are showing a heart icon instead of the branded S logo. The correct logo exists in `public/favicon.png` but the copies made previously may have been corrupted.
 
-На странице **Контакты** (`src/pages/ContactsPage.tsx`) заменим текущий iframe с простой картой на виджет Яндекс Карт с отзывами организации.
+## Solution
+Re-copy `public/favicon.png` (which contains the correct S superellipse logo) to overwrite:
+- `public/favicon-32x32.png`
+- `public/favicon-16x16.png`
+- `public/apple-touch-icon.png`
 
-## Технические детали
+Also regenerate `public/favicon.ico` from the same source if needed.
 
-**Файл:** `src/pages/ContactsPage.tsx`
-
-**Строки 315-325** -- заменим блок `<Card>` с текущим iframe на новый виджет:
-
-- Три ссылки-атрибуции сверху (Sunmax-Kzn, Оклейка машин в Казани, Студия тюнинга в Казани)
-- Новый iframe src: `https://yandex.ru/map-widget/v1/org/sunmax_kzn/97524296927/reviews/?ll=49.127740%2C55.817396&utm_medium=s&utm_source=maps-reviews-widget&z=16`
-- Размеры: ширина 100%, высота 100% (min-height 400px сохраняется)
-- Удалим неиспользуемую переменную `mapIframeSrc` (строки 115-119)
+No code changes required -- only asset file replacements.
 
