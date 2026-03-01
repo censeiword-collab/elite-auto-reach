@@ -475,47 +475,6 @@ const ContactsPage = () => {
           </div>
         </section>
 
-        {/* How to get here */}
-        <section className="py-12 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-8 text-center">Как до нас добраться</h2>
-            <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
-              <Card>
-                <CardContent className="pt-6 text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-xl font-bold text-primary">🚗</span>
-                  </div>
-                  <h3 className="font-semibold mb-2">На автомобиле</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Съезд с Кольцевой на ул. Техническая. Бесплатная парковка у входа.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="pt-6 text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-xl font-bold text-primary">🚌</span>
-                  </div>
-                  <h3 className="font-semibold mb-2">На автобусе</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Маршруты 35, 47, 89 до остановки "ТЦ МЕГА". 5 минут пешком.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="pt-6 text-center">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-xl font-bold text-primary">🚇</span>
-                  </div>
-                  <h3 className="font-semibold mb-2">На метро</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Ст. "Козья Слобода", далее автобус 35 до "ТЦ МЕГА".
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />
