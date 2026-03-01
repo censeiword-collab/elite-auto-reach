@@ -1,19 +1,46 @@
 import { Phone, Mail, MapPin, Clock, Sun, MessageCircle, Send } from "lucide-react";
-import { NAVIGATION, POSITIONING } from "@/lib/constants";
+import { NAVIGATION } from "@/lib/constants";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const services = NAVIGATION.footer.services;
 const pages = NAVIGATION.footer.pages;
 
+type SocialLink = { icon: string; href: string; label: string };
+
+const normalizeWhatsapp = (value?: string) => (value ?? "").replace(/\D/g, "");
+const normalizeTelegramUrl = (value?: string) => {
+  const v = (value ?? "").trim();
+  if (!v) return "";
+  if (v.startsWith("http://") || v.startsWith("https://")) return v;
+  const username = v.replace(/^@/, "");
+  return `https://t.me/${username}`;
+};
+const extractTelegramHandle = (value?: string) => {
+  const v = (value ?? "").trim();
+  if (!v) return "";
+  const username = v
+    .replace(/^https?:\/\/t\.me\//, "")
+    .replace(/^@/, "")
+    .replace(/\/.*/, "");
+  return username ? `@${username}` : "";
+};
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { settings } = useSiteSettings();
 
-  const socials = [
-    { icon: "VK", href: settings.vk, label: "ВКонтакте" },
-    { icon: "TG", href: settings.telegram, label: "Telegram" },
-    { icon: "WA", href: `https://wa.me/${settings.whatsapp}`, label: "WhatsApp" },
-  ];
+  const waDigits = normalizeWhatsapp(settings.whatsapp);
+  const tgUrl = normalizeTelegramUrl(settings.telegram);
+  const tgHandle = extractTelegramHandle(settings.telegram);
+
+  const socials: SocialLink[] = [
+    settings.vk ? { icon: "VK", href: settings.vk, label: "ВКонтакте" } : null,
+    tgUrl ? { icon: "TG", href: tgUrl, label: "Telegram" } : null,
+    waDigits ? { icon: "WA", href: `https://wa.me/${waDigits}`, label: "WhatsApp" } : null,
+  ].filter(Boolean) as SocialLink[];
+
+  const hasMap =
+    Boolean(settings.address) && Boolean(settings.lat) && Boolean(settings.lon);
 
   return (
     <footer className="bg-card border-t border-border/50">
@@ -29,17 +56,20 @@ const Footer = () => {
                 <span className="font-heading text-xl font-extrabold tracking-tight">
                   <span className="text-foreground">SUN</span>
                   <span className="text-gradient">MAX</span>
-                  <span className="text-foreground text-sm font-semibold opacity-70 ml-0.5">KZN</span>
+                  <span className="text-foreground text-sm font-semibold opacity-70 ml-0.5">
+                    KZN
+                  </span>
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground font-medium -mt-0.5">
                   Premium Auto
                 </span>
               </div>
             </a>
+
             <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
               {settings.positioning}. Защита, оклейка, тюнинг.
             </p>
-            
+
             {/* Contact Info */}
             <div className="space-y-3">
               <a
@@ -51,6 +81,7 @@ const Footer = () => {
                 </div>
                 {settings.phoneDisplay}
               </a>
+
               <a
                 href={`mailto:${settings.email}`}
                 className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -60,7 +91,8 @@ const Footer = () => {
                 </div>
                 {settings.email}
               </a>
-              {settings.address && (
+
+              {hasMap && (
                 <a
                   href={`https://yandex.ru/maps/?pt=${settings.lon},${settings.lat}&z=16&l=map`}
                   target="_blank"
@@ -73,6 +105,7 @@ const Footer = () => {
                   <span className="pt-1.5">{settings.address}</span>
                 </a>
               )}
+
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <Clock className="w-4 h-4 text-primary" />
@@ -124,24 +157,28 @@ const Footer = () => {
             </ul>
 
             {/* Social Links */}
-            <h4 className="font-heading font-bold text-base mt-8 mb-4 flex items-center gap-2">
-              <div className="w-1 h-5 bg-gradient-to-b from-primary to-primary/50 rounded-full" />
-              Мы в соцсетях
-            </h4>
-            <div className="flex gap-2">
-              {socials.map((social) => (
-                <a
-                  key={social.icon}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-secondary/50 border border-border/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
-                  aria-label={social.label}
-                >
-                  <span className="text-xs font-bold">{social.icon}</span>
-                </a>
-              ))}
-            </div>
+            {socials.length > 0 && (
+              <>
+                <h4 className="font-heading font-bold text-base mt-8 mb-4 flex items-center gap-2">
+                  <div className="w-1 h-5 bg-gradient-to-b from-primary to-primary/50 rounded-full" />
+                  Мы в соцсетях
+                </h4>
+                <div className="flex gap-2">
+                  {socials.map((social) => (
+                    <a
+                      key={social.icon}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-lg bg-secondary/50 border border-border/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
+                      aria-label={social.label}
+                    >
+                      <span className="text-xs font-bold">{social.icon}</span>
+                    </a>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {/* Quick Contact */}
@@ -150,32 +187,36 @@ const Footer = () => {
               <div className="w-1 h-5 bg-gradient-to-b from-primary to-primary/50 rounded-full" />
               Быстрая связь
             </h4>
-            
-            <a
-              href={`https://wa.me/${settings.whatsapp}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 rounded-xl bg-accent/50 border border-accent hover:bg-accent transition-colors mb-3 group"
-            >
-              <MessageCircle className="w-5 h-5 text-primary" />
-              <div>
-                <p className="text-sm font-semibold text-foreground">WhatsApp</p>
-                <p className="text-xs text-muted-foreground">Напишите нам</p>
-              </div>
-            </a>
 
-            <a
-              href={settings.telegram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 rounded-xl bg-accent/50 border border-accent hover:bg-accent transition-colors group"
-            >
-              <Send className="w-5 h-5 text-primary" />
-              <div>
-                <p className="text-sm font-semibold text-foreground">Telegram</p>
-                <p className="text-xs text-muted-foreground">@sunmaxkzn</p>
-              </div>
-            </a>
+            {waDigits && (
+              <a
+                href={`https://wa.me/${waDigits}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 rounded-xl bg-accent/50 border border-accent hover:bg-accent transition-colors mb-3 group"
+              >
+                <MessageCircle className="w-5 h-5 text-primary" />
+                <div>
+                  <p className="text-sm font-semibold text-foreground">WhatsApp</p>
+                  <p className="text-xs text-muted-foreground">Напишите нам</p>
+                </div>
+              </a>
+            )}
+
+            {tgUrl && (
+              <a
+                href={tgUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 rounded-xl bg-accent/50 border border-accent hover:bg-accent transition-colors group"
+              >
+                <Send className="w-5 h-5 text-primary" />
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Telegram</p>
+                  <p className="text-xs text-muted-foreground">{tgHandle || "Напишите нам"}</p>
+                </div>
+              </a>
+            )}
 
             <div className="mt-6 p-4 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20">
               <p className="text-sm font-semibold text-foreground mb-1">Записаться онлайн</p>
@@ -198,7 +239,10 @@ const Footer = () => {
             <a href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Политика конфиденциальности
             </a>
-            <a href="/admin/login" className="text-sm text-muted-foreground/50 hover:text-muted-foreground transition-colors">
+            <a
+              href="/admin/login"
+              className="text-sm text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+            >
               Вход для администратора
             </a>
           </div>
